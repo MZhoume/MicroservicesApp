@@ -4,11 +4,11 @@
 **FIRST: set up your ssh keys with [GitHub](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)**
 
 - [Typescript](http://typescriptlang.org)
-  - Getting typings with [`@types`](https://www.npmjs.com/~types)
+  - Getting typings with [@types](https://www.npmjs.com/~types)
 - [Node](http://nodejs.org)
-  - Node Package Manager (`npm`)
+  - Node Package Manager (npm)
 - [Gulp](http://gulpjs.com)
-  - `gulpfile.js`
+  - gulpfile.js
 - [Expressjs](http://expressjs.com)
 - [AngularJS](http://angular.io)
   - Version 2
@@ -16,16 +16,16 @@
   - [CLI Dev](https://github.com/angular/angular-cli)
 - [Bootstrap](http://getbootstrap.com)
 - Unit test: [TDD (Test Driven Develop)](https://en.wikipedia.org/wiki/Test-driven_development)
-  - [`Shim`](https://en.wikipedia.org/wiki/Shim_(computing))
+  - [Shim](https://en.wikipedia.org/wiki/Shim_(computing))
   - Framework to use:
     - Runner: [Karma](https://karma-runner.github.io/)
     <!--- Tester: [MochaJS](https://mochajs.org/)-->
 - [MySQL](http://mysql.com)
-- [RESTful API (Http call: `GET` `POST` `PUT` `DELETE`...)](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
+- [RESTful API (Http call: GET POST PUT DELETE...)](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
   - Testing Tool: 
-    - `Postman` (in Chrome)
-    - `REST Client` (in VSCode)
-    - `HttpRequester` (in Sublime)
+    - Postman (in Chrome)
+    - REST Client (in VSCode)
+    - HttpRequester (in Sublime)
 - [Webpack](https://webpack.github.io)
 - [Travis CI](https://travis-ci.org)
 - [Git](https://guides.github.com)
