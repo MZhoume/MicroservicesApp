@@ -1,3 +1,7 @@
+# User defined
+*.zip
+# end User defined
+
 
 # Created by https://www.gitignore.io/api/macos,apachecordova,node
 
