@@ -14,6 +14,7 @@
 
 ## Instructions to add a new unit test
 **Say you want to create a new unit test for TestService**
+
 1. Create a directory under `test/` called `TestService.Test`;
 1. Copy `FunctionTest.cs` and `project.json` from `test/ExampleFunction.Test` to `test/TestService.Test`;
 1. Modify `FunctionTest.cs`:
