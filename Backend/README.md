@@ -18,7 +18,8 @@
 1. Create a directory under `test/` called `TestService.Test`;
 1. Copy `FunctionTest.cs` and `project.json` from `test/ExampleFunction.Test` to `test/TestService.Test`;
 1. Modify `FunctionTest.cs`:
-    - Change namespace to `TestService.Test`;
+    - Change using statement to `TestService`,
+    - Change namespace to `TestService.Test`.
 1. Modify `project.json`:
     - Change project name for testing under `dependencies` from `ExampleFunction` to `TestService`,
     - Add other dependencies.
