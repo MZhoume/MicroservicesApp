@@ -1,5 +1,6 @@
 # User defined
 *.zip
+project.lock.json
 # end User defined
 
 
