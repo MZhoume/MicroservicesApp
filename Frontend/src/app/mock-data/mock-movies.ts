@@ -10,19 +10,19 @@ export const Item_Response1 = {
             uid: "1",
             img: "1.jpg",
             descr: "first",
-            price: 11,
+            price: 4.99,
         },
         {
             uid: "2",
             img: "2.jpg",
             descr: "second",
-            price: 12,
+            price: 5.99,
         },
         {
             uid: "3",
             img: "3.jpg",
             descr: "third",
-            price: 13,
+            price: 6.99,
         },
     ]
 };
