@@ -1,7 +1,7 @@
 {
   "version": "1.0.0-*",
   "buildOptions": {
-    "additionalArguments": [ "/ruleset:../../stylecop.test.ruleset" ]
+    "additionalArguments": [ "/ruleset:../../ruleset/stylecop.test.ruleset" ]
   },
 
   "dependencies": {
