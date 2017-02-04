@@ -3,7 +3,7 @@
 project.lock.json
 bin
 obj
-dist
+/Frontend/dist
 tmp
 Thumbs.db
 
