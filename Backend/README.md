@@ -1,3 +1,5 @@
+## AUTO: Run script newservice.sh with your service name
+
 ## Instructions to add a new lambda function
 **Say you want to create a new lambda function called TestService**
 
