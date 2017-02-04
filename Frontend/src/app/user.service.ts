@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {User} from "./User";
-import {USER_Login_Response1, USER_Reg_Response1, USER_Reg_Response2} from './mock-user';
+import {USER_Login_Response1, USER_Reg_Response1, USER_Reg_Response2} from './mock-data/mock-user';
 
 @Injectable()
 export class UserService {

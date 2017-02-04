@@ -1,7 +1,7 @@
 /**
  * Created by User on 02/01/2017.
  */
-import {User} from './user'
+import {User} from '../User'
 
 export const USER_Login_Response1 = {
     flag:"success",
