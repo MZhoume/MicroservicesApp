@@ -3,7 +3,7 @@
  */
 import {User} from './user'
 
-export const USER_Response1 = {
+export const USER_Login_Response1 = {
     flag:"success",
     user: {
         uid: "12",
@@ -13,7 +13,7 @@ export const USER_Response1 = {
     reason: "",
 };
 
-export const USER_Response2 = {
+export const USER_Login_Response2 = {
     flag:"fail",
     user: {
         uid: "",
@@ -21,5 +21,25 @@ export const USER_Response2 = {
         JWT: "",
     },
     reason: "wrong pwd",
+};
+
+export const USER_Reg_Response1 = {
+    flag:"fail",
+    user: {
+        uid: "",
+        firstname: "",
+        JWT: "",
+    },
+    reason: "you repeat yourself",
+};
+
+export const USER_Reg_Response2 = {
+    flag:"success",
+    user: {
+        uid: "12",
+        firstname: "hf",
+        JWT: "inocandiuiabgd",
+    },
+    reason: "",
 };
 

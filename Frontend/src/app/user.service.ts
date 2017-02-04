@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {User} from "./User";
-import {USER_Response1} from './mock-user';
+import {USER_Login_Response1, USER_Reg_Response1, USER_Reg_Response2} from './mock-user';
 
 @Injectable()
 export class UserService {
@@ -15,8 +15,8 @@ export class UserService {
         this.user = undefined;
     }
 
-    loginUserRemote(): Promise<any> {
-        return Promise.resolve(USER_Response1).then(
+    loginUserRemote(user:User): Promise<any> {
+        return Promise.resolve(USER_Login_Response1).then(
             (response) => {
                 if (response.flag == 'success'){
                     console.log(this.user);
@@ -32,9 +32,8 @@ export class UserService {
         ).catch(this.handleError);
     }
 
-    registerUserRemote(): Promise<any> {
-        // TODO: change the register func
-        return Promise.resolve(USER_Response1).then(
+    registerUserRemote(user:User): Promise<any> {
+        return Promise.resolve(USER_Reg_Response2).then(
             (response) => {
                 if (response.flag == 'success'){
                     console.log(this.user);

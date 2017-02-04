@@ -14,8 +14,9 @@ export class UserLoginComponent implements OnInit {
     user: User;
     message: string;
 
-    constructor(private userService: UserService,
-                private router: Router,
+    constructor(
+        private userService: UserService,
+        private router: Router,
     ) { }
 
     ngOnInit() {
@@ -32,7 +33,7 @@ export class UserLoginComponent implements OnInit {
     onSubmit() {
         console.log("going to log in");
         this.message = 'Loading';
-        this.userService.loginUserRemote().then(response => {
+        this.userService.loginUserRemote(this.user).then(response => {
             if (response.flag == 'success') {
                 this.user = this.userService.getUser();
                 this.message ='login success';
