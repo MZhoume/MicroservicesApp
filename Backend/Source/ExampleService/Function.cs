@@ -1,4 +1,4 @@
-namespace ExampleFunction
+namespace ExampleService
 {
     using Amazon.Lambda.Core;
 

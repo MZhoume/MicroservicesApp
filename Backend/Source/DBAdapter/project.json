@@ -2,7 +2,7 @@
   "version": "1.0.0-*",
   "buildOptions": {
     "xmlDoc": true,
-    "additionalArguments": [ "/ruleset:../../ruleset/stylecop.ruleset" ],
+    "additionalArguments": [ "/ruleset:../../Ruleset/Code.ruleset" ],
     "debugType": "portable"
   },
 

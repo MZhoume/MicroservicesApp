@@ -1,7 +1,7 @@
-namespace ExampleFunction.Test
+namespace ExampleService.Test
 {
     using Amazon.Lambda.TestUtilities;
-    using ExampleFunction;
+    using ExampleService;
     using Xunit;
 
     public class FunctionTest

@@ -1,8 +1,7 @@
 {
   "version": "1.0.0-*",
   "buildOptions": {
-    "xmlDoc": true,
-    "additionalArguments": [ "/ruleset:../../ruleset/stylecop.ruleset" ]
+    "additionalArguments": [ "/ruleset:../../Ruleset/Test.ruleset" ]
   },
 
   "dependencies": {
@@ -12,12 +11,12 @@
     },
 
     "Amazon.Lambda.Core": "1.0.0*",
-    "Amazon.Lambda.Serialization.Json": "1.0.1",
+    "Amazon.Lambda.TestUtilities": "1.0.0*",
 
-    "Amazon.Lambda.Tools" : {
-      "version":"1.1.0-preview1",
-      "type" :"build"
-    },
+    "ExampleService": "1.0.0",
+
+    "xunit": "2.1.0-*",
+    "dotnet-test-xunit": "2.2.0-*",
 
     "StyleCop.Analyzers": {
       "version": "1.0.0",
@@ -25,9 +24,7 @@
     }
   },
 
-  "tools": {
-    "Amazon.Lambda.Tools" : "1.1.0-preview1"
-  },
+  "testRunner": "xunit",
 
   "frameworks": {
     "netcoreapp1.0": {

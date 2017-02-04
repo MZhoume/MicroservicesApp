@@ -1,38 +1,38 @@
 #!/bin/bash
 
 if [ $# -ne 1 ]; then
-    echo $0: usage: Service Name
+    echo $0: Usage: Service Name
     exit 1
 fi
 
 name=$1
 
 # create service
-pushd src
+pushd Source > /dev/null
 mkdir $name
-cp ExampleFunction/aws-lambda-tools-defaults.json $name/
-cp ExampleFunction/Function.cs $name/
-cp ExampleFunction/project.json $name/
+cp ExampleService/aws-lambda-tools-defaults.json $name/
+cp ExampleService/Function.cs $name/
+cp ExampleService/project.json $name/
 
-pushd $name
-sed -i '' -e "s/ExampleFunction/$name/g" aws-lambda-tools-defaults.json
-sed -i '' -e "s/ExampleFunction/$name/g" Function.cs
+pushd $name > /dev/null
+sed -i '' -e "s/ExampleService/$name/g" aws-lambda-tools-defaults.json
+sed -i '' -e "s/ExampleService/$name/g" Function.cs
 
-popd
-popd
+popd > /dev/null
+popd > /dev/null
 
 # create service test
-pushd test
+pushd Test > /dev/null
 testname="$name.Test"
 mkdir $testname
-cp ExampleFunction.Test/FunctionTest.cs $testname/
-cp ExampleFunction.Test/project.json $testname/
+cp ExampleService.Test/FunctionTest.cs $testname/
+cp ExampleService.Test/project.json $testname/
 
-pushd $testname
-sed -i '' -e "s/ExampleFunction/$name/g" FunctionTest.cs
-sed -i '' -e "s/ExampleFunction/$name/g" project.json
+pushd $testname > /dev/null
+sed -i '' -e "s/ExampleService/$name/g" FunctionTest.cs
+sed -i '' -e "s/ExampleService/$name/g" project.json
 
-popd
-popd
+popd > /dev/null
+popd > /dev/null
 
 echo 'DONE. Have fun ;)'
