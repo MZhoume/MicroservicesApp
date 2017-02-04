@@ -2,3 +2,17 @@
 <a routerLink="/signout">sign out!</a>
 <p>THERE SHOULD BE SOME LIST</p>
 
+
+<ul class="items">
+    <li *ngFor="let item of items">
+        <span class="badge">
+            <img [src]="'../app/mock-data/' + item.img" style="height:100px"/>
+            <span>{{item.descr}}</span>
+            <span>$ {{item.price}} </span>
+            <button (click)="openCheckout(item.price, item.descr)">Purchase</button>
+            <p> </p>
+        </span>
+    </li>
+</ul>
+
+<p>My token is {{myToken}}</p>

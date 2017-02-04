@@ -11,6 +11,7 @@ import {UserService} from "./user.service";
 import { WelcomeComponent } from './welcome/welcome.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
 import { RegisterComponent } from './register/register.component';
+import {ItemService} from "./item.service";
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { RegisterComponent } from './register/register.component';
         HttpModule,
         AppRoutingModule
     ],
-    providers: [UserService],
+    providers: [UserService, ItemService],
     bootstrap: [AppComponent]
 })
 
