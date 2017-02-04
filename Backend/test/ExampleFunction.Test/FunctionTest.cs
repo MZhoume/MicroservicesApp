@@ -1,16 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using Xunit;
-using Amazon.Lambda.Core;
-using Amazon.Lambda.TestUtilities;
-
-using ExampleFunction;
-
 namespace ExampleFunction.Test
 {
+    using Amazon.Lambda.TestUtilities;
+    using ExampleFunction;
+    using Xunit;
+
     public class FunctionTest
     {
         [Fact]
