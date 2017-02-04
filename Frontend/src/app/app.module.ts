@@ -10,6 +10,7 @@ import { UserLoginComponent } from './user-login/user-login.component';
 import {UserService} from "./user.service";
 import { WelcomeComponent } from './welcome/welcome.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { SignOutComponent } from './sign-out/sign-out.component';
         StripePredefinedComponent,
         UserLoginComponent,
         WelcomeComponent,
-        SignOutComponent
+        SignOutComponent,
+        RegisterComponent
     ],
     imports: [
         BrowserModule,

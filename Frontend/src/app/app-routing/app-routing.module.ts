@@ -5,12 +5,14 @@ import {StripePredefinedComponent} from "../stripe-predefined/stripe-predefined.
 import {UserLoginComponent} from "../user-login/user-login.component";
 import {WelcomeComponent} from "../welcome/welcome.component";
 import {SignOutComponent} from "../sign-out/sign-out.component";
+import {RegisterComponent} from "../register/register.component";
 
 
 const routes: Routes = [
     { path: '',  component: UserLoginComponent },
     { path: 'welcome',  component: WelcomeComponent },
     { path: 'signout',  component: SignOutComponent },
+    { path: 'register',  component: RegisterComponent },
 ];
 
 

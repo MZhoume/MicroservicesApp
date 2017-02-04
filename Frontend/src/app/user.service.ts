@@ -22,7 +22,25 @@ export class UserService {
                     console.log(this.user);
                     this.user = new User();
                     this.user.JWT = response.user.JWT;
-                    this.user.name = response.user.name;
+                    this.user.firstname = response.user.firstname;
+                    this.user.uid = response.user.uid;
+                    return Promise.resolve(response)
+                }else{
+                    return Promise.resolve(response)
+                }
+            }
+        ).catch(this.handleError);
+    }
+
+    registerUserRemote(): Promise<any> {
+        // TODO: change the register func
+        return Promise.resolve(USER_Response1).then(
+            (response) => {
+                if (response.flag == 'success'){
+                    console.log(this.user);
+                    this.user = new User();
+                    this.user.JWT = response.user.JWT;
+                    this.user.firstname = response.user.firstname;
                     this.user.uid = response.user.uid;
                     return Promise.resolve(response)
                 }else{

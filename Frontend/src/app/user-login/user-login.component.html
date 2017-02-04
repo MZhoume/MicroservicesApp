@@ -11,7 +11,7 @@
     </div>
     <button type="submit" [disabled]="!theForm.form.valid">Submit</button>
 </form>
-<button>Register for new user</button>
+<button (click)="onClick()">Register for new user</button>
 <div *ngIf="message">
     <p> {{message}}</p>
 </div>

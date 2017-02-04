@@ -3,7 +3,8 @@
  */
 export class User {
     uid;
-    name;
+    firstname;
+    lastname;
     email;
     password;
     JWT;

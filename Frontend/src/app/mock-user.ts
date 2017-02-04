@@ -7,7 +7,7 @@ export const USER_Response1 = {
     flag:"success",
     user: {
         uid: "12",
-        name: "hf",
+        firstname: "hf",
         JWT: "inocandiuiabgd",
     },
     reason: "",
@@ -17,7 +17,7 @@ export const USER_Response2 = {
     flag:"fail",
     user: {
         uid: "",
-        name: "",
+        firstname: "",
         JWT: "",
     },
     reason: "wrong pwd",
