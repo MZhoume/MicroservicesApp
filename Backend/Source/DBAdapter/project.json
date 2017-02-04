@@ -12,6 +12,10 @@
       "version": "1.0.0"
     },
 
+    "Dapper": "1.50.2",
+    "Dommel": "1.8.0",
+    "MySql.Data.Core": "7.0.4-ir-191",
+
     "StyleCop.Analyzers": {
       "version": "1.0.0",
       "type": "build"
