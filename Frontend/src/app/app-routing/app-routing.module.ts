@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import {StripePredefinedComponent} from "../stripe-predefined/stripe-predefined.component";
 import {UserLoginComponent} from "../user-login/user-login.component";
 import {WelcomeComponent} from "../welcome/welcome.component";
 import {SignOutComponent} from "../sign-out/sign-out.component";

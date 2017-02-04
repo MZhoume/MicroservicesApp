@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { StripePredefinedComponent } from './stripe-predefined/stripe-predefined.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { UserLoginComponent } from './user-login/user-login.component';
 import {UserService} from "./user.service";
@@ -17,7 +16,6 @@ import {ItemService} from "./item.service";
 @NgModule({
     declarations: [
         AppComponent,
-        StripePredefinedComponent,
         UserLoginComponent,
         WelcomeComponent,
         SignOutComponent,
