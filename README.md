@@ -35,6 +35,7 @@
   - [Pull Request](https://help.github.com/articles/about-pull-requests/)
 
 ### Coding Guideline
+- [C#](https://msdn.microsoft.com/en-us/library/ff926074.aspx)
 - [TypeScript](https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines)
 - [JSON](https://google.github.io/styleguide/jsoncstyleguide.xml)
 - [Unit Test](http://geosoft.no/development/unittesting.html)
