@@ -14,7 +14,7 @@ namespace ExampleService.Test
             var context = new TestLambdaContext();
             var upperCase = function.FunctionHandler("hello world", context);
 
-            Assert.Equal("HELLO WORL", upperCase);
+            Assert.Equal("HELLO WORLD", upperCase);
         }
     }
 }
