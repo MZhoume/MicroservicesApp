@@ -1,6 +1,8 @@
 notifications:
   email: false
-  slack: typer2:lLH4I2CxXf7ZJpiuf3Blx79D
+  slack:
+    rooms:
+      typer2:lLH4I2CxXf7ZJpiuf3Blx79D
     on_success: always
     on_failure: always
 
