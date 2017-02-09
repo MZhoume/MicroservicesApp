@@ -1,3 +1,9 @@
+notifications:
+  email: false
+  slack: typer2:lLH4I2CxXf7ZJpiuf3Blx79D
+    on_success: always
+    on_failure: always
+
 dist: trusty
 sudo: required
 language: csharp
