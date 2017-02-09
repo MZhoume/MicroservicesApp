@@ -1,0 +1,7 @@
+language: csharp
+mono: none
+dotnet: 1.0.0-preview2-003121
+install: dotnet restore Backend
+env:
+  - TEST_DIR=ExampleService.Test
+script: dotnet test Backend/Test/$TEST_DIR
