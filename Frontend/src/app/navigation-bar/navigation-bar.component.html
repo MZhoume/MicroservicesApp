@@ -1,0 +1,5 @@
+<p>navigation-bar works!</p>
+<button (click)="onLogIn()"  [hidden] = "loginFlag">Log In</button>
+<button (click)="onRegister()" [hidden] = "loginFlag">Register</button>
+<button (click)="onSignOut()" [hidden] = "!loginFlag">Sign Out</button>
+<p>{{message}}</p>
