@@ -14,8 +14,10 @@
     "Amazon.Lambda.Core": "1.0.0*",
     "Amazon.Lambda.Serialization.Json": "1.0.1",
 
+    "SimpleInjector": "3.3.2",
+
     "Amazon.Lambda.Tools" : {
-      "version":"1.1.0-preview1",
+      "version":"1.2.0-preview1",
       "type" :"build"
     },
 
@@ -26,7 +28,7 @@
   },
 
   "tools": {
-    "Amazon.Lambda.Tools" : "1.1.0-preview1"
+    "Amazon.Lambda.Tools" : "1.2.0-preview1"
   },
 
   "frameworks": {
