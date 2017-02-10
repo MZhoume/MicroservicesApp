@@ -8,6 +8,9 @@ notifications:
 
 dist: trusty
 sudo: required
+branches:
+  only:
+  - master
 language: csharp
 mono: none
 dotnet: 1.0.0-preview2-003121
