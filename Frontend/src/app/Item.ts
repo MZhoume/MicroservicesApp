@@ -6,4 +6,6 @@ export class Item {
     img;
     descr;
     price;
+    name;
+    feature;
 }
