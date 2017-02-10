@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from "../user.service";
 import {User} from "../User";
-import {Router} from "@angular/router";
 import {Item} from "../Item";
 import {ItemService} from "../item.service";
 
 @Component({
-    selector: 'app-welcome',
-    templateUrl: './welcome.component.html',
-    styleUrls: ['./welcome.component.css']
+  selector: 'app-shopping',
+  templateUrl: './shopping.component.html',
+  styleUrls: ['./shopping.component.css']
 })
-export class WelcomeComponent implements OnInit {
+export class ShoppingComponent implements OnInit {
+
     user: User;
     myToken: any;
     items: Item[];

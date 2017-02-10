@@ -11,6 +11,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
 import { RegisterComponent } from './register/register.component';
 import {ItemService} from "./item.service";
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { ShoppingComponent } from './shopping/shopping.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import {ItemService} from "./item.service";
         UserLoginComponent,
         WelcomeComponent,
         SignOutComponent,
-        RegisterComponent
+        RegisterComponent,
+        NavigationBarComponent,
+        ShoppingComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,

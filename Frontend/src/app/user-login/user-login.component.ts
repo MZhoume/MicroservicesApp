@@ -27,7 +27,6 @@ export class UserLoginComponent implements OnInit {
         }else {
             this.forward();
         }
-
     }
 
     onSubmit() {
@@ -51,9 +50,4 @@ export class UserLoginComponent implements OnInit {
     forward() {
         this.router.navigate(['/welcome']);
     }
-
-    onClick() {
-        this.router.navigate(['/register']);
-    }
-
 }

@@ -1,80 +1,5 @@
+<app-navigation-bar></app-navigation-bar>
 
-
-
-
-<p>My token is {{myToken}}</p>
-
-
-
-<!--后加的-->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">
-                        Columbeal Restaurant
-<!--                        <a class="navbar-brand" href="#"><img src="img/logo.png" height=30 width=41></a>-->
-                    </a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#"><span class="glyphicon glyphicon-home"
-                         aria-hidden="true"></span> Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                         role="button" aria-haspopup="true" aria-expanded="false">
-                         Menu <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Appetizers</a></li>
-                                <li><a href="#">Main Courses</a></li>
-                                <li><a href="#">Desserts</a></li>
-                                <li><a href="#">Drinks</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li class="dropdown-header">Specials</li>
-                                <li><a href="#">Lunch Buffet</a></li>
-                                <li><a href="#">Weekend Brunch</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-<!--
-                    <form class="navbar-form navbar-right">	
-                            <div class="form-group">	
-                                <label	class="sr-only"	for="email">Email address</label>	
-                                <input	type="email" class="form-control" id="email"	placeholder="Email">	
-                            </div>	
-                            <div	class="form-group">	
-                                 <label	class="sr-only"	for="password">Password</label>	
-                                 <input	type="password"	class="form-control" id="password"	placeholder="Password">	
-                            </div>	
-                            <div	class="checkbox">	
-                                 <label>	
-                                     <input	type="checkbox">Remember me
-                                </label>	
-                            </div>	
-                            <button	type="submit" class="btn btn-default">Sign in</button>	
-                    </form>	
--->
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><h4>welcome {{user.firstname}}!</h4></li>
-                        <li><a routerLink="/signout">
-                                <span class="glyphicon glyphicon-log-out"></span>
-                                SignOut
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                
-            </div>
-        </nav>       
-        
-    
     <header class="jumbotron">
 
         <!-- Main component for a primary marketing message or call to action -->
@@ -142,19 +67,6 @@
                             </div>>
                         </div>
                     </div>
-                     <!--Wrapper for slides 
-                    <div class="carousel-inner" role="listbox">
-                        
-                            <div  [ngClass]="{'active': i==0,'itemm': true}" *ngFor="let item of items;let i = index;">
-                                <img class="img-responsive"
-                                [src]="'../app/mock-data/' + item.img" alt="Braised-Crab" width="35%">
-                                <div class="carousel-caption">
-                                <h2>{{item.name}}  <span class="label label-danger">Hot</span> <span class="badge">${{item.price}}</span></h2>
-                                <p>{{item.descr}}</p>
-                                <p><a class="btn btn-primary btn-xs" href="welcome#buy1">More &raquo;</a></p>
-                                </div>
-                            </div>
-                    </div>-->
                     <!-- Controls -->
                     <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev">
                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -227,69 +139,7 @@
 
     </div>
 
-    <footer class="row-footer">
-        <div class="container">
-            <div class="row">             
-                <div class="col-xs-5 col-xs-offset-1 col-sm-2 col-sm-offset-1">
-                    <h5>Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Menu</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-xs-6 col-sm-5">
-                    <h5>Our Address</h5>
-                    <address>
-		              520 w, 120st<br>
-		              New York, NY<br>
-		              United States<br>
-		              <i class="fa fa-phone"></i>: +852 1234 5678<br>
-		              <i class="fa fa-fax"></i>: +852 8765 4321<br>
-		              <i class="fa fa-envelope"></i>: 
-                                 <a href="mailto:confusion@food.net">columbeal@food.net</a>
-		           </address>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="nav navbar-nav" style="padding: 40px 10px;">
-                        <a class="btn btn-social-icon btn-google-plus" href="http://google.com/+"><i class="fa fa-google-plus"></i></a>
-                        <a class="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id="><i class="fa fa-facebook"></i></a>
-                        <a class="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/"><i class="fa fa-linkedin"></i></a>
-                        <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
-                        <a class="btn btn-social-icon btn-youtube" href="http://youtube.com/"><i class="fa fa-youtube"></i></a>
-                        <a class="btn btn-social-icon" href="mailto:"><i class="fa fa-envelope-o"></i></a>
-                    </div>
-                </div>
-                <div class="col-xs-12">
-                    <p style="padding:10px;"></p>
-                    <p align=center>© Copyright 2017 Columbeal Restaurant</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
-    
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    
-    <script>
-        $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-         });
-    </script>
-    <script>
-        $(document).ready(function(){
-            $("#mycarousel").carousel( { interval: 2000 } );
-            $("#carousel-pause").click(function(){
-                $("#mycarousel").carousel('pause');
-            });
-            $("#carousel-play").click(function(){
-                $("#mycarousel").carousel('cycle');
-            });
-        });
-    </script>
+<app-footer></app-footer>
+
 
 
