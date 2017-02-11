@@ -13,10 +13,13 @@
     "Amazon.Lambda.Core": "1.0.0*",
     "Amazon.Lambda.TestUtilities": "1.0.0*",
 
+    "SimpleInjector": "3.3.2",
+
     "ExampleService": "1.0.0",
 
     "xunit": "2.1.0-*",
     "dotnet-test-xunit": "2.2.0-*",
+    "Moq": "4.6.38-alpha",
 
     "StyleCop.Analyzers": {
       "version": "1.0.0",
