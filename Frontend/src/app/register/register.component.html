@@ -1,0 +1,110 @@
+
+
+
+<!--后加的-->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">
+                        Columbeal Restaurant
+<!--                        <a class="navbar-brand" href="#"><img src="img/logo.png" height=30 width=41></a>-->
+                    </a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#"><span class="glyphicon glyphicon-home"
+                         aria-hidden="true"></span> Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                         role="button" aria-haspopup="true" aria-expanded="false">
+                         Menu <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Appetizers</a></li>
+                                <li><a href="#">Main Courses</a></li>
+                                <li><a href="#">Desserts</a></li>
+                                <li><a href="#">Drinks</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">Specials</li>
+                                <li><a href="#">Lunch Buffet</a></li>
+                                <li><a href="#">Weekend Brunch</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+
+                    
+
+                    
+                </div>
+                
+            </div>
+        </nav>       
+        
+    
+    <header class="jumbotron">
+
+        <!-- Main component for a primary marketing message or call to action -->
+
+        <div class="container">
+            <div class="row row-header">
+                <div class="col-xs-12 col-sm-8">
+                    <h1>Columbeal Restaurant</h1>
+                    <p style="padding:40px;"></p>
+                    <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
+                </div>
+                <div class="col-xs-12 col-sm-2">
+                    <p style="padding:20px;"></p>
+                    <img src="img/logo.gif" class="img-responsive">
+                </div>
+                <div class="col-xs-12 col-sm-2">
+                    <p style="padding:40px;"></p>
+                    <a type="button" class="btn btn-warning btn-block"
+                        data-toggle="tooltip" title="Or Call us at +852 12345678"
+                        data-placement="bottom" href="#reserveform">
+                        <!-- The title string can contain HTML elements if the data-html attribute is set to true.-->
+                        Reverve Table</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+<div class="container">
+    <h2>Register Form</h2>
+    <form (ngSubmit)="onSubmit(theForm)" #theForm="ngForm">
+    <div class="form-group">
+        <label for="firstname">Firstname</label>
+        <input type="text" class="form-control" id="firstname"
+               required
+               [(ngModel)]="regUser.firstname" name="firstname">
+    </div>
+    <div class="form-group">
+        <label for="lastname">Lastname</label>
+        <input type="text" class="form-control" id="lastname"
+               required
+               [(ngModel)]="regUser.lastname" name="lastname">
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email"
+               required
+               [(ngModel)]="regUser.email" name="email">
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="Password"
+               required
+               [(ngModel)]="regUser.password" name="pwd">
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+    <p>{{message}}</p>
+</div>
+

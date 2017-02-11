@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {User} from "./User";
-import {USER_Response1} from './mock-user';
+import { Headers, RequestOptions } from '@angular/http';
+import { Http, Response }          from '@angular/http';
+import 'rxjs/add/operator/toPromise';
+import {USER_Login_Response1, USER_Reg_Response1, USER_Reg_Response2} from './mock-data/mock-user';
 
 @Injectable()
 export class UserService {
@@ -15,21 +18,47 @@ export class UserService {
         this.user = undefined;
     }
 
-    loginUserRemote(): Promise<any> {
-        return Promise.resolve(USER_Response1).then(
-            (response) => {
-                if (response.flag == 'success'){
-                    console.log(this.user);
-                    this.user = new User();
-                    this.user.JWT = response.user.JWT;
-                    this.user.name = response.user.name;
-                    this.user.uid = response.user.uid;
-                    return Promise.resolve(response)
-                }else{
-                    return Promise.resolve(response)
-                }
-            }
-        ).catch(this.handleError);
+    private Urll = 'http://ec2-54-165-183-168.compute-1.amazonaws.com:3000/login';
+
+    async  loginUserRemote(user:User): Promise<any> {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({ headers: headers });
+
+        try {
+            let res = await this.http.post(this.Urll, { PwdHash : user.password, Email : user.email }, options).toPromise();
+            console.log(res);
+            this.user = new User();
+            this.user.JWT = res.json().payload.JWT;
+            this.user.firstname = res.json().payload.firstname;
+            this.user.lastname = res.json().payload.lastname;
+            console.log(res.json());
+            return res.json();
+        } catch (ex) {
+            this.handleError(ex);
+        }
+    }
+
+    private Urlr = 'http://ec2-54-165-183-168.compute-1.amazonaws.com:3000/user';
+
+    async registerUserRemote(user:User): Promise<any> {
+        console.log("enter register");
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        try {
+            let res = await this.http.post(this.Urlr, { FirstName: user.firstname, LastName: user.lastname,
+                PwdHash : user.password, Email : user.email }, options)
+                .toPromise();
+            console.log(res.json());
+            this.user = new User();
+            this.user.JWT = res.json().payload.JWT;
+            this.user.firstname = res.json().payload.firstname;
+            this.user.lastname = res.json().payload.lastname;
+            return res.json();
+        } catch (ex) {
+            console.log(ex);
+            this.handleError(ex);
+        }
     }
 
     private handleError(error: any): Promise<any> {
@@ -37,6 +66,6 @@ export class UserService {
         return Promise.reject(error.message || error);
     }
 
-    constructor() { }
+    constructor (private http: Http) {}
 
 }

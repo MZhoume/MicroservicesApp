@@ -14,8 +14,9 @@ export class UserLoginComponent implements OnInit {
     user: User;
     message: string;
 
-    constructor(private userService: UserService,
-                private router: Router,
+    constructor(
+        private userService: UserService,
+        private router: Router,
     ) { }
 
     ngOnInit() {
@@ -29,25 +30,34 @@ export class UserLoginComponent implements OnInit {
 
     }
 
-    onSubmit() {
+    async onSubmit() : Promise<any> {
         console.log("going to log in");
         this.message = 'Loading';
-        this.userService.loginUserRemote().then(response => {
-            if (response.flag == 'success') {
-                this.user = this.userService.getUser();
+        try {
+            let loginResult = await this.userService.loginUserRemote(this.user);
+            console.log(loginResult);
+            if (loginResult.result  === 'success') {
+                this.user = new User();
                 this.message ='login success';
                 console.log('login success');
                 this.forward();
             } else {
-                console.log(response);
-                this.message = response.reason;
+                console.log(loginResult);
+                //this.message = response.reason;
                 console.log('login fail');
             }
-        });
+        } catch (ex) {
+            console.error('An error occurred', ex);
+        }
 
     }
 
     forward() {
         this.router.navigate(['/welcome']);
     }
+
+    onClick() {
+        this.router.navigate(['/register']);
+    }
+
 }
