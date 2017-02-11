@@ -62,7 +62,7 @@ export class WelcomeComponent implements OnInit {
                 console.log(token);
                 this.myToken = token.id;
                 // TODO: send to server
-                this.itemService.sendTokenToServer(this.myToken, this.user.JWT, id);
+                this.itemService.sendTokenToServer(this.myToken, this.user.JWT, id, price);
                 console.log('pay end.');
             }
         });
