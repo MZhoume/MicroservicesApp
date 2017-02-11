@@ -1,5 +1,6 @@
-namespace ExampleFunction
+namespace TestingService
 {
+    using System;
     using Amazon.Lambda.Core;
 
     /// <summary>
@@ -16,6 +17,7 @@ namespace ExampleFunction
         [LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
         public string FunctionHandler(string input, ILambdaContext context)
         {
+            throw new Exception("testing...");
             return input?.ToUpper();
         }
     }

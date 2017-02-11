@@ -1,4 +1,4 @@
-# E6998 Sec 6 Modern *-As-A-Service Application Development
+# E6998 Sec 6 Modern *-As-A-Service Application Development ![Travis-CI Build Status](https://travis-ci.com/MZhoume/E6998S6.svg?token=NFcaTqAD3M9y6sq1tYKJ&branch=master)
 
 ### Requirement:
 **FIRST: set up your ssh keys with [GitHub](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)**
@@ -35,6 +35,7 @@
   - [Pull Request](https://help.github.com/articles/about-pull-requests/)
 
 ### Coding Guideline
+- [C#](https://msdn.microsoft.com/en-us/library/ff926074.aspx)
 - [TypeScript](https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines)
 - [JSON](https://google.github.io/styleguide/jsoncstyleguide.xml)
 - [Unit Test](http://geosoft.no/development/unittesting.html)

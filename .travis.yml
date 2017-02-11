@@ -1,0 +1,21 @@
+notifications:
+  email: false
+  slack:
+    rooms:
+      typer2:lLH4I2CxXf7ZJpiuf3Blx79D
+    on_success: always
+    on_failure: always
+
+dist: trusty
+sudo: required
+branches:
+  only:
+  - master
+language: csharp
+mono: none
+dotnet: 1.0.0-preview2-003121
+install: dotnet restore Backend
+script: dotnet test Backend/Test/$TEST_DIR
+env:
+  - TEST_DIR=ExampleService.Test
+  - TEST_DIR=AuthService.Test
