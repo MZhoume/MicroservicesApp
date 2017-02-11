@@ -23,7 +23,7 @@ export class WelcomeComponent implements OnInit {
     ) { }
 
 
-    ngOnInit() {
+    async ngOnInit() : Promise<any>{
         this.user = new User();
         // prevent unlog usr get in
         if (this.userService.getUser() == undefined){
@@ -33,21 +33,28 @@ export class WelcomeComponent implements OnInit {
             this.user = this.userService.getUser();
         }
         // get items from server
-        this.itemService.getItemsRemote(this.user).then(response => {
-            if (response.flag == 'success') {
-                this.items = response.items;
-                console.log('get items success');
-            } else {
-                console.log(response);
-                this.message = 'get items fail';
-                console.log('get items fail');
-            }
-        });
+        try {
+            let itemResult = await this.itemService.getItemsRemote(this.user);
+            this.items = itemResult;
+            console.log('get items success');
+        } catch (ex) {
+            console.error('An error occurred', ex);
+        }
+        // this.itemService.getItemsRemote(this.user).then(response => {
+        //     if (response.result == 'success') {
+        //         this.items = response.items;
+        //         console.log('get items success');
+        //     } else {
+        //         console.log(response);
+        //         this.message = 'get items fail';
+        //         console.log('get items fail');
+        //     }
+        // });
 
     }
 
 
-    openCheckout(price:number, descr: string): void{
+    openCheckout(price:number,id: string, descr: string): void{
         let handler = (<any>window).StripeCheckout.configure({
             key: 'pk_test_XGmc8VOUVttNbHcEyQhodzwX',
             locale: 'auto',
@@ -55,16 +62,20 @@ export class WelcomeComponent implements OnInit {
                 console.log(token);
                 this.myToken = token.id;
                 // TODO: send to server
+                this.itemService.sendTokenToServer(this.myToken, this.user.JWT, id);
                 console.log('pay end.');
             }
         });
 
         handler.open({
-            name: 'Pay It!!!!!!!',
+            name: 'Please Pay',
             description: descr,
             amount: Number(price) * 100,
         });
 
         console.log('pay start');
     }
+
+
+
 }
