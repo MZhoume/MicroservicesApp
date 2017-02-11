@@ -13,7 +13,7 @@ namespace Static
         /// <param name="code"> Http status code </param>
         /// <param name="message"> Error message </param>
         public LambdaException(HttpCode code, string message)
-            : base($"[{code}] | {message}")
+            : base($"[{(int)code}] | {message}")
         {
         }
     }

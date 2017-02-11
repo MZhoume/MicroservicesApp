@@ -2,6 +2,7 @@ namespace TestingService
 {
     using System;
     using Amazon.Lambda.Core;
+    using Static;
 
     /// <summary>
     /// Lambda function entry class
@@ -17,7 +18,7 @@ namespace TestingService
         [LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
         public string FunctionHandler(string input, ILambdaContext context)
         {
-            throw new Exception("testing...");
+            throw new LambdaException(HttpCode.Accepted, "testing...");
             return input?.ToUpper();
         }
     }

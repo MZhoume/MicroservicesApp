@@ -15,6 +15,7 @@
     "Amazon.Lambda.Serialization.Json": "1.0.1",
 
     "SimpleInjector": "3.3.2",
+    "Static": "1.0.0",
 
     "Amazon.Lambda.Tools" : {
       "version":"1.2.0-preview1",
