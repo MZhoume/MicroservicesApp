@@ -1,3 +1,5 @@
+## AUTO: Run script newservice.sh with your service name
+
 ## Instructions to add a new lambda function
 **Say you want to create a new lambda function called TestService**
 
@@ -5,12 +7,12 @@
 1. Copy `aws-lambda-tools-defaults.json`, `Function.cs` and `project.json` from `src/ExampleFunction` to `src/TestService`;
 1. Modify `aws-lambda-tools-defaults.json`:
     - Change `function-name` to `TestService`,
-    - Change `function-handler` to match current function pattern, usually change `ExampleFunction` to `TestService`.
+    - Change `function-handler` to match current function pattern, usually change `ExampleFunction` to `TestService` (2 occurances).
 1. Modify `Function.cs`:
     - Change namespace to `TestService`.
 1. Modify `project.json`, add dependencies;
 1. Run `dotnet restore` under `src/TestService` to see if there's any problem;
-1. Start writing code ;)
+1. Start writing code ;) don't forget to add XML documentations
 
 ## Instructions to add a new unit test
 **Say you want to create a new unit test for TestService**

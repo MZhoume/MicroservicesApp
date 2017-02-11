@@ -1,6 +1,8 @@
 {
   "version": "1.0.0-*",
   "buildOptions": {
+    "xmlDoc": true,
+    "additionalArguments": [ "/ruleset:../../ruleset/stylecop.ruleset" ]
   },
 
   "dependencies": {
@@ -13,8 +15,13 @@
     "Amazon.Lambda.Serialization.Json": "1.0.1",
 
     "Amazon.Lambda.Tools" : {
-      "type" :"build",
-      "version":"1.1.0-preview1"
+      "version":"1.1.0-preview1",
+      "type" :"build"
+    },
+
+    "StyleCop.Analyzers": {
+      "version": "1.0.0",
+      "type": "build"
     }
   },
 
