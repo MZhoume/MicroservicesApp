@@ -8,8 +8,8 @@ namespace AuthService.Test
 
     public class FunctionTest
     {
-        private Function function = new Function();
-        private ILambdaContext context = new TestLambdaContext();
+        private readonly Function function = new Function();
+        private readonly ILambdaContext context = new TestLambdaContext();
 
         [Fact]
         public void TestAuthFunctionSuccess()
@@ -21,8 +21,10 @@ namespace AuthService.Test
             };
 
             var validPolicy = this.function.FunctionHandler(validRequest, this.context).PolicyDocument;
-            Assert.True(validPolicy.Statement[0].Action.Contains(CustomAuthorizerHelper.ComposeAction(Action.Invoke)));
+
             Assert.Equal(validPolicy.Statement[0].Effect, Effect.Allow);
+            Assert.True(validPolicy.Statement[0].Action.Contains(CustomAuthorizerHelper.ComposeAction(Action.Invoke)));
+            Assert.True(validPolicy.Statement[0].Resource.Contains("arn:aws:execute-api:<regionId>:<accountId>:<apiId>/<stage>/*/*"));
         }
 
         [Fact]
@@ -35,8 +37,10 @@ namespace AuthService.Test
             };
 
             var invalidPolicy = this.function.FunctionHandler(invalidRequest, this.context).PolicyDocument;
-            Assert.True(invalidPolicy.Statement[0].Action.Contains(CustomAuthorizerHelper.ComposeAction(Action.All)));
+
             Assert.Equal(invalidPolicy.Statement[0].Effect, Effect.Deny);
+            Assert.True(invalidPolicy.Statement[0].Action.Contains(CustomAuthorizerHelper.ComposeAction(Action.All)));
+            Assert.True(invalidPolicy.Statement[0].Resource.Contains("arn:aws:execute-api:*:*:*/*/*/*"));
         }
     }
 }

@@ -6,45 +6,45 @@ namespace AuthService
     public static class HttpVerb
     {
         /// <summary>
-        /// Gets the Http Verb for GET Method
+        /// Gets the Http Verb for Get Method
         /// </summary>
-        /// <returns> "GET" </returns>
-        public static string GET { get; } = "GET";
+        /// <returns> "Get" </returns>
+        public static string Get { get; } = "GET";
 
         /// <summary>
-        /// Gets the Http Verb for POST Method
+        /// Gets the Http Verb for Post Method
         /// </summary>
-        /// <returns> "POST" </returns>
-        public static string POST { get; } = "POST";
+        /// <returns> "Post" </returns>
+        public static string Post { get; } = "POST";
 
         /// <summary>
-        /// Gets the Http Verb for PUT Method
+        /// Gets the Http Verb for Put Method
         /// </summary>
-        /// <returns> "PUT" </returns>
-        public static string PUT { get; } = "PUT";
+        /// <returns> "Put" </returns>
+        public static string Put { get; } = "PUT";
 
         /// <summary>
-        /// Gets the Http Verb for DELETE Method
+        /// Gets the Http Verb for Delete Method
         /// </summary>
-        /// <returns> "DELETE" </returns>
-        public static string DELETE { get; } = "DELETE";
+        /// <returns> "Delete" </returns>
+        public static string Delete { get; } = "DELETE";
 
         /// <summary>
-        /// Gets the Http Verb for PATCH Method
+        /// Gets the Http Verb for Patch Method
         /// </summary>
-        /// <returns> "PATCH" </returns>
-        public static string PATCH { get; } = "PATCH";
+        /// <returns> "Patch" </returns>
+        public static string Patch { get; } = "PATCH";
 
         /// <summary>
-        /// Gets the Http Verb for HEAD Method
+        /// Gets the Http Verb for Head Method
         /// </summary>
-        /// <returns> "HEAD" </returns>
-        public static string HEAD { get; } = "HEAD";
+        /// <returns> "Head" </returns>
+        public static string Head { get; } = "HEAD";
 
         /// <summary>
-        /// Gets the Http Verb for OPTIONS Method
+        /// Gets the Http Verb for Options Method
         /// </summary>
-        /// <returns> "OPTIONS" </returns>
-        public static string OPTIONS { get; } = "OPTIONS";
+        /// <returns> "Options" </returns>
+        public static string Options { get; } = "OPTIONS";
     }
 }

@@ -32,6 +32,7 @@ namespace AuthService
             try
             {
                 JWT.Decode(token, Values.JWTSecretKey);
+
                 statement.Effect = Effect.Allow;
                 statement.Action.Add(CustomAuthorizerHelper.ComposeAction(Action.Invoke));
 
