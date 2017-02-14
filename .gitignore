@@ -8,6 +8,8 @@ tmp
 Thumbs.db
 Sandbox
 Sandbox.Test
+SandboxService
+SandboxService.Test
 
 # IDEs and editors
 /Frontend/.idea
