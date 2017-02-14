@@ -6,6 +6,8 @@ obj
 /Frontend/dist
 tmp
 Thumbs.db
+Sandbox
+Sandbox.Test
 
 # IDEs and editors
 /Frontend/.idea
