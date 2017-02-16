@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {User} from "../User";
 import {Router} from "@angular/router";
 import {UserService} from "../user.service";
+import 'rxjs/add/operator/toPromise';
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
@@ -24,28 +25,32 @@ export class RegisterComponent implements OnInit {
         }else {
             this.forward();
         }
-        
+
     }
 
     forward() {
         this.router.navigate(['/welcome']);
     }
 
-    onSubmit() {
+    async onSubmit() : Promise<any> {
         console.log("going to register");
         this.message = 'Loading';
-        this.userService.registerUserRemote(this.regUser).then(response => {
-            if (response.flag == 'success') {
+        try {
+            let resigterResult = await this.userService.registerUserRemote(this.regUser);
+            console.log(resigterResult);
+            if (resigterResult.result  === 'success') {
                 this.regUser = new User();
                 this.message ='register success';
                 console.log('register success');
                 this.forward();
             } else {
-                console.log(response);
-                this.message = response.reason;
+                console.log(resigterResult);
+                //this.message = response.reason;
                 console.log('register fail');
             }
-        });
+        } catch (ex) {
+            console.error('An error occurred', ex);
+        }
     }
 
 

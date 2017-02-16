@@ -103,7 +103,7 @@
 
 
 
-    <div class="row row-content" *ngFor="let item of items;let i = index;" id='buy{{item.uid}}'>
+    <div class="row row-content" *ngFor="let item of items;let i = index;" id='buy{{item.Id}}'>
         <div class="col-xs-12" *ngIf="i % 2 == 0" >
             <div class="col-xs-12 col-sm-3 col-sm-push-9">
                 <p style="padding:20px;"></p>
@@ -115,14 +115,14 @@
                     <div class="media-left media-middle">
                         <a href="#">
                             <img class="media-object img-thumbnail"
-                                 [src]="'../app/mock-data/' + item.img" alt="Braised-Crab" width="300">
+                                 [src]="'../app/mock-data/' + item.PicUri" alt="Braised-Crab" width="300">
                         </a>
                     </div>
                     <div class="media-body">
-                        <h2 class="media-heading">{{item.name}}</h2>
-                        <p>{{item.descr}}</p>
-                        <p><span class="badge">$ {{item.price}}</span></p>
-                        <p><button class="btn btn-primary btn-xs" (click)="openCheckout(item.price, item.name)">Buy now! &raquo;</button></p>
+                        <h2 class="media-heading">{{item.Name}}</h2>
+                        <p>{{item.Description}}</p>
+                        <p><span class="badge">$ {{item.Price}}</span></p>
+                        <p><button class="btn btn-primary btn-xs" (click)="openCheckout(item.Price, item.Id, item.Name)">Buy now! &raquo;</button></p>
                     </div>
                 </div>
             </div>
@@ -137,14 +137,14 @@
                     <div class="media-left media-middle">
                         <a href="#">
                             <img class="media-object img-thumbnail"
-                                 [src]="'../app/mock-data/' + item.img" alt="Braised-Crab" width="300">
+                                 [src]="'../app/mock-data/' + item.PicUri" alt="Braised-Crab" width="300">
                         </a>
                     </div>
                     <div class="media-body">
-                        <h2 class="media-heading">{{item.name}}</h2>
-                        <p>{{item.descr}}</p>
-                        <p><span class="badge">$ {{item.price}}</span></p>
-                        <p><button class="btn btn-primary btn-xs" (click)="openCheckout(item.price, item.name)">Buy now! &raquo;</button></p>
+                        <h2 class="media-heading">{{item.Name}}</h2>
+                        <p>{{item.Description}}</p>
+                        <p><span class="badge">$ {{item.Price}}</span></p>
+                        <p><button class="btn btn-primary btn-xs" (click)="openCheckout(item.Price, item.Id, item.Name)">Buy now! &raquo;</button></p>
                     </div>
                 </div>
             </div>

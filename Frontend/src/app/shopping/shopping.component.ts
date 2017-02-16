@@ -19,23 +19,20 @@ export class ShoppingComponent implements OnInit {
         private itemService: ItemService,
     ) { }
 
-    ngOnInit() {
+    async ngOnInit() : Promise<any> {
         // get items from server
-        this.itemService.getItemsRemote(this.user).then(response => {
-            if (response.flag == 'success') {
-                this.items = response.items;
-                console.log('get items success');
-            } else {
-                console.log(response);
-                this.message = 'get items fail';
-                console.log('get items fail');
-            }
-        });
+        try {
+            let itemResult = await this.itemService.getItemsRemote(this.user);
+            this.items = itemResult;
+            console.log('get items success');
+        } catch (ex) {
+            console.error('An error occurred', ex);
+        }
 
     }
 
 
-    openCheckout(price:number, descr: string): void{
+    openCheckout(price:number, descr: string, id: string): void{
         let handler = (<any>window).StripeCheckout.configure({
             key: 'pk_test_XGmc8VOUVttNbHcEyQhodzwX',
             locale: 'auto',
@@ -43,6 +40,7 @@ export class ShoppingComponent implements OnInit {
                 console.log(token);
                 this.myToken = token.id;
                 // TODO: send to server
+                this.itemService.sendTokenToServer(this.myToken, this.user.JWT, id, price);
                 console.log('pay end.');
             }
         });
