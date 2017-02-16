@@ -19,3 +19,10 @@ script: dotnet test Backend/Test/$TEST_DIR
 env:
   - TEST_DIR=ExampleService.Test
   - TEST_DIR=AuthService.Test
+  - TEST_DIR=UserService.Test
+  - TEST_DIR=OrderService.Test
+  - TEST_DIR=DataService.Test
+  - TEST_DIR=UserInfoService.Test
+  - TEST_DIR=PaymentService.Test
+  - TEST_DIR=Orchestrator.Test
+  - TEST_DIR=EmailService.Test
