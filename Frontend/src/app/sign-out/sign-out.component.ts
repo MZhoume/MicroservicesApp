@@ -38,7 +38,7 @@ export class SignOutComponent implements OnInit {
         console.log("going to log in");
         this.message = 'Loading';
         this.userService.loginUserRemote(this.user).then(response => {
-            if (response.flag == 'success') {
+            if (response.result == 'success') {
                 this.user = this.userService.getUser();
                 this.message ='login success';
                 console.log('login success');
