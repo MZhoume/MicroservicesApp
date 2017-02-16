@@ -8,12 +8,14 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { UserLoginComponent } from './user-login/user-login.component';
 import {UserService} from "./user.service";
 import { WelcomeComponent } from './welcome/welcome.component';
-import { SignOutComponent } from './sign-out/sign-out.component';
 import { RegisterComponent } from './register/register.component';
 import {ItemService} from "./item.service";
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { ShoppingComponent } from './shopping/shopping.component';
 import { FooterComponent } from './footer/footer.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserOrdersComponent } from './user-orders/user-orders.component';
+import { UserCartComponent } from './user-cart/user-cart.component';
 
 
 @NgModule({
@@ -21,11 +23,14 @@ import { FooterComponent } from './footer/footer.component';
         AppComponent,
         UserLoginComponent,
         WelcomeComponent,
-        SignOutComponent,
         RegisterComponent,
         NavigationBarComponent,
         ShoppingComponent,
-        FooterComponent
+        FooterComponent,
+        UserProfileComponent,
+        UserOrdersComponent,
+        UserCartComponent,
+        UserCartComponent
     ],
     imports: [
         BrowserModule,

@@ -44,6 +44,8 @@ export class NavigationBarComponent implements OnInit {
 
     onSignOut(): void {
         console.log('going to sign out');
-        this.router.navigate(['/signout']);
+        this.userService.getOffUser();
+        this.message ="Success log out";
+        this.loginFlag = false;
     }
 }

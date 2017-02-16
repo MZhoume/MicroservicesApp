@@ -1,5 +1,3 @@
-
-
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -9,52 +7,33 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" [routerLink]="'/welcome'">
                 Columbeal Restaurant
-                <!--                        <a class="navbar-brand" href="#"><img src="img/logo.png" height=30 width=41></a>-->
             </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#"><span class="glyphicon glyphicon-home"
-                                                     aria-hidden="true"></span> Home</a></li>
-                <li><a href="#">About</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                       role="button" aria-haspopup="true" aria-expanded="false">
-                        Menu <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Appetizers</a></li>
-                        <li><a href="#">Main Courses</a></li>
-                        <li><a href="#">Desserts</a></li>
-                        <li><a href="#">Drinks</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Specials</li>
-                        <li><a href="#">Lunch Buffet</a></li>
-                        <li><a href="#">Weekend Brunch</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Contact</a></li>
+                <li class="active"><a [routerLink]="'/welcome'">
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
+                <li><a [routerLink]="'/shopping'">Shopping</a></li>
             </ul>
 
 
-            <div class="nav navbar-nav navbar-right"  style="padding:5px;">
-                <span>{{message}}</span>
-
-                <button *ngIf="!loginFlag"	 class="btn btn-info btn-sm" (click)="onLogIn()"  >Sign in</button>
-
-
-
-                <button	*ngIf="!loginFlag" class="btn btn-default btn-sm" (click)="onRegister()" >Register</button>
-
-
-
-                <button *ngIf="loginFlag" class=" btn btn-info btn-sm" (click)="onSignOut()">Sign out</button>
-
-
-
-
-            </div>
+            <ul class="nav navbar-nav navbar-right"  style="padding:5px;">
+                <li><span>{{message}}</span></li>
+                    <li *ngIf="loginFlag" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a [routerLink] = "'/cart'">Cart</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a [routerLink] = "'/profile'">User Profile</a></li>
+                            <li><a [routerLink] = "'/orders'">Order History</a></li>
+                        </ul>
+                    </li>
+                <li><button *ngIf="!loginFlag"	 class="btn btn-info btn-sm" (click)="onLogIn()"  >Sign in</button></li>
+                <li><button	*ngIf="!loginFlag" class="btn btn-default btn-sm" (click)="onRegister()" >Register</button></li>
+                <li><button *ngIf="loginFlag" class=" btn btn-info btn-sm" (click)="onSignOut()">Sign out</button></li>
+            </ul>
 
         </div>
 
