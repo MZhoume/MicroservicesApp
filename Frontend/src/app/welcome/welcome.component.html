@@ -19,9 +19,9 @@
                     <p style="padding:40px;"></p>
                     <a type="button" class="btn btn-warning btn-block"
                         data-toggle="tooltip" title="Or Call us at +852 12345678"
-                        data-placement="bottom" href="#">
+                        data-placement="bottom" href="/shopping">
                         <!-- The title string can contain HTML elements if the data-html attribute is set to true.-->
-                        Reverve Table</a>
+                        Start Shopping!</a>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
                             <div class="carousel-caption">
                             <h2>Braised Crab  <span class="label label-danger">Hot</span> <span class="badge">$4.99</span></h2>
                             <p>Braised crab is a famous Chinese cuisine, cuisine belongs to Shanghai cuisine. Its delicious flavor, color, flavor and taste.</p>
-                            <p><a class="btn btn-primary btn-xs" href="welcome#buy1">More &raquo;</a></p>
+                            <p><a class="btn btn-primary btn-xs" href="/shopping">More &raquo;</a></p>
                             </div>
                         </div>
                         <div class="item">
@@ -54,7 +54,7 @@
                             <div class="carousel-caption">
                             <h2>Stir-fried Chicken Pieces  <span class="label label-danger">Hot</span> <span class="badge">$5.99</span></h2>
                             <p>Chicken meat tender, delicious taste, because of its lighter flavor, it can be used in a variety of dishes. Protein content of a lot, among the meat can be said to be one of the highest protein meat, is a high-protein low-fat foods. Potassium sulfuric acid amino acid content is also very rich, it can make up for cattle and pork deficiencies</p>
-                            <p><a class="btn btn-primary btn-xs" href="welcome#buy2">More &raquo;</a></p>
+                            <p><a class="btn btn-primary btn-xs" href="/shopping">More &raquo;</a></p>
                             </div>
                         </div>
                         <div class="item">
@@ -63,7 +63,7 @@
                             <div class="carousel-caption">
                             <h2>Steamed Sea Bass  <span class="label label-danger">Hot</span> <span class="badge">$6.99</span></h2>
                             <p>Sea bass rich in a variety of nutritional value, freshwater fish with the highest amount of DHA, so steamed bass most Bunao. Selection of about a catty perch, steaming time just to the furnace, the fish just cooked, tender and smooth, full of fresh fish show. Soup with sweet rice wine, soy sauce, incense, eat every mouth is absolutely enjoy.</p>
-                            <p><a class="btn btn-primary btn-xs" href="welcome#buy3">More &raquo;</a></p>
+                            <p><a class="btn btn-primary btn-xs" href="/shopping">More &raquo;</a></p>
                             </div>>
                         </div>
                     </div>
@@ -87,56 +87,6 @@
                 </div>
             </div>
        </div>
-
-        
-
-        <div class="row row-content" *ngFor="let item of items;let i = index;" id='buy{{item.uid}}'>
-            <div class="col-xs-12" *ngIf="i % 2 == 0" > 
-                <div class="col-xs-12 col-sm-3 col-sm-push-9">
-                    <p style="padding:20px;"></p>
-                    <h3 align=center>{{item.feature}}</h3>
-                </div>
-                <div class="col-xs-12 col-sm-9 col-sm-pull-3">
-                    <div class="media">
-                        <div class="media-left media-middle">
-                            <a href="#">
-                            <img class="media-object img-thumbnail"
-                            [src]="'../app/mock-data/' + item.img" alt="Braised-Crab" width="300">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h2 class="media-heading">{{item.name}}</h2>
-                            <p>{{item.descr}}</p>
-                            <p><span class="badge">$ {{item.price}}</span></p>
-                            <p><button class="btn btn-primary btn-xs" (click)="openCheckout(item.price, item.name)">Buy now! &raquo;</button></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12" *ngIf="i % 2 == 1">
-                <div class="col-xs-12 col-sm-3">
-                    <p style="padding:20px;"></p>
-                    <h3 align=center>{{item.feature}}</h3>
-                </div>
-                <div class="col-xs-12 col-sm-9">
-                    <div class="media">
-                        <div class="media-left media-middle">
-                            <a href="#">
-                            <img class="media-object img-thumbnail"
-                            [src]="'../app/mock-data/' + item.img" alt="Braised-Crab" width="300">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h2 class="media-heading">{{item.name}}</h2>
-                            <p>{{item.descr}}</p>
-                            <p><span class="badge">$ {{item.price}}</span></p>
-                            <p><button class="btn btn-primary btn-xs" (click)="openCheckout(item.price, item.name)">Buy now! &raquo;</button></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
 <app-footer></app-footer>
