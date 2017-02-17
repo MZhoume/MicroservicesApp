@@ -6,13 +6,13 @@ namespace Static.Request
     public class PagingInfo
     {
         /// <summary>
-        /// Gets the start number
+        /// Gets and Sets the start number
         /// </summary>
         /// <returns> The Start number </returns>
         public int Start { get; set; }
 
         /// <summary>
-        /// Gets the count
+        /// Gets and Sets the count
         /// </summary>
         /// <returns> The Count </returns>
         public int Count { get; set; }

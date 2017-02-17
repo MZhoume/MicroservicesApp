@@ -6,19 +6,19 @@ namespace Static.Request
     public class SearchTerm
     {
         /// <summary>
-        /// Gets the field to be search from
+        /// Gets and Sets the field to be search from
         /// </summary>
         /// <returns> The field to search </returns>
         public string Field { get; set; }
 
         /// <summary>
-        /// Gets the operator used in the search term
+        /// Gets and Sets the operator used in the search term
         /// </summary>
         /// <returns> The search operator </returns>
         public SearchOperator Operator { get; set; }
 
         /// <summary>
-        /// Gets the value used for such search
+        /// Gets and Sets the value used for such search
         /// </summary>
         /// <returns> The search value </returns>
         public string Value { get; set; }
