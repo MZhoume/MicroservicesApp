@@ -1,5 +1,8 @@
 namespace Static.Request
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+
     /// <summary>
     /// SearchTerm class contains essential parts used in a search operation
     /// </summary>
@@ -15,6 +18,7 @@ namespace Static.Request
         /// Gets and Sets the operator used in the search term
         /// </summary>
         /// <returns> The search operator </returns>
+        [JsonConverter(typeof(StringEnumConverter))]
         public SearchOperator Operator { get; set; }
 
         /// <summary>
