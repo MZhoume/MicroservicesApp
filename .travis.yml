@@ -21,8 +21,8 @@ env:
   - TEST_DIR=AuthService.Test
   - TEST_DIR=UserService.Test
   - TEST_DIR=OrderService.Test
-  - TEST_DIR=DataService.Test
   - TEST_DIR=UserInfoService.Test
   - TEST_DIR=PaymentService.Test
   - TEST_DIR=Orchestrator.Test
   - TEST_DIR=EmailService.Test
+  - TEST_DIR=ProductService.Test

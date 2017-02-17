@@ -1,7 +1,7 @@
-namespace DataService.Test
+namespace ProductService.Test
 {
     using Amazon.Lambda.TestUtilities;
-    using DataService;
+    using ProductService;
     using Xunit;
 
     public class FunctionTest

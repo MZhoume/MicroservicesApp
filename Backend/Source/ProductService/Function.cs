@@ -1,4 +1,4 @@
-namespace DataService
+namespace ProductService
 {
     using Amazon.Lambda.Core;
 
