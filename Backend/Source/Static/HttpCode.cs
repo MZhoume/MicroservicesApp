@@ -1,7 +1,7 @@
 namespace Static
 {
     /// <summary>
-    /// Http status codes
+    /// Types for http status code
     /// </summary>
     public enum HttpCode
     {
