@@ -1,9 +1,9 @@
 namespace Static
 {
     /// <summary>
-    /// Types for operation performed in Db, CRUD
+    /// Types for operation a service can perform, CRUD
     /// </summary>
-    public enum DbOperation
+    public enum Operation
     {
 #pragma warning disable CS1591
 #pragma warning disable SA1602
