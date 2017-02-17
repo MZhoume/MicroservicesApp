@@ -1,4 +1,4 @@
-namespace Static
+namespace Static.Request
 {
     /// <summary>
     /// Types for search operation

@@ -1,4 +1,4 @@
-namespace Static
+namespace Static.Request
 {
     /// <summary>
     /// SearchTerm class contains essential parts used in a search operation
