@@ -1,8 +1,8 @@
 using System.Runtime.CompilerServices;
-[assembly: InternalsVisibleTo("AuthService"),
-           InternalsVisibleTo("UserService"),
-           InternalsVisibleTo("AuthService.Test"),
-           InternalsVisibleTo("UserService.Test")]
+[assembly: InternalsVisibleTo("AuthService")]
+[assembly: InternalsVisibleTo("UserService")]
+[assembly: InternalsVisibleTo("AuthService.Test")]
+[assembly: InternalsVisibleTo("UserService.Test")]
 
 namespace Static
 {
