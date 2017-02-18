@@ -14,12 +14,12 @@ language: csharp
 mono: none
 dotnet: 1.0.0-preview2-003121
 install: dotnet restore Backend/Source/Static && dotnet restore Backend/Source/$TEST_DIR && dotnet restore Backend/Test/"$TEST_DIR.Test"
-addons:
-  sonarqube:
-    token: 265ea5c180b88564c9c3bf8a18a73dbb598ef8ee
+# addons:
+#   sonarqube:
+#     token: 265ea5c180b88564c9c3bf8a18a73dbb598ef8ee
 script:
   - dotnet test Backend/Test/"$TEST_DIR.Test"
-  - sonar-scanner
+  # - sonar-scanner
 env:
   - TEST_DIR=ExampleService
   - TEST_DIR=AuthService
