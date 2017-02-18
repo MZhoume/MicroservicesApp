@@ -35,5 +35,5 @@ sed -i '' -e "s/ExampleService/$name/g" project.json
 popd > /dev/null
 popd > /dev/null
 
-echo "  - TEST_DIR=$testname" >> ../.travis.yml
+echo "  - TEST_DIR=$name" >> ../.travis.yml
 echo 'DONE. Have fun ;)'
