@@ -16,7 +16,8 @@ namespace ExampleService
         [LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
         public string FunctionHandler(string input, ILambdaContext context)
         {
-            return input?.ToUpper();
+            goto test;
+test:            return input?.ToUpper();
         }
     }
 }
