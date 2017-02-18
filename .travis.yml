@@ -1,8 +1,7 @@
 notifications:
   email: false
   slack:
-    rooms:
-      typer2:lLH4I2CxXf7ZJpiuf3Blx79D
+    rooms: typer2:lLH4I2CxXf7ZJpiuf3Blx79D
     on_success: always
     on_failure: always
 
@@ -14,8 +13,13 @@ branches:
 language: csharp
 mono: none
 dotnet: 1.0.0-preview2-003121
-install: dotnet restore Backend
-script: dotnet test Backend/Test/$TEST_DIR
+install: dotnet restore Backend/Test/$TEST_DIR
+addons:
+  sonarqube:
+    token: 265ea5c180b88564c9c3bf8a18a73dbb598ef8ee
+script:
+  - dotnet test Backend/Test/$TEST_DIR
+  - sonar-scanner
 env:
   - TEST_DIR=ExampleService.Test
   - TEST_DIR=AuthService.Test
