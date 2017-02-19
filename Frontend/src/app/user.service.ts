@@ -50,10 +50,10 @@ export class UserService {
                 PwdHash : user.password, Email : user.email }, options)
                 .toPromise();
             console.log(res.json());
-            this.user = new User();
-            this.user.JWT = res.json().payload.JWT;
-            this.user.firstname = res.json().payload.firstname;
-            this.user.lastname = res.json().payload.lastname;
+            // this.user = new User();
+            // this.user.JWT = res.json().payload.JWT;
+            // this.user.firstname = res.json().payload.firstname;
+            // this.user.lastname = res.json().payload.lastname;
             return res.json();
         } catch (ex) {
             console.log(ex);

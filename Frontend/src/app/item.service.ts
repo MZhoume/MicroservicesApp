@@ -12,7 +12,7 @@ export class ItemService {
 
     private Urli = 'http://ec2-54-165-183-168.compute-1.amazonaws.com:3000/product';
 
-    async getItemsRemote(user:User): Promise<any> {
+    async getItemsRemote(): Promise<any> {
         console.log("item fetch");
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });

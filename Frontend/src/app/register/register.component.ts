@@ -23,13 +23,13 @@ export class RegisterComponent implements OnInit {
         if (this.userService.getUser() == undefined){
             console.log("please register");
         }else {
-            this.forward();
+            this.forward('/welcome');
         }
 
     }
 
-    forward() {
-        this.router.navigate(['/welcome']);
+    forward(dest:string) {
+        this.router.navigate([dest]);
     }
 
     async onSubmit() : Promise<any> {
@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
                 this.regUser = new User();
                 this.message ='register success';
                 console.log('register success');
-                this.forward();
+                this.forward('/login');
             } else {
                 console.log(resigterResult);
                 //this.message = response.reason;

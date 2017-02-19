@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import {UserService} from "../user.service";
 import {User} from "../User";
+import {CartService} from "../cart.service";
 
 @Component({
     selector: 'app-navigation-bar',
@@ -16,6 +17,7 @@ export class NavigationBarComponent implements OnInit {
     constructor(
         private router: Router,
         private userService: UserService,
+        private cartService: CartService,
     ) { }
 
     ngOnInit() {
@@ -45,7 +47,9 @@ export class NavigationBarComponent implements OnInit {
     onSignOut(): void {
         console.log('going to sign out');
         this.userService.getOffUser();
-        this.message ="Success log out";
+        this.cartService.clearCart();
         this.loginFlag = false;
+        this.message ="Success log out";
+        this.router.navigate(['/login']);
     }
 }

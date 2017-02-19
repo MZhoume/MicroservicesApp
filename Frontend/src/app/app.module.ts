@@ -16,6 +16,7 @@ import { FooterComponent } from './footer/footer.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserOrdersComponent } from './user-orders/user-orders.component';
 import { UserCartComponent } from './user-cart/user-cart.component';
+import {CartService} from "./cart.service";
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import { UserCartComponent } from './user-cart/user-cart.component';
         HttpModule,
         AppRoutingModule
     ],
-    providers: [UserService, ItemService],
+    providers: [UserService, ItemService, CartService],
     bootstrap: [AppComponent]
 })
 
