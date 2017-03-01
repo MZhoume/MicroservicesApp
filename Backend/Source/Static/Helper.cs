@@ -1,9 +1,10 @@
 namespace Static
 {
-    using System.Reflection;
+    using System.Collections.Generic;
     using System.Text;
     using Jose;
     using Newtonsoft.Json;
+    using Static.Request;
 
     /// <summary>
     /// Helper class for various operations
@@ -12,34 +13,21 @@ namespace Static
     {
         private static byte[] jwtSecretKey = Encoding.ASCII.GetBytes("secret 4 6998@S6");
 
+        private static Dictionary<SearchOperator, string> operatorMapping = new Dictionary<SearchOperator, string>()
+        {
+            [SearchOperator.EQ] = " = ",
+            [SearchOperator.GT] = " > ",
+            [SearchOperator.GE] = " >= ",
+            [SearchOperator.LT] = " < ",
+            [SearchOperator.LE] = " <= ",
+            [SearchOperator.NE] = " != "
+        };
+
         /// <summary>
         /// Gets the DB Connection String
         /// </summary>
         /// <returns> The DB Connection String </returns>
         public static string DbConnString { get; } = "server=coms6998.cjxpxg26eyfq.us-east-1.rds.amazonaws.com:3306;uid=admin;pwd=columbia.edu;database=coms6998;";
-
-        /// <summary>
-        /// Get the value of a given property name from the object
-        /// </summary>
-        /// <typeparam name="T"> Type of the property </typeparam>
-        /// <param name="src"> The source object </param>
-        /// <param name="propName"> The property name to retrieve </param>
-        /// <returns> Value retrieved from the object, or default value for type T if failed </returns>
-        public static T GetValue<T>(object src, string propName)
-        {
-            if (src == null)
-            {
-                return default(T);
-            }
-
-            var propInfo = src.GetType().GetProperty(propName);
-            if (propInfo == null)
-            {
-                return default(T);
-            }
-
-            return (T)propInfo.GetValue(src);
-        }
 
         /// <summary>
         /// Get the decoded JWT payload from the token
@@ -59,6 +47,48 @@ namespace Static
         public static string GetJwtToken(JwtPayload payload)
         {
             return JWT.Encode(payload, jwtSecretKey, JwsAlgorithm.HS256);
+        }
+
+        /// <summary>
+        /// Compose the expression used in where method from the search terms
+        /// </summary>
+        /// <param name="searchTerms"> Search Terms from the request </param>
+        /// <returns> Composed expression </returns>
+        public static string ComposeWhereExp(params SearchTerm[] searchTerms)
+        {
+            if (searchTerms.Length == 0)
+            {
+                return null;
+            }
+
+            StringBuilder searchStr = new StringBuilder();
+            for (int i = 0; i < searchTerms.Length; i++)
+            {
+                if (i > 0)
+                {
+                    searchStr.Append(" AND ");
+                }
+
+                var term = searchTerms[i];
+                if (term.Operator == SearchOperator.LIKE)
+                {
+                    searchStr.Append(term.Field + ".Contains(\"" + term.Value + "\")");
+                }
+                else
+                {
+                    decimal val;
+                    if (decimal.TryParse(term.Value, out val))
+                    {
+                        searchStr.Append(term.Field + operatorMapping[term.Operator] + val);
+                    }
+                    else
+                    {
+                        searchStr.Append(term.Field + operatorMapping[term.Operator] + "DateTime.Parse(\"" + term.Value + "\")");
+                    }
+                }
+            }
+
+            return searchStr.ToString();
         }
     }
 }

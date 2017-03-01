@@ -21,6 +21,7 @@ script:
   - dotnet test Backend/Test/"$TEST_DIR.Test"
   # - sonar-scanner
 env:
+  - TEST_DIR=Static
   - TEST_DIR=ExampleService
   - TEST_DIR=AuthService
   - TEST_DIR=UserService

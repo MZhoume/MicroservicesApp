@@ -11,6 +11,6 @@ namespace Static.Response
         /// Gets or sets the results returned from the service
         /// </summary>
         /// <returns> Results </returns>
-        public IEnumerable<object> Payload { get; set; }
+        public object Payload { get; set; }
     }
 }

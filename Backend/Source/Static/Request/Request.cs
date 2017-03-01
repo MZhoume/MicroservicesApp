@@ -3,6 +3,7 @@ namespace Static.Request
     using System.Collections.Generic;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// Request for common Service
@@ -26,7 +27,7 @@ namespace Static.Request
         /// Gets or sets the payload
         /// </summary>
         /// <returns> The payload </returns>
-        public IEnumerable<object> Payload { get; set; }
+        public JObject Payload { get; set; }
 
         /// <summary>
         /// Gets or sets the paging info
