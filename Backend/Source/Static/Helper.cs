@@ -50,5 +50,15 @@ namespace Static
         {
             return JsonConvert.DeserializeObject<JwtPayload>(JWT.Decode(token, jwtSecretKey));
         }
+
+        /// <summary>
+        /// Get the encoded JWT token with the given payload
+        /// </summary>
+        /// <param name="payload"> Payload to contain </param>
+        /// <returns> Encoded JWT token </returns>
+        public static string GetJwtToken(JwtPayload payload)
+        {
+            return JWT.Encode(payload, jwtSecretKey, JwsAlgorithm.HS256);
+        }
     }
 }

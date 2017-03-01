@@ -44,8 +44,7 @@ namespace AuthService
                 this.AllowOperation(
                         statement,
                         CustomAuthorizerHelper.ComposeAction(Action.Invoke),
-                        CustomAuthorizerHelper.ComposeResource(region, accountId, apiId, stage, Resource.Any, Resource.Any
-                ));
+                        CustomAuthorizerHelper.ComposeResource(region, accountId, apiId, stage, Resource.Any, Resource.Any));
             }
             catch
             {
