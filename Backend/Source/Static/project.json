@@ -12,6 +12,7 @@
     },
 
     "Newtonsoft.Json": "9.0.1",
+    "jose-jwt": "2.1.0",
 
     "StyleCop.Analyzers": {
       "version": "1.0.0",

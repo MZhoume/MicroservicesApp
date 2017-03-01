@@ -3,16 +3,18 @@ namespace Static.Request
     /// <summary>
     /// Type for Target Database
     /// </summary>
-    public enum TargetDB
+    public enum TargetDb
     {
 #pragma warning disable CS1591
 #pragma warning disable SA1602
-        Address,
-        Order,
+
+        Addresses,
+        Orders,
         OrderedProducts,
-        Payment,
-        Product,
-        User
+        Payments,
+        Products,
+        Users
+
 #pragma warning disable CS1591
 #pragma warning disable SA1602
     }

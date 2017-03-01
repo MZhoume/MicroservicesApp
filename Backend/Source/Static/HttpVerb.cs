@@ -1,17 +1,20 @@
 namespace Static
 {
     /// <summary>
-    /// Types for operation a service can perform, CRUD
+    /// Types for Http Verb
     /// </summary>
-    public enum Operation
+    public enum HttpVerb
     {
 #pragma warning disable CS1591
 #pragma warning disable SA1602
 
-        Create,
-        Delete,
-        Update,
-        Read
+        GET,
+        POST,
+        PUT,
+        DELETE,
+        PATCH,
+        HEAD,
+        OPTIONS
 
 #pragma warning restore SA1602
 #pragma warning restore CS1591

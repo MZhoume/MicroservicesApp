@@ -1,11 +1,8 @@
 namespace AuthService
 {
-    using System;
     using System.Collections.Generic;
     using Amazon.Lambda.APIGatewayEvents;
     using Amazon.Lambda.Core;
-    using Jose;
-    using Newtonsoft.Json;
     using Static;
 
     /// <summary>
@@ -13,25 +10,6 @@ namespace AuthService
     /// </summary>
     public class Function
     {
-        private readonly DateTime entryTime;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Function" /> class
-        /// </summary>
-        public Function()
-        {
-            this.entryTime = DateTime.Now;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Function" /> class, for unit test only
-        /// </summary>
-        /// <param name="entryTime"> The entry time to be mocked </param>
-        public Function(DateTime entryTime)
-        {
-            this.entryTime = entryTime;
-        }
-
         /// <summary>
         /// Handle the Authentication Request
         /// </summary>
@@ -54,26 +32,20 @@ namespace AuthService
 
             try
             {
-                var payload = JsonConvert.DeserializeObject<JwtPayload>(JWT.Decode(token, Values.JWTSecretKey));
+                Helper.GetJwtPayload(token);
 
-                if (payload.TimeStamp > this.entryTime.AddMinutes(-5))
-                {
-                    var vars = request.MethodArn.Split(':');
-                    var apiVars = vars[5].Split('/');
-                    var region = vars[3];
-                    var accountId = vars[4];
-                    var apiId = apiVars[0];
-                    var stage = apiVars[1];
+                var vars = request.MethodArn.Split(':');
+                var apiVars = vars[5].Split('/');
+                var region = vars[3];
+                var accountId = vars[4];
+                var apiId = apiVars[0];
+                var stage = apiVars[1];
 
-                    this.AllowOperation(
-                            statement,
-                            CustomAuthorizerHelper.ComposeAction(Action.Invoke),
-                            CustomAuthorizerHelper.ComposeResource(region, accountId, apiId, stage, Resource.Any, Resource.Any));
-                }
-                else
-                {
-                    this.DenyAll(statement);
-                }
+                this.AllowOperation(
+                        statement,
+                        CustomAuthorizerHelper.ComposeAction(Action.Invoke),
+                        CustomAuthorizerHelper.ComposeResource(region, accountId, apiId, stage, Resource.Any, Resource.Any
+                ));
             }
             catch
             {
