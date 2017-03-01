@@ -11,6 +11,7 @@
     "xunit": "2.1.0-*",
     "dotnet-test-xunit": "2.2.0-*",
     "Newtonsoft.Json": "9.0.1",
+    "Static": "1.0.0",
     "jose-jwt": "2.2.0"
   },
   "tools": {
