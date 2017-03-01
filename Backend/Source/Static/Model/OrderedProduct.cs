@@ -3,9 +3,9 @@ namespace Static.Model
     using System.ComponentModel.DataAnnotations;
 
     /// <summary>
-    /// Define OrderedProducts class
+    /// Define OrderedProduct class
     /// </summary>
-    public class OrderedProducts
+    public class OrderedProduct
     {
         /// <summary>
         /// Gets or sets order id
