@@ -16,13 +16,6 @@ namespace Static.Request
         public string AuthToken { get; set; }
 
         /// <summary>
-        /// Gets or sets the target db the request specifies
-        /// </summary>
-        /// <returns> The request target </returns>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public TargetDb TargetDb { get; set; }
-
-        /// <summary>
         /// Gets or sets the operation the request specifies
         /// </summary>
         /// <returns> The request operation </returns>
