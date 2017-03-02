@@ -1,10 +1,9 @@
 namespace AuthService.Test
 {
     using Amazon.Lambda.APIGatewayEvents;
-    using Amazon.Lambda.Core;
     using Amazon.Lambda.TestUtilities;
     using AuthService;
-    using Static;
+    using Static.Request;
     using Xunit;
 
     public class FunctionTest
@@ -25,7 +24,7 @@ namespace AuthService.Test
 
             var validRequest = new APIGatewayCustomAuthorizerRequest()
             {
-                AuthorizationToken = Helper.GetJwtToken(this.payload),
+                AuthorizationToken = RequestHelper.GetJwtToken(this.payload),
                 MethodArn = "arn:aws:execute-api:<regionId>:<accountId>:<apiId>/<stage>/<method>/<resourcePath>"
             };
 

@@ -1,6 +1,6 @@
 namespace Static.Test
 {
-    using Static;
+    using Static.Http;
     using Xunit;
 
     public class LambdaExceptionTest

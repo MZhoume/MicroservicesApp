@@ -3,7 +3,7 @@ namespace AuthService
     using System.Collections.Generic;
     using Amazon.Lambda.APIGatewayEvents;
     using Amazon.Lambda.Core;
-    using Static;
+    using Static.Request;
 
     /// <summary>
     /// Authentication Service entry class
@@ -32,7 +32,7 @@ namespace AuthService
 
             try
             {
-                Helper.GetJwtPayload(token);
+                RequestHelper.GetJwtPayload(token);
 
                 var vars = request.MethodArn.Split(':');
                 var apiVars = vars[5].Split('/');
