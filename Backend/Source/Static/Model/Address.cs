@@ -1,38 +1,41 @@
 namespace Static.Model
 {
     using System.ComponentModel.DataAnnotations;
+    using Static.Interface;
 
     /// <summary>
     /// Define address class
     /// </summary>
-    public class Address
+    public sealed class Address : IModel
     {
         /// <summary>
         /// Gets or sets id in address
         /// </summary>
         /// <returns>Return id</returns>
         [Key]
+        [Required]
+        [Range(0, int.MaxValue)]
         public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets state in address
         /// </summary>
         /// <returns>Return state</returns>
-        [Required]
+        [Required(AllowEmptyStrings = false)]
         public string State { get; set; }
 
         /// <summary>
         /// Gets or sets city in address
         /// </summary>
         /// <returns>Return city</returns>
-        [Required]
+        [Required(AllowEmptyStrings = false)]
         public string City { get; set; }
 
         /// <summary>
         /// Gets or sets street in address
         /// </summary>
         /// <returns>Return street</returns>
-        [Required]
+        [Required(AllowEmptyStrings = false)]
         public string Street { get; set; }
 
         /// <summary>
@@ -45,7 +48,8 @@ namespace Static.Model
         /// Gets or sets zipcode in address
         /// </summary>
         /// <returns>Return zipcode</returns>
-        [Required]
+        [Required(AllowEmptyStrings = false)]
+        [RegularExpression(@"^\d{5, 6}$")]
         public string Zipcode { get; set; }
     }
 }

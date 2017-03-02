@@ -1,24 +1,27 @@
 namespace Static.Model
 {
     using System.ComponentModel.DataAnnotations;
+    using Static.Interface;
 
     /// <summary>
     /// Define  product class
     /// </summary>
-    public class Product
+    public sealed class Product : IModel
     {
         /// <summary>
         /// Gets or sets product's id
         /// </summary>
         /// <returns>Return id</returns>
         [Key]
+        [Required]
+        [Range(0, int.MaxValue)]
         public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets product's name
         /// </summary>
         /// <returns>Return name</returns>
-        [Required]
+        [Required(AllowEmptyStrings = false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -26,6 +29,7 @@ namespace Static.Model
         /// </summary>
         /// <returns>Return price</returns>
         [Required]
+        [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
 
         /// <summary>
@@ -38,7 +42,8 @@ namespace Static.Model
         /// Gets or sets product's picture url
         /// </summary>
         /// <returns>Return PicUri</returns>
-        [Required]
+        [Required(AllowEmptyStrings = false)]
+        [Url]
         public string PicUri { get; set; }
     }
 }
