@@ -18,7 +18,7 @@
     "jose-jwt": "2.1.0",
 
     "AuthService": "1.0.0",
-    "Static": "1.0.0",
+    "Shared": "1.0.0",
 
     "xunit": "2.1.0-*",
     "dotnet-test-xunit": "2.2.0-*",
