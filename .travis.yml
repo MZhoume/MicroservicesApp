@@ -13,7 +13,7 @@ branches:
 language: csharp
 mono: none
 dotnet: 1.0.0-preview2-003121
-install: dotnet restore Backend/Source/Static && dotnet restore Backend/Source/$TEST_DIR && dotnet restore Backend/Test/"$TEST_DIR.Test"
+install: dotnet restore Backend/Source/Shared && dotnet restore Backend/Source/$TEST_DIR && dotnet restore Backend/Test/"$TEST_DIR.Test"
 # addons:
 #   sonarqube:
 #     token: 265ea5c180b88564c9c3bf8a18a73dbb598ef8ee
