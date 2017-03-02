@@ -1,4 +1,4 @@
-namespace Static
+namespace Static.Request
 {
     using System.Collections.Generic;
     using System.Text;
@@ -7,9 +7,9 @@ namespace Static
     using Static.Request;
 
     /// <summary>
-    /// Helper class for various operations
+    /// Helper class for handling request
     /// </summary>
-    public static class Helper
+    public static class RequestHelper
     {
         private static byte[] jwtSecretKey = Encoding.ASCII.GetBytes("secret 4 6998@S6");
 
@@ -22,12 +22,6 @@ namespace Static
             [SearchOperator.LE] = " <= ",
             [SearchOperator.NE] = " != "
         };
-
-        /// <summary>
-        /// Gets the DB Connection String
-        /// </summary>
-        /// <returns> The DB Connection String </returns>
-        public static string DbConnString { get; } = "server=coms6998.cjxpxg26eyfq.us-east-1.rds.amazonaws.com:3306;uid=admin;pwd=columbia.edu;database=coms6998;";
 
         /// <summary>
         /// Get the decoded JWT payload from the token

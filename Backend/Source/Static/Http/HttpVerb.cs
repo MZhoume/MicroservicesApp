@@ -1,4 +1,4 @@
-namespace Static
+namespace Static.Http
 {
     /// <summary>
     /// Types for Http Verb

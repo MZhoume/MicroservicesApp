@@ -1,31 +1,29 @@
 {
-  "version": "1.0.0-*",
-  "buildOptions": {
-    "xmlDoc": true,
-    "additionalArguments": [ "/ruleset:../../Ruleset/Code.ruleset" ]
-  },
-
-  "dependencies": {
-    "Microsoft.NETCore.App": {
-      "type": "platform",
-      "version": "1.0.0"
+    "version": "1.0.0-*",
+    "buildOptions": {
+        "xmlDoc": true,
+        "additionalArguments": [
+            "/ruleset:../../Ruleset/Code.ruleset"
+        ]
     },
-
-    "Newtonsoft.Json": "9.0.1",
-    "jose-jwt": "2.1.0",
-
-    "StyleCop.Analyzers": {
-      "version": "1.0.0",
-      "type": "build"
+    "dependencies": {
+        "Microsoft.NETCore.App": {
+            "type": "platform",
+            "version": "1.0.0"
+        },
+        "Newtonsoft.Json": "9.0.1",
+        "jose-jwt": "2.1.0",
+        "StyleCop.Analyzers": {
+            "version": "1.0.0",
+            "type": "build"
+        },
+        "System.Data.Common": "4.3.0",
+        "MySql.Data": "7.0.6-IR31"
+    },
+    "tools": {},
+    "frameworks": {
+        "netcoreapp1.0": {
+            "imports": "dnxcore50"
+        }
     }
-  },
-
-  "tools": {
-  },
-
-  "frameworks": {
-    "netcoreapp1.0": {
-      "imports": "dnxcore50"
-    }
-  }
 }

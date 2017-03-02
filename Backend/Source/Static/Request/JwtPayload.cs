@@ -1,4 +1,4 @@
-namespace Static
+namespace Static.Request
 {
     /// <summary>
     /// Class for payload contained in the JWT token

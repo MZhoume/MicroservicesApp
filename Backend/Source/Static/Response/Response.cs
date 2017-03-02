@@ -1,7 +1,5 @@
 namespace Static.Response
 {
-    using System.Collections.Generic;
-
     /// <summary>
     /// Response from common service
     /// </summary>
