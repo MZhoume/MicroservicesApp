@@ -19,9 +19,9 @@ namespace Shared.Validation
         {
             foreach (var prop in model.GetType().GetProperties())
             {
-                foreach (var vatt in prop.GetCustomAttributes().OfType<ValidationAttribute>())
+                foreach (var att in prop.GetCustomAttributes().OfType<ValidationAttribute>())
                 {
-                    vatt.Validate(prop.GetValue(model), prop.Name);
+                    att.Validate(prop.GetValue(model), prop.Name);
                 }
             }
 

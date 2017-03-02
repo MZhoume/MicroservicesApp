@@ -1,9 +1,11 @@
-namespace Shared.Request
+namespace Shared.Authentication
 {
+    using System;
+
     /// <summary>
     /// Class for payload contained in the JWT token
     /// </summary>
-    public class JwtPayload
+    public class AuthPayload
     {
         /// <summary>
         /// Gets or sets the Id of a given user
@@ -28,5 +30,11 @@ namespace Shared.Request
         /// </summary>
         /// <returns> The user's LastName </returns>
         public string LastName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DateTime associated with this token
+        /// </summary>
+        /// <returns> The DateTime </returns>
+        public DateTime DateTime { get; set; }
     }
 }

@@ -3,12 +3,12 @@ namespace AuthService.Test
     using Amazon.Lambda.APIGatewayEvents;
     using Amazon.Lambda.TestUtilities;
     using AuthService;
-    using Shared.Request;
+    using Shared.Authentication;
     using Xunit;
 
     public class FunctionTest
     {
-        private readonly JwtPayload payload = new JwtPayload()
+        private readonly AuthPayload payload = new AuthPayload()
             {
                 UserId = 0,
                 Email = "admin@admin.com",
@@ -24,7 +24,7 @@ namespace AuthService.Test
 
             var validRequest = new APIGatewayCustomAuthorizerRequest()
             {
-                AuthorizationToken = RequestHelper.GetJwtToken(this.payload),
+                AuthorizationToken = AuthHelper.GenerateAuthToken(this.payload),
                 MethodArn = "arn:aws:execute-api:<regionId>:<accountId>:<apiId>/<stage>/<method>/<resourcePath>"
             };
 
