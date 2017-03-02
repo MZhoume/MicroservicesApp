@@ -1,4 +1,4 @@
-namespace Static.Request
+namespace Shared.Request
 {
     /// <summary>
     /// Class for payload contained in the JWT token

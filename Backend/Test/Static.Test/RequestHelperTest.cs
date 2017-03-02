@@ -1,7 +1,7 @@
-namespace Static.Test
+namespace Shared.Test
 {
-    using Static;
-    using Static.Request;
+    using Shared;
+    using Shared.Request;
     using Xunit;
 
     public class HelperTest

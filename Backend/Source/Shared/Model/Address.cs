@@ -1,7 +1,7 @@
-namespace Static.Model
+namespace Shared.Model
 {
     using System.ComponentModel.DataAnnotations;
-    using Static.Interface;
+    using Shared.Interface;
 
     /// <summary>
     /// Define address class

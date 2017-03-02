@@ -1,4 +1,4 @@
-namespace Static.Request
+namespace Shared.Request
 {
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;

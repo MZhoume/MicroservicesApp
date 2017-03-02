@@ -1,6 +1,6 @@
-namespace Static.Test
+namespace Shared.Test
 {
-    using Static.Http;
+    using Shared.Http;
     using Xunit;
 
     public class LambdaExceptionTest

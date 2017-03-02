@@ -1,9 +1,9 @@
-namespace Static.Validation
+namespace Shared.Validation
 {
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Reflection;
-    using Static.Interface;
+    using Shared.Interface;
 
     /// <summary>
     /// Static class contains the extension method used for validating models

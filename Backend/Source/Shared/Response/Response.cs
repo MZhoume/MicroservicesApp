@@ -1,4 +1,4 @@
-namespace Static.Response
+namespace Shared.Response
 {
     /// <summary>
     /// Response from common service

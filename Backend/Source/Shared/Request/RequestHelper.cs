@@ -1,10 +1,10 @@
-namespace Static.Request
+namespace Shared.Request
 {
     using System.Collections.Generic;
     using System.Text;
     using Jose;
     using Newtonsoft.Json;
-    using Static.Request;
+    using Shared.Request;
 
     /// <summary>
     /// Helper class for handling request

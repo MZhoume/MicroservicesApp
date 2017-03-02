@@ -1,9 +1,9 @@
-namespace Static.Test
+namespace Shared.Test
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using Static.Validation;
-    using Static.Model;
+    using Shared.Validation;
+    using Shared.Model;
     using Xunit;
 
     public class ValidationTest

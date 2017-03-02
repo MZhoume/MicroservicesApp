@@ -1,7 +1,7 @@
-namespace Static
+namespace Shared
 {
     using System;
-    using Static.Http;
+    using Shared.Http;
 
     /// <summary>
     /// Exception class for lambda contains http status code and message

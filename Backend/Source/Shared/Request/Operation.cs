@@ -1,4 +1,4 @@
-namespace Static.Request
+namespace Shared.Request
 {
     /// <summary>
     /// Types for operation a service can perform, CRUD

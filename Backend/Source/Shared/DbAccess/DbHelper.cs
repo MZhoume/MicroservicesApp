@@ -1,4 +1,4 @@
-namespace Static.DbAccess
+namespace Shared.DbAccess
 {
     using System.Data;
     using MySql.Data.MySqlClient;

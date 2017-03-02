@@ -1,4 +1,4 @@
-namespace Static.Interface
+namespace Shared.Interface
 {
     /// <summary>
     /// Interface for Models and extension methods

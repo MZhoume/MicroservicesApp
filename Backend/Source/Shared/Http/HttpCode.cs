@@ -1,4 +1,4 @@
-namespace Static.Http
+namespace Shared.Http
 {
     /// <summary>
     /// Types for http status code

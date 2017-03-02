@@ -3,7 +3,7 @@ namespace AuthService.Test
     using Amazon.Lambda.APIGatewayEvents;
     using Amazon.Lambda.TestUtilities;
     using AuthService;
-    using Static.Request;
+    using Shared.Request;
     using Xunit;
 
     public class FunctionTest

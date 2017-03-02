@@ -3,7 +3,7 @@ namespace AuthService
     using System.Collections.Generic;
     using Amazon.Lambda.APIGatewayEvents;
     using Amazon.Lambda.Core;
-    using Static.Request;
+    using Shared.Request;
 
     /// <summary>
     /// Authentication Service entry class

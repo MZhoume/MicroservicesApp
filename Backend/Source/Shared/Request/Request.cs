@@ -1,4 +1,4 @@
-namespace Static.Request
+namespace Shared.Request
 {
     using System.Collections.Generic;
     using Newtonsoft.Json;

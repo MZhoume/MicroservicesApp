@@ -1,8 +1,8 @@
-namespace Static.Model
+namespace Shared.Model
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using Static.Interface;
+    using Shared.Interface;
 
     /// <summary>
     /// Define the payment class
