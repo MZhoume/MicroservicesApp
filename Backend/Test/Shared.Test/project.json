@@ -6,6 +6,7 @@
       "type": "platform",
       "version": "1.0.0"
     },
+    "Amazon.Lambda.TestUtilities": "1.0.0*",
     "SimpleInjector": "3.3.2",
     "Moq": "4.6.38-alpha",
     "xunit": "2.1.0-*",

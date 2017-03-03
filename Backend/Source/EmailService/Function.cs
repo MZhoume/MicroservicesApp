@@ -1,6 +1,7 @@
 namespace EmailService
 {
     using Amazon.Lambda.Core;
+    using Shared;
 
     /// <summary>
     /// Lambda function entry class
@@ -13,7 +14,7 @@ namespace EmailService
         /// <param name="input"> Input for lambda handler </param>
         /// <param name="context"> Context info for lambda handler </param>
         /// <returns> Value send to clients </returns>
-        [LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
+        [LambdaSerializer(typeof(LambdaSerializer))]
         public string FunctionHandler(string input, ILambdaContext context)
         {
             return input?.ToUpper();

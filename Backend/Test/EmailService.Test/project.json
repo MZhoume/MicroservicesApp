@@ -13,6 +13,7 @@
     "Amazon.Lambda.Core": "1.0.0*",
     "Amazon.Lambda.TestUtilities": "1.0.0*",
 
+    "Shared": "1.0.0",
     "SimpleInjector": "3.3.2",
 
     "EmailService": "1.0.0",

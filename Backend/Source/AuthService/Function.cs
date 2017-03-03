@@ -3,6 +3,7 @@ namespace AuthService
     using System.Collections.Generic;
     using Amazon.Lambda.APIGatewayEvents;
     using Amazon.Lambda.Core;
+    using Shared;
     using Shared.Authentication;
 
     /// <summary>
@@ -16,7 +17,7 @@ namespace AuthService
         /// <param name="request"> Authentication Request </param>
         /// <param name="context"> API Gateway Custom Authorizer Context </param>
         /// <returns> API Gateway Custom Authorizer Response </returns>
-        [LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
+        [LambdaSerializer(typeof(LambdaSerializer))]
         public APIGatewayCustomAuthorizerResponse FunctionHandler(
             APIGatewayCustomAuthorizerRequest request,
             ILambdaContext context)

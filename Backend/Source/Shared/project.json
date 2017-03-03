@@ -11,6 +11,8 @@
             "type": "platform",
             "version": "1.0.0"
         },
+        "Amazon.Lambda.Core": "1.0.0*",
+        "Amazon.Lambda.Serialization.Json": "1.0.1",
         "Newtonsoft.Json": "9.0.1",
         "jose-jwt": "2.1.0",
         "StyleCop.Analyzers": {
