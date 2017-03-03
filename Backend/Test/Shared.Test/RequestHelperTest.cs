@@ -1,38 +1,10 @@
 namespace Shared.Test
 {
-    using Shared;
     using Shared.Request;
     using Xunit;
 
     public class HelperTest
     {
-        [Fact]
-        public void GetJwtPayloadShouldReturnCorrectJwtPayload()
-        {
-            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjAsIkVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiRmlyc3ROYW1lIjoiQWRtaW4iLCJMYXN0TmFtZSI6IkFkbWluIn0.q4G1zil1ouFVwhF1oEeD6CNA_j25kYNYDQMUuYVbMyY";
-
-            var payload = RequestHelper.GetJwtPayload(token);
-            Assert.Equal(0, payload.UserId);
-            Assert.Equal("admin@admin.com", payload.Email);
-            Assert.Equal("Admin", payload.FirstName);
-            Assert.Equal("Admin", payload.LastName);
-        }
-
-        [Fact]
-        public void GetJwtTokenShouldReturnCorrectJwtToken()
-        {
-            var payload = new JwtPayload()
-            {
-                UserId = 0,
-                Email = "admin@admin.com",
-                FirstName = "Admin",
-                LastName = "Admin"
-            };
-
-            var token = RequestHelper.GetJwtToken(payload);
-            Assert.Equal("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjAsIkVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiRmlyc3ROYW1lIjoiQWRtaW4iLCJMYXN0TmFtZSI6IkFkbWluIn0.q4G1zil1ouFVwhF1oEeD6CNA_j25kYNYDQMUuYVbMyY", token);
-        }
-
         [Fact]
         public void ComposeWhereExpShouldReturnCorrectValue()
         {
