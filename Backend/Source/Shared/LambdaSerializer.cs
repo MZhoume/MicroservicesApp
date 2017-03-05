@@ -4,7 +4,6 @@ namespace Shared
     using System.IO;
     using Amazon.Lambda.Core;
     using Newtonsoft.Json;
-    using Shared;
     using Shared.Http;
 
     /// <summary>
@@ -30,7 +29,10 @@ namespace Shared
         /// <param name="responseStream">Output stream.</param>
         public void Serialize<T>(T response, Stream responseStream)
         {
-            if (!(response is T)) throw new LambdaException(HttpCode.InternalServerError, "");
+            if (!(response is T))
+            {
+                throw new LambdaException(HttpCode.InternalServerError, string.Empty);
+            }
 
             StreamWriter writer = new StreamWriter(responseStream);
             try

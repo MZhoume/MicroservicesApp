@@ -1,6 +1,8 @@
 namespace Shared.Request
 {
+    using System;
     using System.Collections.Generic;
+    using System.Dynamic;
     using System.Text;
 
     /// <summary>
@@ -10,54 +12,87 @@ namespace Shared.Request
     {
         private static Dictionary<SearchOperator, string> operatorMapping = new Dictionary<SearchOperator, string>()
         {
-            [SearchOperator.EQ] = " = ",
-            [SearchOperator.GT] = " > ",
-            [SearchOperator.GE] = " >= ",
-            [SearchOperator.LT] = " < ",
-            [SearchOperator.LE] = " <= ",
-            [SearchOperator.NE] = " != "
+            [SearchOperator.EQ] = "=",
+            [SearchOperator.GT] = ">",
+            [SearchOperator.GE] = ">=",
+            [SearchOperator.LT] = "<",
+            [SearchOperator.LE] = "<=",
+            [SearchOperator.NE] = "!=",
+            [SearchOperator.LIKE] = "LIKE"
         };
 
         /// <summary>
         /// Compose the expression used in where method from the search terms
         /// </summary>
         /// <param name="searchTerms"> Search Terms from the request </param>
+        /// <param name="hasPagingInfo"> Indicates if the paging info is presented </param>
         /// <returns> Composed expression </returns>
-        public static string ComposeWhereExp(params SearchTerm[] searchTerms)
+        public static string ComposeSearchExp(IEnumerable<SearchTerm> searchTerms, bool hasPagingInfo)
         {
-            if (searchTerms.Length == 0)
+            StringBuilder searchStr = new StringBuilder();
+            searchStr.Append("SELECT");
+
+            foreach (var term in searchTerms)
             {
-                return null;
+                searchStr.Append($" {term.Field} {operatorMapping[term.Operator]} @{term.Field},");
             }
 
-            StringBuilder searchStr = new StringBuilder();
-            for (int i = 0; i < searchTerms.Length; i++)
-            {
-                if (i > 0)
-                {
-                    searchStr.Append(" AND ");
-                }
+            searchStr.Remove(searchStr.Length - 1, 1);
 
-                var term = searchTerms[i];
-                if (term.Operator == SearchOperator.LIKE)
-                {
-                    searchStr.Append(term.Field + ".Contains(\"" + term.Value + "\")");
-                }
-                else
-                {
-                    decimal val;
-                    if (decimal.TryParse(term.Value, out val))
-                    {
-                        searchStr.Append(term.Field + operatorMapping[term.Operator] + val);
-                    }
-                    else
-                    {
-                        searchStr.Append(term.Field + operatorMapping[term.Operator] + "DateTime.Parse(\"" + term.Value + "\")");
-                    }
-                }
+            if (hasPagingInfo)
+            {
+                searchStr.Append(" LIMIT @Start,@Count");
             }
 
             return searchStr.ToString();
+        }
+
+        /// <summary>
+        /// Get the search object used in dapper query with paging info
+        /// </summary>
+        /// <param name="searchTerms"> Search Terms to contain </param>
+        /// <param name="pagingInfo"> Paging info to contain </param>
+        /// <returns> Generated object </returns>
+        public static object GetSearchObject(IEnumerable<SearchTerm> searchTerms, PagingInfo pagingInfo)
+        {
+            dynamic obj = new ExpandoObject();
+            var dict = obj as IDictionary<string, object>;
+
+            foreach (var term in searchTerms)
+            {
+                switch (term.Operator)
+                {
+                    case SearchOperator.EQ:
+                    case SearchOperator.GE:
+                    case SearchOperator.GT:
+                    case SearchOperator.LE:
+                    case SearchOperator.LT:
+                    case SearchOperator.NE:
+                        decimal val;
+
+                        if (decimal.TryParse(term.Value, out val))
+                        {
+                            dict.Add(term.Field, val);
+                        }
+                        else
+                        {
+                            dict.Add(term.Field, DateTime.Parse(term.Value));
+                        }
+
+                        break;
+                    case SearchOperator.LIKE:
+                        dict.Add(term.Field, "%" + term.Value + "%");
+                        break;
+                }
+            }
+
+            if (pagingInfo != null)
+            {
+                dict.Add("Start", pagingInfo.Start);
+                dict.Add("Count", pagingInfo.Count);
+            }
+
+            return obj;
         }
     }
 }
