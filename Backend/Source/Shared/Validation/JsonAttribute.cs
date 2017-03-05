@@ -15,7 +15,10 @@ namespace Shared.Validation
         /// <returns> Is the value valid </returns>
         public override bool IsValid(object value)
         {
-            if (!(value is string)) return false;
+            if (!(value is string))
+            {
+                return false;
+            }
 
             try
             {
