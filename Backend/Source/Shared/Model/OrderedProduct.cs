@@ -27,11 +27,11 @@ namespace Shared.Model
         public int ProductId { get; set; }
 
         /// <summary>
-        /// Gets or sets product amount
+        /// Gets or sets product count
         /// </summary>
-        /// <returns>Return amount</returns>
+        /// <returns>Return count</returns>
         [Required]
         [Range(0, int.MaxValue)]
-        public int Amount { get; set; }
+        public int Count { get; set; }
     }
 }

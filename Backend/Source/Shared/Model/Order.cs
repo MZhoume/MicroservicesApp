@@ -3,6 +3,7 @@ namespace Shared.Model
     using System;
     using System.ComponentModel.DataAnnotations;
     using Shared.Interface;
+    using Shared.Validation;
 
     /// <summary>
     /// Define order class
@@ -23,6 +24,7 @@ namespace Shared.Model
         /// </summary>
         /// <returns>Return  products</returns>
         [Required(AllowEmptyStrings = false)]
+        [Json]
         public string Products { get; set; }
 
         /// <summary>

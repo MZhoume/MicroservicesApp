@@ -2,6 +2,7 @@ namespace Shared.Model
 {
     using System.ComponentModel.DataAnnotations;
     using Shared.Interface;
+    using Shared.Validation;
 
     /// <summary>
     /// Define a user class
@@ -58,6 +59,7 @@ namespace Shared.Model
         /// Gets or sets user's addressIds
         /// </summary>
         /// <returns>Return addressIds</returns>
+        [Json]
         public string AddressIds { get; set; }
     }
 }
