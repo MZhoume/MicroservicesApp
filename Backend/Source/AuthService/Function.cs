@@ -1,3 +1,8 @@
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo(
+    "AuthService.Test"
+)]
+
 namespace AuthService
 {
     using System.Collections.Generic;
@@ -20,7 +25,8 @@ namespace AuthService
         [LambdaSerializer(typeof(LambdaSerializer))]
         public APIGatewayCustomAuthorizerResponse FunctionHandler(
             APIGatewayCustomAuthorizerRequest request,
-            ILambdaContext context)
+            ILambdaContext context
+        )
         {
             var token = request.AuthorizationToken;
             var response = new APIGatewayCustomAuthorizerResponse();

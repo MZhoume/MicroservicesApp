@@ -1,3 +1,8 @@
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo(
+    "EmailService.Test"
+)]
+
 namespace EmailService
 {
     using Amazon.Lambda.Core;

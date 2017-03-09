@@ -1,3 +1,8 @@
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo(
+    "ProductService.Test"
+)]
+
 namespace ProductService
 {
     using Amazon.Lambda.Core;

@@ -1,3 +1,8 @@
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo(
+    "ExampleService.Test"
+)]
+
 namespace ExampleService
 {
     using Amazon.Lambda.Core;

@@ -1,3 +1,8 @@
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo(
+    "Shared.Test"
+)]
+
 namespace Shared
 {
     using System;

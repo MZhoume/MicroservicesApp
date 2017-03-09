@@ -1,3 +1,8 @@
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo(
+    "OrderService.Test"
+)]
+
 namespace OrderService
 {
     using Amazon.Lambda.Core;

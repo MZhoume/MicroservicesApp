@@ -1,3 +1,8 @@
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo(
+    "PaymentService.Test"
+)]
+
 namespace PaymentService
 {
     using Amazon.Lambda.Core;

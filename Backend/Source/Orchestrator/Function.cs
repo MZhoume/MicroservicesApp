@@ -1,3 +1,8 @@
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo(
+    "Orchestrator.Test"
+)]
+
 namespace Orchestrator
 {
     using Amazon.Lambda.Core;

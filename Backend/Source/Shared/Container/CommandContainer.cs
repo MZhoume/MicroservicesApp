@@ -13,30 +13,34 @@ namespace Shared.Container
         private Dictionary<Operation, Type> container = new Dictionary<Operation, Type>();
 
         /// <summary>
-        /// Register a command with the key
-        /// </summary>
-        public CommandContainer Register<TCommand>(Operation operation)
-        where TCommand : ICommand
-        {
-            container.Add(operation, typeof(TCommand));
-
-            return this;
-        }
-
-        /// <summary>
         /// Gets the registered command with given key
         /// </summary>
-        public ICommand this[Operation key]
+        /// <param name="operation"> The Operation to register </param>
+        public ICommand this[Operation operation]
         {
             get
             {
-                if (!container.ContainsKey(key))
+                if (!this.container.ContainsKey(operation))
                 {
-                    throw new NotImplementedException($"Key {key} is not supported.");
+                    throw new NotImplementedException($"Key {operation} is not supported.");
                 }
 
-                return (ICommand)Activator.CreateInstance(container[key]);
+                return (ICommand)Activator.CreateInstance(this.container[operation]);
             }
+        }
+
+        /// <summary>
+        /// Register a command with the key
+        /// </summary>
+        /// <param name="operation"> The Operation to register </param>
+        /// <typeparam name="TCommand"> The type of the command </typeparam>
+        /// <returns> This for chining call </returns>
+        public CommandContainer Register<TCommand>(Operation operation)
+        where TCommand : ICommand
+        {
+            this.container.Add(operation, typeof(TCommand));
+
+            return this;
         }
     }
 }
