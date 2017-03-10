@@ -1,7 +1,12 @@
 namespace Shared.DbAccess
 {
+    using System;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Data;
+    using System.Linq;
+    using System.Reflection;
     using MySql.Data.MySqlClient;
+    using Shared.Interface;
 
     /// <summary>
     /// Helper class for DB access
@@ -9,11 +14,29 @@ namespace Shared.DbAccess
     public static class DbHelper
     {
         private static string dbConnStr = "server=coms6998.cjxpxg26eyfq.us-east-1.rds.amazonaws.com:3306;uid=admin;pwd=columbia.edu;database=coms6998;";
+        private static IDbConnection connection = new MySqlConnection(dbConnStr);
 
         /// <summary>
         /// Gets the underlying DB Connection
         /// </summary>
         /// <returns> The IDbConnection object </returns>
-        public static IDbConnection DbConnection { get; } = new MySqlConnection(dbConnStr);
+        public static IDbConnection Connection => connection;
+
+        /// <summary>
+        /// Get the TableName from the model attribute
+        /// </summary>
+        /// <typeparam name="T"> The type for the data model </typeparam>
+        /// <returns> The TableName </returns>
+        public static string GetTableName<T>()
+        where T : IModel
+        {
+            var attrs = typeof(T).GetTypeInfo().GetCustomAttributes(false).OfType<TableAttribute>();
+            if (attrs.Count() == 0)
+            {
+                throw new ArgumentException($"{typeof(T).Name} does not have TableAttribute.");
+            }
+
+            return attrs.First().Name;
+        }
     }
 }
