@@ -3,6 +3,8 @@ namespace AuthService.Test
     using Amazon.Lambda.APIGatewayEvents;
     using Amazon.Lambda.TestUtilities;
     using AuthService;
+    using AuthService.Policy;
+    using Shared.EnumHelper;
     using Shared.Authentication;
     using Xunit;
 
@@ -30,8 +32,8 @@ namespace AuthService.Test
 
             var validPolicy = function.FunctionHandler(validRequest, context).PolicyDocument;
 
-            Assert.Equal(validPolicy.Statement[0].Effect, Effect.Allow);
-            Assert.True(validPolicy.Statement[0].Action.Contains(CustomAuthorizerHelper.ComposeAction(AuthService.Action.Invoke)));
+            Assert.Equal(validPolicy.Statement[0].Effect, Effect.Allow.GetStringValue());
+            Assert.True(validPolicy.Statement[0].Action.Contains(CustomAuthorizerHelper.ComposeAction(Action.Invoke)));
             Assert.True(validPolicy.Statement[0].Resource.Contains("arn:aws:execute-api:<regionId>:<accountId>:<apiId>/<stage>/*/*"));
         }
 
@@ -49,8 +51,8 @@ namespace AuthService.Test
 
             var invalidPolicy = function.FunctionHandler(invalidRequest, context).PolicyDocument;
 
-            Assert.Equal(invalidPolicy.Statement[0].Effect, Effect.Deny);
-            Assert.True(invalidPolicy.Statement[0].Action.Contains(CustomAuthorizerHelper.ComposeAction(AuthService.Action.All)));
+            Assert.Equal(invalidPolicy.Statement[0].Effect, Effect.Deny.GetStringValue());
+            Assert.True(invalidPolicy.Statement[0].Action.Contains(CustomAuthorizerHelper.ComposeAction(Action.All)));
             Assert.True(invalidPolicy.Statement[0].Resource.Contains("arn:aws:execute-api:*:*:*/*/*/*"));
         }
     }

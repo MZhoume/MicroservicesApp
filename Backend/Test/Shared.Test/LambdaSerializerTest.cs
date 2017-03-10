@@ -30,15 +30,6 @@ namespace Shared.Test
         }
 
         [Fact]
-        public void InvalidObjectShouldNotSerialize()
-        {
-            var serializer = new LambdaSerializer();
-            var stream = new MemoryStream();
-
-            Assert.Throws(typeof(LambdaException), () => serializer.Serialize<TestRequest>(null, stream));
-        }
-
-        [Fact]
         public void ValidJsonShouldDeserialize()
         {
             var serializer = new LambdaSerializer();

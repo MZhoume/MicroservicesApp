@@ -15,15 +15,10 @@ namespace Shared.Validation
         /// <returns> Is the value valid </returns>
         public override bool IsValid(object value)
         {
-            if (!(value is string))
-            {
-                return false;
-            }
-
             try
             {
-                JsonConvert.DeserializeObject(value as string);
-                return true;
+                var str = value as string;
+                return str == null || JsonConvert.DeserializeObject(str) != null;
             }
             catch
             {
