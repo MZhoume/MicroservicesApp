@@ -2,12 +2,14 @@ namespace Shared.Model
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Shared.Interface;
     using Shared.Validation;
 
     /// <summary>
     /// Define order class
     /// </summary>
+    [Table("Orders")]
     public sealed class Order : IModel
     {
         /// <summary>

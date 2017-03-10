@@ -1,12 +1,14 @@
 namespace Shared.Model
 {
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Shared.Interface;
     using Shared.Validation;
 
     /// <summary>
     /// Define a user class
     /// </summary>
+    [Table("Users")]
     public sealed class User : IModel
     {
         /// <summary>

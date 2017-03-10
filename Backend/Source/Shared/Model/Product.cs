@@ -1,11 +1,13 @@
 namespace Shared.Model
 {
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Shared.Interface;
 
     /// <summary>
     /// Define  product class
     /// </summary>
+    [Table("Products")]
     public sealed class Product : IModel
     {
         /// <summary>

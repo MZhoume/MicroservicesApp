@@ -1,11 +1,13 @@
 namespace Shared.Model
 {
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Shared.Interface;
 
     /// <summary>
     /// Define address class
     /// </summary>
+    [Table("Addresses")]
     public sealed class Address : IModel
     {
         /// <summary>

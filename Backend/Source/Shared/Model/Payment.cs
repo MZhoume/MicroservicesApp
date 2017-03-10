@@ -2,11 +2,13 @@ namespace Shared.Model
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Shared.Interface;
 
     /// <summary>
     /// Define the payment class
     /// </summary>
+    [Table("Payments")]
     public sealed class Payment : IModel
     {
         /// <summary>
