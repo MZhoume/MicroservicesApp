@@ -10,24 +10,13 @@ namespace Shared.Container
     /// </summary>
     public class CommandContainer
     {
-        private Dictionary<Operation, Type> container = new Dictionary<Operation, Type>();
+        private readonly Dictionary<Operation, Type> container = new Dictionary<Operation, Type>();
 
         /// <summary>
         /// Gets the registered command with given key
         /// </summary>
         /// <param name="operation"> The Operation to register </param>
-        public ICommand this[Operation operation]
-        {
-            get
-            {
-                if (!this.container.ContainsKey(operation))
-                {
-                    throw new NotImplementedException($"Key {operation} is not supported.");
-                }
-
-                return (ICommand)Activator.CreateInstance(this.container[operation]);
-            }
-        }
+        public ICommand this[Operation operation] => (ICommand)Activator.CreateInstance(this.container[operation]);
 
         /// <summary>
         /// Register a command with the key

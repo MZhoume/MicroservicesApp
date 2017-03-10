@@ -16,15 +16,7 @@ namespace Shared
     /// </summary>
     public class LambdaSerializer : ILambdaSerializer
     {
-        private Newtonsoft.Json.JsonSerializer serializer;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LambdaSerializer"/> class.
-        /// </summary>
-        public LambdaSerializer()
-        {
-            this.serializer = Newtonsoft.Json.JsonSerializer.Create();
-        }
+        private readonly JsonSerializer serializer = new JsonSerializer();
 
         /// <summary>
         /// Serializes a particular object to a stream.
@@ -34,11 +26,6 @@ namespace Shared
         /// <param name="responseStream">Output stream.</param>
         public void Serialize<T>(T response, Stream responseStream)
         {
-            if (!(response is T))
-            {
-                throw new LambdaException(HttpCode.InternalServerError, string.Empty);
-            }
-
             StreamWriter writer = new StreamWriter(responseStream);
             try
             {
@@ -63,17 +50,14 @@ namespace Shared
             StreamReader reader = new StreamReader(requestStream);
             JsonReader jsonReader = new JsonTextReader(reader);
 
-            T obj;
             try
             {
-                obj = this.serializer.Deserialize<T>(jsonReader);
+                return this.serializer.Deserialize<T>(jsonReader);
             }
             catch (Exception ex)
             {
                 throw new LambdaException(HttpCode.BadRequest, ex.Message);
             }
-
-            return obj;
         }
     }
 }
