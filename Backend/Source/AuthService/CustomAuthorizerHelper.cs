@@ -1,5 +1,8 @@
 namespace AuthService
 {
+    using AuthService.Policy;
+    using Shared.EnumHelper;
+
     /// <summary>
     /// Static helper class for composing authorizer response contents
     /// </summary>
@@ -10,9 +13,9 @@ namespace AuthService
         /// </summary>
         /// <param name="action"> Action allowed for the user </param>
         /// <returns> Composed action string </returns>
-        public static string ComposeAction(string action)
+        public static string ComposeAction(Action action)
         {
-            return $"execute-api:{action}";
+            return $"execute-api:{action.GetStringValue()}";
         }
 
         /// <summary>

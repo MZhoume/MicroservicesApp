@@ -8,8 +8,10 @@ namespace AuthService
     using System.Collections.Generic;
     using Amazon.Lambda.APIGatewayEvents;
     using Amazon.Lambda.Core;
+    using AuthService.Policy;
     using Shared;
     using Shared.Authentication;
+    using Shared.EnumHelper;
 
     /// <summary>
     /// Authentication Service entry class
@@ -48,10 +50,12 @@ namespace AuthService
                 var apiId = apiVars[0];
                 var stage = apiVars[1];
 
+                var any = Resource.Any.GetStringValue();
                 this.AllowOperation(
                         statement,
                         CustomAuthorizerHelper.ComposeAction(Action.Invoke),
-                        CustomAuthorizerHelper.ComposeResource(region, accountId, apiId, stage, Resource.Any, Resource.Any));
+                        CustomAuthorizerHelper.ComposeResource(region, accountId, apiId, stage, any, any)
+                );
             }
             catch
             {
@@ -70,7 +74,7 @@ namespace AuthService
         /// <param name="resource"> Resource to allow </param>
         private void AllowOperation(APIGatewayCustomAuthorizerPolicy.IAMPolicyStatement statement, string action, string resource)
         {
-            statement.Effect = Effect.Allow;
+            statement.Effect = Effect.Allow.GetStringValue();
             statement.Action.Add(action);
             statement.Resource.Add(resource);
         }
@@ -81,10 +85,11 @@ namespace AuthService
         /// <param name="statement"> Statement to modify </param>
         private void DenyAll(APIGatewayCustomAuthorizerPolicy.IAMPolicyStatement statement)
         {
-            statement.Effect = Effect.Deny;
+            var any = Resource.Any.GetStringValue();
+            statement.Effect = Effect.Deny.GetStringValue();
             statement.Action.Add(CustomAuthorizerHelper.ComposeAction(Action.All));
             statement.Resource.Add(CustomAuthorizerHelper.ComposeResource(
-                Resource.Any, Resource.Any, Resource.Any, Resource.Any, Resource.Any, Resource.Any));
+                any, any, any, any, any, any));
         }
     }
 }
