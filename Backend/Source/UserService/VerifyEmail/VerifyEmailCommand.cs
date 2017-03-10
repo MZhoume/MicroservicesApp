@@ -1,6 +1,7 @@
 namespace UserService.VerifyEmail
 {
     using System.Data;
+    using BCrypt.Net;
     using Dapper.Contrib.Extensions;
     using Shared.Authentication;
     using Shared.DbAccess;
@@ -9,6 +10,7 @@ namespace UserService.VerifyEmail
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
+    using UserService.Model;
 
     /// <summary>
     /// The command for VerifyEmail Operation
@@ -43,9 +45,19 @@ namespace UserService.VerifyEmail
         {
             var response = new Response();
 
-            var emailPayload = AuthHelper.GetCustomAuthPayload<User>(request.AuthToken);
-            emailPayload.Validate();
-            this.connection.Insert<User>(emailPayload);
+            var payload = AuthHelper.GetCustomAuthPayload<SignUpUser>(request.AuthToken);
+            payload.Validate();
+
+            var user = new User()
+            {
+                Email = payload.Email,
+                PwdHash = BCrypt.HashPassword(payload.Password, BCrypt.GenerateSalt()),
+                FirstName = payload.FirstName,
+                LastName = payload.LastName,
+                PhoneNumber = payload.PhoneNumber,
+                AddressIds = payload.AddressIds
+            };
+            this.connection.Insert<User>(user);
 
             return response;
         }

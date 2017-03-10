@@ -13,7 +13,7 @@ namespace Shared.DbAccess
     /// </summary>
     public static class DbHelper
     {
-        private static string dbConnStr = "server=coms6998.cjxpxg26eyfq.us-east-1.rds.amazonaws.com:3306;uid=admin;pwd=columbia.edu;database=coms6998;";
+        private static string dbConnStr = "Server=coms6998.cjxpxg26eyfq.us-east-1.rds.amazonaws.com;Uid=admin;Pwd=columbia.edu;Database=coms6998;";
         private static IDbConnection connection = new MySqlConnection(dbConnStr);
 
         /// <summary>

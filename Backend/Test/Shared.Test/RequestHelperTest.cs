@@ -25,8 +25,8 @@ namespace Shared.Test
                 }
             };
 
-            var exp = RequestHelper.ComposeSearchExp(terms, false);
-            Assert.Equal("SELECT Id <= @Id, Email LIKE @Email, Time > @Time", exp);
+            var exp = RequestHelper.ComposeSearchExp(terms, "Test", false);
+            Assert.Equal("SELECT * FROM Test WHERE Id <= @Id AND Email LIKE @Email AND Time > @Time", exp);
         }
 
         [Fact]
@@ -48,8 +48,8 @@ namespace Shared.Test
                 }
             };
 
-            var exp = RequestHelper.ComposeSearchExp(terms, true);
-            Assert.Equal("SELECT Id <= @Id, Email LIKE @Email, Time > @Time LIMIT @Start,@Count", exp);
+            var exp = RequestHelper.ComposeSearchExp(terms, "Test", true);
+            Assert.Equal("SELECT * FROM Test WHERE Id <= @Id AND Email LIKE @Email AND Time > @Time LIMIT @Start,@Count", exp);
         }
 
         [Fact]

@@ -3,6 +3,7 @@ namespace Shared.Request
     using System;
     using System.Collections.Generic;
     using System.Dynamic;
+    using System.Linq;
     using System.Text;
 
     /// <summary>
@@ -25,19 +26,25 @@ namespace Shared.Request
         /// Compose the expression used in where method from the search terms
         /// </summary>
         /// <param name="searchTerms"> Search Terms from the request </param>
+        /// <param name="tableName"> The table name for the search </param>
         /// <param name="hasPagingInfo"> Indicates if the paging info is presented </param>
         /// <returns> Composed expression </returns>
-        public static string ComposeSearchExp(IEnumerable<SearchTerm> searchTerms, bool hasPagingInfo)
+        public static string ComposeSearchExp(IEnumerable<SearchTerm> searchTerms, string tableName, bool hasPagingInfo)
         {
             StringBuilder searchStr = new StringBuilder();
-            searchStr.Append("SELECT");
+            searchStr.Append($"SELECT * FROM {tableName} WHERE");
 
-            foreach (var term in searchTerms)
+            var terms = searchTerms.ToArray();
+            for (int i = 0; i < terms.Length; i++)
             {
-                searchStr.Append($" {term.Field} {operatorMapping[term.Operator]} @{term.Field},");
-            }
+                if (i > 0)
+                {
+                    searchStr.Append(" AND");
+                }
 
-            searchStr.Remove(searchStr.Length - 1, 1);
+                var term = terms[i];
+                searchStr.Append($" {term.Field} {operatorMapping[term.Operator]} @{term.Field}");
+            }
 
             if (hasPagingInfo)
             {

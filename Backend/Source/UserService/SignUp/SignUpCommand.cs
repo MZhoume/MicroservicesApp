@@ -1,14 +1,15 @@
 namespace UserService.SignUp
 {
+    using System;
     using System.Threading.Tasks;
     using Amazon.SimpleNotificationService;
     using Shared.Authentication;
     using Shared.Email;
     using Shared.Interface;
-    using Shared.Model;
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
+    using UserService.Model;
 
     /// <summary>
     /// Command for SignUp operation
@@ -43,12 +44,16 @@ namespace UserService.SignUp
         {
             var response = new Response();
 
-            var signUpPayload = request.Payload.ToObject<User>();
-            signUpPayload.Validate();
-            var emailToken = AuthHelper.GenerateCustomAuthToken(signUpPayload);
+            var payload = request.Payload.ToObject<SignUpUser>();
+            payload.Validate();
+            var emailToken = AuthHelper.GenerateCustomAuthToken(payload);
 
             Task.Factory.StartNew(
-                async () => await this.snsClient.PublishAsync(EmailHelper.EmailTopicArn, emailToken)
+                async () =>
+                {
+                    await this.snsClient.PublishAsync(EmailHelper.EmailTopicArn, emailToken);
+                    Console.WriteLine("Email Sent.");
+                }
             ).Wait();
 
             return response;

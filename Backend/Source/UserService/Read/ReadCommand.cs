@@ -42,10 +42,10 @@ namespace UserService.Read
         {
             var response = new Response();
 
-            var readRes = this.connection.Query<User>(
-                RequestHelper.ComposeSearchExp(request.SearchTerm, request.PagingInfo != null),
+            var res = this.connection.Query<User>(
+                RequestHelper.ComposeSearchExp(request.SearchTerm, DbHelper.GetTableName<User>(), request.PagingInfo != null),
                 RequestHelper.GetSearchObject(request.SearchTerm, request.PagingInfo));
-            response.Payload = readRes.ToArray();
+            response.Payload = res.ToArray();
 
             return response;
         }

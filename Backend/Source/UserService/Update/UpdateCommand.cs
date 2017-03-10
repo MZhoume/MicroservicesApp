@@ -42,9 +42,9 @@ namespace UserService.Update
         {
             var response = new Response();
 
-            var updatePayload = request.Payload.ToObject<User>();
-            updatePayload.Validate();
-            this.connection.Update<User>(updatePayload);
+            var payload = request.Payload.ToObject<User>();
+            payload.Validate();
+            this.connection.Update<User>(payload);
 
             return response;
         }
