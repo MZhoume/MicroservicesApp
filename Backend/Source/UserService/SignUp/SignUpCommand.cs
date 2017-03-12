@@ -52,7 +52,7 @@ namespace UserService.SignUp
                 async () =>
                 {
                     await this.snsClient.PublishAsync(EmailHelper.EmailTopicArn, emailToken);
-                    Console.WriteLine("Email Sent.");
+                    Console.WriteLine($"Email request for {payload.Email} published to topic.");
                 }
             ).Wait();
 

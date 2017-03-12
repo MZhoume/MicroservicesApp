@@ -20,7 +20,7 @@ namespace Shared.Test
                 LastName = "Test"
             };
 
-            Assert.Equal(u, u.Validate());
+            u.Validate();
         }
 
         [Fact]

@@ -57,6 +57,8 @@ namespace UserService.VerifyEmail
                 PhoneNumber = payload.PhoneNumber,
                 AddressIds = payload.AddressIds
             };
+            user.Validate();
+
             this.connection.Insert<User>(user);
 
             return response;

@@ -14,10 +14,10 @@ namespace Shared.Validation
         /// Extension method used to validate the model
         /// </summary>
         /// <param name="model"> The model to validate </param>
-        /// <returns> If valid returns the model itself </returns>
-        public static IModel Validate(this IModel model)
+        public static void Validate(this IModel model)
         {
-            foreach (var prop in model.GetType().GetProperties())
+            var type = model.GetType();
+            foreach (var prop in type.GetProperties())
             {
                 foreach (var att in prop.GetCustomAttributes(false).OfType<ValidationAttribute>())
                 {
@@ -25,7 +25,10 @@ namespace Shared.Validation
                 }
             }
 
-            return model;
+            foreach (var att in type.GetTypeInfo().GetCustomAttributes(false).OfType<ValidationAttribute>())
+            {
+                att.Validate(model, type.Name);
+            }
         }
     }
 }

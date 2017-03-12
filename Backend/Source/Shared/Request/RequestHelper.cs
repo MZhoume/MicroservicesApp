@@ -37,13 +37,7 @@ namespace Shared.Request
             var terms = searchTerms.ToArray();
             for (int i = 0; i < terms.Length; i++)
             {
-                if (i > 0)
-                {
-                    searchStr.Append(" AND");
-                }
-
-                var term = terms[i];
-                searchStr.Append($" {term.Field} {operatorMapping[term.Operator]} @{term.Field}");
+                searchStr.Append($"{(i > 0 ? " AND" : "")} {terms[i].Field} {operatorMapping[terms[i].Operator]} @{terms[i].Field}");
             }
 
             if (hasPagingInfo)

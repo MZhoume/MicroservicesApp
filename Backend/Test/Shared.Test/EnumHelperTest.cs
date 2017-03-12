@@ -3,18 +3,21 @@ namespace Shared.Test
     using Shared.EnumHelper;
     using Xunit;
 
-    public class AttributeTest
+    public class EnumHelperTest
     {
         private enum Test
         {
             [StringValue("Test")]
-            Test
+            Test,
+
+            [StringValue("Test2")]
+            Test2
         }
 
         [Fact]
         public void EnumStringValueTest()
         {
-            Assert.Equal("Test", Test.Test.GetStringValue());
+            Assert.Equal("Test2", Test.Test2.GetStringValue());
         }
     }
 }

@@ -14,13 +14,12 @@ namespace Shared.DbAccess
     public static class DbHelper
     {
         private static string dbConnStr = "Server=coms6998.cjxpxg26eyfq.us-east-1.rds.amazonaws.com;Uid=admin;Pwd=columbia.edu;Database=coms6998;";
-        private static IDbConnection connection = new MySqlConnection(dbConnStr);
 
         /// <summary>
         /// Gets the underlying DB Connection
         /// </summary>
         /// <returns> The IDbConnection object </returns>
-        public static IDbConnection Connection => connection;
+        public static IDbConnection Connection => new MySqlConnection(dbConnStr);
 
         /// <summary>
         /// Get the TableName from the model attribute
@@ -31,6 +30,7 @@ namespace Shared.DbAccess
         where T : IModel
         {
             var attrs = typeof(T).GetTypeInfo().GetCustomAttributes(false).OfType<TableAttribute>();
+
             if (attrs.Count() == 0)
             {
                 throw new ArgumentException($"{typeof(T).Name} does not have TableAttribute.");

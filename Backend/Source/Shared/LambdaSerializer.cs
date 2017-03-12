@@ -50,14 +50,21 @@ namespace Shared
             StreamReader reader = new StreamReader(requestStream);
             JsonReader jsonReader = new JsonTextReader(reader);
 
+            T obj;
             try
             {
-                return this.serializer.Deserialize<T>(jsonReader);
+                obj = this.serializer.Deserialize<T>(jsonReader);
             }
             catch (Exception ex)
             {
                 throw new LambdaException(HttpCode.BadRequest, ex.Message);
             }
+
+            if (obj == null)
+            {
+                throw new LambdaException(HttpCode.BadRequest, "Cannot deserialize the request object.");
+            }
+            return obj;
         }
     }
 }
