@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 namespace EmailService
 {
     using Amazon.Lambda.Core;
+    using Amazon.Lambda.SNSEvents;
     using Shared;
 
     /// <summary>
@@ -16,13 +17,13 @@ namespace EmailService
         /// <summary>
         /// Example lambda function handler
         /// </summary>
-        /// <param name="input"> Input for lambda handler </param>
+        /// <param name="snsEvent"> SNS Event for lambda handler </param>
         /// <param name="context"> Context info for lambda handler </param>
         /// <returns> Value send to clients </returns>
         [LambdaSerializer(typeof(LambdaSerializer))]
-        public string FunctionHandler(string input, ILambdaContext context)
+        public string FunctionHandler(SNSEvent snsEvent, ILambdaContext context)
         {
-            return input?.ToUpper();
+            return null;
         }
     }
 }
