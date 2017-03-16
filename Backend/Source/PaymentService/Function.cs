@@ -5,8 +5,16 @@ using System.Runtime.CompilerServices;
 
 namespace PaymentService
 {
+    using System;
     using Amazon.Lambda.Core;
     using Shared;
+    using Shared.Container;
+    using Shared.Http;
+    using Shared.Request;
+    using Shared.Response;
+    using PaymentService.Read;
+    using PaymentService.Update;
+    using PaymentService.Create;
 
     /// <summary>
     /// Lambda function entry class
@@ -14,15 +22,59 @@ namespace PaymentService
     public class Function
     {
         /// <summary>
-        /// Example lambda function handler
+        /// PaymentService lambda function handler
         /// </summary>
-        /// <param name="input"> Input for lambda handler </param>
+        /// <param name="request"> Request for lambda handler </param>
         /// <param name="context"> Context info for lambda handler </param>
-        /// <returns> Value send to clients </returns>
+        /// <returns> Lambda response </returns>
         [LambdaSerializer(typeof(LambdaSerializer))]
-        public string FunctionHandler(string input, ILambdaContext context)
+        public Response FunctionHandler(Request request, ILambdaContext context)
         {
-            return input?.ToUpper();
+            // var response = new Response();
+            // try
+            // {
+            //     switch (request.Operation)
+            //     {
+            //         case Operation.Read:
+            //             var readRes = DbHelper.DbConnection.Query<Payment>(
+            //                 RequestHelper.ComposeSearchExp(request.SearchTerm, request.PagingInfo != null),
+            //                 RequestHelper.GetSearchObject(request.SearchTerm, request.PagingInfo));
+            //                 response.Payload = readRes.ToArray();
+            //                 break;
+            //         case Operation.Update:
+            //             var updatePayload = request.Payload.ToObject<Payment>();
+            //             updatePayload.Validate();
+            //             DbHelper.DbConnection.Update<Payment>(updatePayload);
+            //             break;
+            //         case Operation.Create:
+            //             var createPayload = request.Payload.ToObject<Payment>();
+            //             createPayload.Validate();
+            //             Charge.createCharge(createPayload.StripToken, System.Convert.ToInt32(createPayload.Charge));
+            //             DbHelper.DbConnection.Insert<Payment>(createPayload);
+            //             break;
+            //     }
+            // }
+            // catch (Exception ex)
+            // {
+            //     throw new LambdaException(HttpCode.BadRequest, ex.Message);
+            // }
+
+            // return response;
+            var container = new CommandContainer();
+
+            container.Register<CreateCommand>(Operation.Create)
+                     .Register<ReadCommand>(Operation.Read)
+                     .Register<UpdateCommand>(Operation.Update);
+
+            try
+            {
+                return container[request.Operation].Invoke(request);
+            }
+            catch(Exception ex)
+            {
+                throw new LambdaException(HttpCode.BadRequest, ex.Message);
+            }
         }
+
     }
 }
