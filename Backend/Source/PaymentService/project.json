@@ -13,11 +13,12 @@
 
     "Amazon.Lambda.Core": "1.0.0*",
     "Amazon.Lambda.Serialization.Json": "1.0.1",
-
+    "Dapper": "1.50.2",
+    "MySql.Data": "7.0.6-ir31",
     "Shared": "1.0.0",
-
+    "Newtonsoft.Json": "9.0.2-beta2",
     "SimpleInjector": "3.3.2",
-
+    "Stripe.net": "7.4.0",
     "Amazon.Lambda.Tools" : {
       "version":"1.2.0-preview1",
       "type" :"build"
@@ -26,7 +27,10 @@
     "StyleCop.Analyzers": {
       "version": "1.0.0",
       "type": "build"
-    }
+    },
+    "AWSSDK.SimpleNotificationService": "3.3.0.7",
+    "BCrypt.Net-Core": "1.1.0",
+    "Dapper.Contrib": "1.50.0"
   },
 
   "tools": {
