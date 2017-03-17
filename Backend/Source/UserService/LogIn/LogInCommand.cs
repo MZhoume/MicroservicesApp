@@ -47,22 +47,22 @@ namespace UserService.LogIn
         {
             var response = new Response();
 
-            var payload = request.Payload.ToObject<LoginModel>();
+            var payload = request.Payload.ToObject<LogInModel>();
             payload.Validate();
 
-            var loginRes = this.connection.Query<User>(
-                $"SELECT * FROM {DbHelper.GetTableName<User>()} WHERE Email = @Email ",
+            var user = this.connection.Query<User>(
+                $"SELECT * FROM {DbHelper.GetTableName<User>()} WHERE Email = @Email",
                 new { Email = payload.Email }
             ).First();
 
-            if (BCrypt.Verify(payload.Password, loginRes.PwdHash))
+            if (BCrypt.Verify(payload.Password, user.PwdHash))
             {
                 var loginToken = AuthHelper.GenerateAuthToken(new AuthPayload()
                 {
-                    UserId = loginRes.Id,
-                    Email = loginRes.Email,
-                    FirstName = loginRes.FirstName,
-                    LastName = loginRes.LastName,
+                    UserId = user.Id,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
                     DateTime = DateTime.Now
                 });
                 response.Payload = loginToken;
