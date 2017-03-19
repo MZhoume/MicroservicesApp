@@ -72,6 +72,7 @@ namespace AuthService
             statement.Action.Add(action);
             statement.Resource.Add(resource);
         }
+
         private void DenyAll(APIGatewayCustomAuthorizerPolicy.IAMPolicyStatement statement)
         {
             var any = Resource.Any.GetStringValue();
