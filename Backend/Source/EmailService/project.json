@@ -23,7 +23,9 @@
             "version": "1.0.0",
             "type": "build"
         },
-        "Amazon.Lambda.SNSEvents": "1.0.0"
+        "Amazon.Lambda.SNSEvents": "1.0.0",
+        "Newtonsoft.Json": "9.0.1",
+        "AWSSDK.SimpleEmail": "3.3.1.8"
     },
     "tools": {
         "Amazon.Lambda.Tools": "1.2.0-preview1"
