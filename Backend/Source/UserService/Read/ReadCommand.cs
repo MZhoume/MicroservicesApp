@@ -1,6 +1,7 @@
 namespace UserService.Read
 {
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Dapper;
     using Shared.DbAccess;
@@ -8,19 +9,27 @@ namespace UserService.Read
     using Shared.Model;
     using Shared.Request;
     using Shared.Response;
+    using SimpleInjector;
 
     /// <summary>
     /// Command for Read Operation
     /// </summary>
     public class ReadCommand : ICommand
     {
+        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1311:StaticReadonlyFieldsMustBeginWithUpperCaseLetter", Justification = "Reviewed.")]
+        private static readonly Container container = new Container();
         private IDbConnection connection;
+
+        static ReadCommand()
+        {
+            container.Register<IDbConnection>(() => DbHelper.Connection);
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReadCommand"/> class.
         /// </summary>
         public ReadCommand()
-            : this(DbHelper.Connection)
+            : this(container.GetInstance<IDbConnection>())
         {
         }
 
@@ -44,7 +53,8 @@ namespace UserService.Read
 
             var res = this.connection.Query<User>(
                 RequestHelper.ComposeSearchExp(request.SearchTerm, DbHelper.GetTableName<User>(), request.PagingInfo != null),
-                RequestHelper.GetSearchObject(request.SearchTerm, request.PagingInfo));
+                RequestHelper.GetSearchObject(request.SearchTerm, request.PagingInfo)
+            );
             response.Payload = res.ToArray();
 
             return response;
