@@ -6,9 +6,11 @@ using System.Runtime.CompilerServices;
 namespace UserService
 {
     using System;
+    using System.Data;
     using Amazon.Lambda.Core;
     using Shared;
     using Shared.Container;
+    using Shared.DbAccess;
     using Shared.Http;
     using Shared.Request;
     using Shared.Response;
@@ -34,7 +36,9 @@ namespace UserService
         {
             var container = new CommandContainer();
 
-            container.Register<LogInCommand>(Operation.LogIn)
+            container.RegisterRequirement<IDbConnection>(() => DbHelper.Connection)
+
+                     .Register<LogInCommand>(Operation.LogIn)
                      .Register<ReadCommand>(Operation.Read)
                      .Register<SignUpCommand>(Operation.SignUp)
                      .Register<UpdateCommand>(Operation.Update)
