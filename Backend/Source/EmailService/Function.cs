@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 namespace EmailService
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using Amazon.Lambda.Core;
     using Amazon.Lambda.SNSEvents;
     using EmailService.Email;
@@ -14,27 +13,19 @@ namespace EmailService
     using Newtonsoft.Json;
     using Shared;
     using Shared.Email;
-    using SimpleInjector;
 
     /// <summary>
     /// Lambda function entry class
     /// </summary>
     public class Function
     {
-        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1311:StaticReadonlyFieldsMustBeginWithUpperCaseLetter", Justification = "Reviewed.")]
-        private static readonly Container container = new Container();
         private readonly IEmailService emailService;
-
-        static Function()
-        {
-            container.Register<IEmailService, AmazonSimpleEmailService>();
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Function"/> class.
         /// </summary>
         public Function()
-            : this(container.GetInstance<IEmailService>())
+            : this(new AmazonSimpleEmailService())
         {
         }
 
@@ -42,7 +33,7 @@ namespace EmailService
         /// Initializes a new instance of the <see cref="Function"/> class for testing.
         /// </summary>
         /// <param name="emailService"> The email service for the command </param>
-        internal Function(IEmailService emailService)
+        public Function(IEmailService emailService)
         {
             this.emailService = emailService;
         }
