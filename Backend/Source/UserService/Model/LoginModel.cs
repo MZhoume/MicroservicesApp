@@ -6,7 +6,7 @@ namespace UserService.Model
     /// <summary>
     /// Model class contains required property for logging in
     /// </summary>
-    public class LoginModel : IModel
+    public class LogInModel : IModel
     {
         /// <summary>
         /// Gets or sets the email address

@@ -66,12 +66,6 @@ namespace AuthService
             return response;
         }
 
-        /// <summary>
-        /// Allow a specific action to the resource
-        /// </summary>
-        /// <param name="statement"> Statement to modify </param>
-        /// <param name="action"> Action to allow </param>
-        /// <param name="resource"> Resource to allow </param>
         private void AllowOperation(APIGatewayCustomAuthorizerPolicy.IAMPolicyStatement statement, string action, string resource)
         {
             statement.Effect = Effect.Allow.GetStringValue();
@@ -79,10 +73,6 @@ namespace AuthService
             statement.Resource.Add(resource);
         }
 
-        /// <summary>
-        /// Deny all actions to the all the resource
-        /// </summary>
-        /// <param name="statement"> Statement to modify </param>
         private void DenyAll(APIGatewayCustomAuthorizerPolicy.IAMPolicyStatement statement)
         {
             var any = Resource.Any.GetStringValue();

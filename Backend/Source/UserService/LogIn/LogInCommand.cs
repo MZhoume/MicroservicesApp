@@ -2,6 +2,7 @@ namespace UserService.LogIn
 {
     using System;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using BCrypt.Net;
     using Dapper;
@@ -12,6 +13,7 @@ namespace UserService.LogIn
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
+    using SimpleInjector;
     using UserService.Model;
 
     /// <summary>
@@ -19,13 +21,20 @@ namespace UserService.LogIn
     /// </summary>
     public class LogInCommand : ICommand
     {
+        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1311:StaticReadonlyFieldsMustBeginWithUpperCaseLetter", Justification = "Reviewed.")]
+        private static readonly Container container = new Container();
         private readonly IDbConnection connection;
+
+        static LogInCommand()
+        {
+            container.Register<IDbConnection>(() => DbHelper.Connection);
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LogInCommand"/> class.
         /// </summary>
         public LogInCommand()
-            : this(DbHelper.Connection)
+            : this(container.GetInstance<IDbConnection>())
         {
         }
 
@@ -47,22 +56,22 @@ namespace UserService.LogIn
         {
             var response = new Response();
 
-            var payload = request.Payload.ToObject<LoginModel>();
+            var payload = request.Payload.ToObject<LogInModel>();
             payload.Validate();
 
-            var loginRes = this.connection.Query<User>(
-                $"SELECT * FROM {DbHelper.GetTableName<User>()} WHERE Email = @Email ",
+            var user = this.connection.Query<User>(
+                $"SELECT * FROM {DbHelper.GetTableName<User>()} WHERE Email = @Email",
                 new { Email = payload.Email }
             ).First();
 
-            if (BCrypt.Verify(payload.Password, loginRes.PwdHash))
+            if (BCrypt.Verify(payload.Password, user.PwdHash))
             {
                 var loginToken = AuthHelper.GenerateAuthToken(new AuthPayload()
                 {
-                    UserId = loginRes.Id,
-                    Email = loginRes.Email,
-                    FirstName = loginRes.FirstName,
-                    LastName = loginRes.LastName,
+                    UserId = user.Id,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
                     DateTime = DateTime.Now
                 });
                 response.Payload = loginToken;
