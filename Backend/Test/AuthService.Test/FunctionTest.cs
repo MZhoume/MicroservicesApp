@@ -4,19 +4,19 @@ namespace AuthService.Test
     using Amazon.Lambda.TestUtilities;
     using AuthService;
     using AuthService.Policy;
-    using Shared.Authentication;
     using Shared.EnumHelper;
+    using Shared.Authentication;
     using Xunit;
 
     public class FunctionTest
     {
         private readonly AuthPayload payload = new AuthPayload()
-        {
-            UserId = 0,
-            Email = "admin@admin.com",
-            FirstName = "Admin",
-            LastName = "Admin"
-        };
+            {
+                UserId = 0,
+                Email = "admin@admin.com",
+                FirstName = "Admin",
+                LastName = "Admin"
+            };
 
         [Fact]
         public void AuthSuccessWithValidToken()

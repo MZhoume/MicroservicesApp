@@ -64,7 +64,6 @@ namespace Shared
             {
                 throw new LambdaException(HttpCode.BadRequest, "Cannot deserialize the request object.");
             }
-
             return obj;
         }
     }

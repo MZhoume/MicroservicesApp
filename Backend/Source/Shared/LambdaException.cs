@@ -17,15 +17,5 @@ namespace Shared
             : base($"[{(int)code}] | {message}")
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LambdaException"/> class
-        /// </summary>
-        /// <param name="code"> Http status code </param>
-        /// <param name="ex"> Exception </param>
-        public LambdaException(HttpCode code, Exception ex)
-            : base($"[{(int)code}] | {ex.Message}")
-        {
-        }
     }
 }

@@ -1,7 +1,6 @@
 namespace UserService.VerifyEmail
 {
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using BCrypt.Net;
     using Dapper.Contrib.Extensions;
     using Shared.Authentication;
@@ -11,7 +10,6 @@ namespace UserService.VerifyEmail
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
-    using SimpleInjector;
     using UserService.Model;
 
     /// <summary>
@@ -19,20 +17,13 @@ namespace UserService.VerifyEmail
     /// </summary>
     public class VerifyEmailCommand : ICommand
     {
-        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1311:StaticReadonlyFieldsMustBeginWithUpperCaseLetter", Justification = "Reviewed.")]
-        private static readonly Container container = new Container();
         private IDbConnection connection;
-
-        static VerifyEmailCommand()
-        {
-            container.Register<IDbConnection>(() => DbHelper.Connection);
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VerifyEmailCommand"/> class.
         /// </summary>
         public VerifyEmailCommand()
-            : this(container.GetInstance<IDbConnection>())
+            : this(DbHelper.Connection)
         {
         }
 

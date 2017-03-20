@@ -1,8 +1,8 @@
 namespace UserService.SignUp
 {
+    using System;
     using System.Threading.Tasks;
     using Amazon.SimpleNotificationService;
-    using Newtonsoft.Json;
     using Shared.Authentication;
     using Shared.Email;
     using Shared.Interface;
@@ -10,13 +10,31 @@ namespace UserService.SignUp
     using Shared.Response;
     using Shared.Validation;
     using UserService.Model;
-    using UserService.Template;
 
     /// <summary>
     /// Command for SignUp operation
     /// </summary>
     public class SignUpCommand : ICommand
     {
+        private AmazonSimpleNotificationServiceClient snsClient;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SignUpCommand"/> class.
+        /// </summary>
+        public SignUpCommand()
+            : this(new AmazonSimpleNotificationServiceClient())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SignUpCommand"/> class for testing.
+        /// </summary>
+        /// <param name="snsClient"> The SNS client </param>
+        internal SignUpCommand(AmazonSimpleNotificationServiceClient snsClient)
+        {
+            this.snsClient = snsClient;
+        }
+
         /// <summary>
         /// Invoke this command
         /// </summary>
@@ -30,21 +48,12 @@ namespace UserService.SignUp
             payload.Validate();
             var emailToken = AuthHelper.GenerateCustomAuthToken(payload);
 
-            var emailReq = new EmailRequest()
-            {
-                // TODO: add from email address
-                From = "",
-                To = payload.Email,
-                Subject = EmailTemplate.SignUpSubject
-                    .Replace("%%NAME%%", payload.FirstName + " " + payload.LastName),
-                Body = EmailTemplate.SignUpTemplate
-                    .Replace("%%NAME%%", payload.FirstName)
-                    .Replace("%%TOKEN%%", emailToken)
-            };
-
-            var snsClient = new AmazonSimpleNotificationServiceClient();
-            Task.Factory.StartNew(async () =>
-                await snsClient.PublishAsync(EmailHelper.EmailTopicArn, JsonConvert.SerializeObject(emailReq))
+            Task.Factory.StartNew(
+                async () =>
+                {
+                    await this.snsClient.PublishAsync(EmailHelper.EmailTopicArn, emailToken);
+                    Console.WriteLine($"Email request for {payload.Email} published to topic.");
+                }
             ).Wait();
 
             return response;
