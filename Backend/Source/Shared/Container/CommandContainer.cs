@@ -18,7 +18,18 @@ namespace Shared.Container
         /// Gets the registered command with given key
         /// </summary>
         /// <param name="operation"> The Operation to register </param>
-        public ICommand this[Operation operation] => this.container.GetInstance(this.commands[operation]) as ICommand;
+        public ICommand this[Operation operation]
+        {
+            get
+            {
+                if (!this.commands.ContainsKey(operation))
+                {
+                    throw new ArgumentException($"Operation {Enum.GetName(typeof(Operation), operation)} is not supported.");
+                }
+
+                return this.container.GetInstance(this.commands[operation]) as ICommand;
+            }
+        }
 
         /// <summary>
         /// Register a command with the key
