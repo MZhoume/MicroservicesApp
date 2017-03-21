@@ -17,18 +17,10 @@ namespace ProductService.Read
         private IDbConnection connection;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReadCommand"/> class.
-        /// </summary>
-        public ReadCommand()
-            : this(DbHelper.Connection)
-        {
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ReadCommand"/> class for testing.
         /// </summary>
         /// <param name="connection"> The DbConnection for the command </param>
-        internal ReadCommand(IDbConnection connection)
+        public ReadCommand(IDbConnection connection)
         {
             this.connection = connection;
         }

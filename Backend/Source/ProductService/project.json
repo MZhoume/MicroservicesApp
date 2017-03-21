@@ -28,7 +28,6 @@
       "type": "build"
     },
 
-    "Shared" : "1.0.0",
     "Dapper": "1.50.2",
     "Dommel": "1.8.0",
     "MySql.Data": "7.0.6-ir31"
