@@ -39,7 +39,9 @@
                                    [(ngModel)]="regUser.password" name="pwd">
                         </div>
                         <button type="submit" class="btn btn-success">Submit</button>
+
                     </form>
+                    <button (click)="login()" class="btn btn-success">Sign up with Facebook</button>
                     <p>{{message}}</p>
                 </div>
 

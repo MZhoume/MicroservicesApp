@@ -4,12 +4,13 @@ import { Headers, RequestOptions } from '@angular/http';
 import { Http, Response }          from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {USER_Login_Response1, USER_Reg_Response1, USER_Reg_Response2} from './mock-data/mock-user';
+import { FacebookService, FacebookLoginResponse } from 'ng2-facebook-sdk';
 
 @Injectable()
 export class UserService {
 
     user: User;
-
+    // fb: FacebookService;
     getUser(): User {
         return this.user;
     }
@@ -61,12 +62,27 @@ export class UserService {
         }
     }
 
+    facebooklogin() {
+        this.fb.login()
+            .then((res: FacebookLoginResponse) => {
+                console.log('Logged in', res);
+            })
+            .catch(this.handleError);
+    }
+
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
     }
 
-    constructor (private http: Http) {}
+    constructor (private http: Http, private fb: FacebookService,) {
+        console.log('Initializing Facebook');
+
+        this.fb.init({
+            appId: '1927971220769787',
+            version: 'v2.8'
+        });
+    }
 
 }
 

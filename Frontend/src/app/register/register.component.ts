@@ -3,6 +3,7 @@ import {User} from "../User";
 import {Router} from "@angular/router";
 import {UserService} from "../user.service";
 import 'rxjs/add/operator/toPromise';
+
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
@@ -15,7 +16,16 @@ export class RegisterComponent implements OnInit {
     constructor(
         private userService: UserService,
         private router: Router,
-    ) { }
+    ) {}
+
+    login() {
+        try {
+            this.userService.facebooklogin();
+            this.forward('/welcome');
+        }catch (ex) {
+            console.error('An error occurred', ex);
+        }
+    }
 
     ngOnInit() {
         this.regUser = new User();
@@ -36,11 +46,11 @@ export class RegisterComponent implements OnInit {
         console.log("going to register");
         this.message = 'Loading';
         try {
-            let resigterResult = await this.userService.registerUserRemote(this.regUser);
+            const resigterResult = await this.userService.registerUserRemote(this.regUser);
             console.log(resigterResult);
             if (resigterResult.result  === 'success') {
                 this.regUser = new User();
-                this.message ='register success';
+                this.message = 'register success';
                 console.log('register success');
                 this.forward('/login');
             } else {

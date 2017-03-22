@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { FacebookService } from 'ng2-facebook-sdk';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -37,9 +38,9 @@ import {CartService} from "./cart.service";
         BrowserModule,
         FormsModule,
         HttpModule,
-        AppRoutingModule
+        AppRoutingModule,
     ],
-    providers: [UserService, ItemService, CartService],
+    providers: [UserService, ItemService, CartService, FacebookService],
     bootstrap: [AppComponent]
 })
 
