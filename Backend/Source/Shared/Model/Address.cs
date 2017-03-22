@@ -53,7 +53,7 @@ namespace Shared.Model
         /// </summary>
         /// <returns>Return zipcode</returns>
         [Required(AllowEmptyStrings = false)]
-        [RegularExpression(@"^\d{5, 6}$")]
+        [RegularExpression(@"^\d{5,6}$")]
         public string Zipcode { get; set; }
     }
 }
