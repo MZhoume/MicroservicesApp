@@ -12,9 +12,8 @@
             "version": "1.0.0"
         },
         "Amazon.Lambda.Core": "1.0.0*",
-        "Amazon.Lambda.Serialization.Json": "1.0.1",
-        "Newtonsoft.Json": "9.0.1",
-        "jose-jwt": "2.1.0",
+        "Newtonsoft.Json": "10.0.1",
+        "jose-jwt": "2.2.0",
         "StyleCop.Analyzers": {
             "version": "1.0.0",
             "type": "build"
@@ -23,7 +22,6 @@
         "MySql.Data": "7.0.6-IR31",
         "SimpleInjector": "3.3.2"
     },
-    "tools": {},
     "frameworks": {
         "netcoreapp1.0": {
             "imports": "dnxcore50"

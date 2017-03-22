@@ -13,12 +13,11 @@
     },
     "Shared": "1.0.0",
     "Amazon.Lambda.Core": "1.0.0*",
-    "Amazon.Lambda.Serialization.Json": "1.0.1",
     "Amazon.Lambda.APIGatewayEvents": "1.0.2",
     "SimpleInjector": "3.3.2",
-    "jose-jwt": "2.1.0",
+    "jose-jwt": "2.2.0",
     "Amazon.Lambda.Tools": {
-      "version": "1.2.0-preview1",
+      "version": "1.4.0",
       "type": "build"
     },
     "StyleCop.Analyzers": {
@@ -27,16 +26,11 @@
     }
   },
   "tools": {
-    "Amazon.Lambda.Tools": "1.2.0-preview1"
+    "Amazon.Lambda.Tools": "1.4.0"
   },
   "frameworks": {
     "netcoreapp1.0": {
       "imports": "dnxcore50"
     }
-  },
-  "scripts": {
-    "postpublish": [
-      "cp bin/Release/netcoreapp1.0/publish/runtimes/unix/lib/netstandard1.3/System.Diagnostics.TraceSource.dll bin/Release/netcoreapp1.0/publish/"
-    ]
   }
 }
