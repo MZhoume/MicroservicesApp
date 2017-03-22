@@ -5,6 +5,7 @@ namespace Shared.EnumHelper
     /// <summary>
     /// Attribute for annotate enum with string value
     /// </summary>
+    [AttributeUsageAttribute(AttributeTargets.Field, Inherited = true)]
     public class StringValueAttribute : Attribute
     {
         /// <summary>

@@ -1,11 +1,13 @@
 namespace Shared.Validation
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using Newtonsoft.Json;
 
     /// <summary>
     /// Attribute to annotate json string
     /// </summary>
+    [AttributeUsage(AttributeTargets.Property, Inherited = true)]
     public class JsonAttribute : ValidationAttribute
     {
         /// <summary>
@@ -15,15 +17,8 @@ namespace Shared.Validation
         /// <returns> Is the value valid </returns>
         public override bool IsValid(object value)
         {
-            try
-            {
-                var str = value as string;
-                return str == null || JsonConvert.DeserializeObject(str) != null;
-            }
-            catch
-            {
-                return false;
-            }
+            var str = value as string;
+            return str == null || JsonConvert.DeserializeObject(str) != null;
         }
     }
 }

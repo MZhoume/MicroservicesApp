@@ -1,8 +1,6 @@
 namespace Shared.Validation
 {
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Reflection;
     using Shared.Interface;
 
     /// <summary>
@@ -16,19 +14,7 @@ namespace Shared.Validation
         /// <param name="model"> The model to validate </param>
         public static void Validate(this IModel model)
         {
-            var type = model.GetType();
-            foreach (var prop in type.GetProperties())
-            {
-                foreach (var att in prop.GetCustomAttributes(false).OfType<ValidationAttribute>())
-                {
-                    att.Validate(prop.GetValue(model), prop.Name);
-                }
-            }
-
-            foreach (var att in type.GetTypeInfo().GetCustomAttributes(false).OfType<ValidationAttribute>())
-            {
-                att.Validate(model, type.Name);
-            }
+            Validator.ValidateObject(model, new ValidationContext(model), true);
         }
     }
 }

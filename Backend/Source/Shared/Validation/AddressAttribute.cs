@@ -1,11 +1,13 @@
 namespace Shared.Validation
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using Newtonsoft.Json;
 
     /// <summary>
     /// Attribute to annotate an address
     /// </summary>
+    [AttributeUsage(AttributeTargets.Class, Inherited = true)]
     public class AddressAttribute : ValidationAttribute
     {
         /// <summary>
