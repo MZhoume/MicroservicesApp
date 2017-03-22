@@ -1,30 +1,33 @@
 namespace ProductService.Test
 {
+    using System;
     using Amazon.Lambda.TestUtilities;
     using ProductService;
-    using Xunit;
     using Shared.Model;
-    using System;
     using Shared.Request;
+    using Xunit;
 
     public class FunctionTest
     {
         [Fact]
         public void TestProductServiceFunction()
         {
-            //Invoke the lambda function.
-            var function = new Function();
+            var function = new Function(); // Invoke the lambda function.
             var context = new TestLambdaContext();
-            var req = new Request(){
+            var req = new Request()
+            {
                 AuthToken = "Token",
                 Operation = Operation.Read,
                 Payload = null,
-                PagingInfo = new PagingInfo(){
+                PagingInfo = new PagingInfo()
+                {
                     Start = 0,
                     Count = 10
                 },
-                SearchTerm = new[] {
-                    new SearchTerm(){
+                SearchTerm = new[]
+                {
+                    new SearchTerm()
+                    {
                         Field = "Id",
                         Operator = SearchOperator.EQ,
                         Value = "1"
