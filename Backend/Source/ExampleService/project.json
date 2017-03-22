@@ -37,5 +37,10 @@
         "netcoreapp1.0": {
             "imports": "dnxcore50"
         }
+    },
+    "scripts": {
+        "postpublish": [
+            "cp bin/Release/netcoreapp1.0/publish/runtimes/unix/lib/netstandard1.3/System.Diagnostics.TraceSource.dll bin/Release/netcoreapp1.0/publish/"
+        ]
     }
 }
