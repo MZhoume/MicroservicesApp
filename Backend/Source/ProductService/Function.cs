@@ -8,14 +8,15 @@ namespace ProductService
     using System;
     using System.Data;
     using Amazon.Lambda.Core;
+    using Dapper;
+    using ProductService.Read;
     using Shared;
     using Shared.Container;
-    using Shared.Model;
     using Shared.DbAccess;
+    using Shared.Http;
+    using Shared.Model;
     using Shared.Request;
     using Shared.Response;
-    using Shared.Http;
-    using ProductService.Read;
 
     /// <summary>
     /// Lambda function entry class
@@ -28,7 +29,7 @@ namespace ProductService
         /// <param name="request"> Input for lambda handler </param>
         /// <param name="context"> Context info for lambda handler </param>
         /// <returns> Value send to clients </returns>
-        [LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
+        [LambdaSerializer(typeof(LambdaSerializer))]
         public Response FunctionHandler(Request request, ILambdaContext context)
         {
             var container = new CommandContainer();
