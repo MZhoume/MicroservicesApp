@@ -33,7 +33,7 @@ namespace EmailService
         /// Initializes a new instance of the <see cref="Function"/> class for testing.
         /// </summary>
         /// <param name="emailService"> The email service for the command </param>
-        public Function(IEmailService emailService)
+        internal Function(IEmailService emailService)
         {
             this.emailService = emailService;
         }

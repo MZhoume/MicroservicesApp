@@ -17,7 +17,7 @@ namespace UserService.Read
         private readonly IDbConnection connection;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReadCommand"/> class for testing.
+        /// Initializes a new instance of the <see cref="ReadCommand"/> class.
         /// </summary>
         /// <param name="connection"> The DbConnection for the command </param>
         public ReadCommand(IDbConnection connection)

@@ -19,7 +19,7 @@ namespace UserService.VerifyEmail
         private readonly IDbConnection connection;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="VerifyEmailCommand"/> class for testing.
+        /// Initializes a new instance of the <see cref="VerifyEmailCommand"/> class.
         /// </summary>
         /// <param name="connection"> The DbConnection for the command </param>
         public VerifyEmailCommand(IDbConnection connection)

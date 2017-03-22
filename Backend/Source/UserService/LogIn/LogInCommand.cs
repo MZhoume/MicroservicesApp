@@ -22,7 +22,7 @@ namespace UserService.LogIn
         private readonly IDbConnection connection;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LogInCommand"/> class for testing.
+        /// Initializes a new instance of the <see cref="LogInCommand"/> class.
         /// </summary>
         /// <param name="connection"> The DbConnection for the command </param>
         public LogInCommand(IDbConnection connection)

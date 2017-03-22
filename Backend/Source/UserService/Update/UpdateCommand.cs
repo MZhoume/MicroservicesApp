@@ -2,7 +2,6 @@ namespace UserService.Update
 {
     using System.Data;
     using Dapper.Contrib.Extensions;
-    using Shared.DbAccess;
     using Shared.Interface;
     using Shared.Model;
     using Shared.Request;
@@ -17,7 +16,7 @@ namespace UserService.Update
         private readonly IDbConnection connection;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateCommand"/> class for testing.
+        /// Initializes a new instance of the <see cref="UpdateCommand"/> class.
         /// </summary>
         /// <param name="connection"> The DbConnection for the command </param>
         public UpdateCommand(IDbConnection connection)

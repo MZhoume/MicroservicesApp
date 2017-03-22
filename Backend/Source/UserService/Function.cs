@@ -14,6 +14,7 @@ namespace UserService
     using Shared.Http;
     using Shared.Request;
     using Shared.Response;
+    using Shared.Validation;
     using UserService.LogIn;
     using UserService.Read;
     using UserService.SignUp;
@@ -46,6 +47,7 @@ namespace UserService
 
             try
             {
+                request.Validate();
                 return container[request.Operation].Invoke(request);
             }
             catch (Exception ex)
