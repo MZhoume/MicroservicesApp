@@ -3,6 +3,7 @@ namespace Shared.Model
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Newtonsoft.Json;
     using Shared.Interface;
 
     /// <summary>
@@ -34,6 +35,7 @@ namespace Shared.Model
         /// <returns>Return stripToken</returns>
         [Required(AllowEmptyStrings = false)]
         [StringLength(28, MinimumLength = 28)]
+        [JsonIgnore]
         public string StripToken { get; set; }
 
         /// <summary>
