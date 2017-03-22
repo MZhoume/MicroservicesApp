@@ -6,9 +6,11 @@ using System.Runtime.CompilerServices;
 namespace PaymentService
 {
     using System;
+    using System.Data;
     using Amazon.Lambda.Core;
     using Shared;
     using Shared.Container;
+    using Shared.DbAccess;
     using Shared.Http;
     using Shared.Request;
     using Shared.Response;
@@ -62,7 +64,8 @@ namespace PaymentService
             // return response;
             var container = new CommandContainer();
 
-            container.Register<CreateCommand>(Operation.Create)
+            container.RegisterRequirement<IDbConnection>(() => DbHelper.Connection)
+                     .Register<CreateCommand>(Operation.Create)
                      .Register<ReadCommand>(Operation.Read)
                      .Register<UpdateCommand>(Operation.Update);
 
