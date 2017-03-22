@@ -11,12 +11,6 @@ namespace GithubHook
     {
         private const string SlackUrl = "https://hooks.slack.com/services/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";
 
-        /// <summary>
-        /// A simple function that takes a string and does a ToUpper
-        /// </summary>
-        /// <param name="payload"> The payload posted from Github </param>
-        /// <param name="context"> The lambda context </param>
-        /// <returns> Nothing </returns>
         [LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
         public async Task FunctionHandler(GithubPayload payload, ILambdaContext context)
         {
