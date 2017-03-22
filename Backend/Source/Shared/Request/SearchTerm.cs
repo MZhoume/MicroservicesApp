@@ -2,6 +2,7 @@ namespace Shared.Request
 {
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+    using Shared.Validation;
 
     /// <summary>
     /// SearchTerm class contains essential parts used in a search operation
@@ -19,6 +20,7 @@ namespace Shared.Request
         /// </summary>
         /// <returns> The search operator </returns>
         [JsonConverter(typeof(StringEnumConverter))]
+        [Enum]
         public SearchOperator Operator { get; set; }
 
         /// <summary>

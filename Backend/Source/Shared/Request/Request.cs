@@ -4,6 +4,7 @@ namespace Shared.Request
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Linq;
+    using Shared.Validation;
 
     /// <summary>
     /// Request for common Service
@@ -21,6 +22,7 @@ namespace Shared.Request
         /// </summary>
         /// <returns> The request operation </returns>
         [JsonConverter(typeof(StringEnumConverter))]
+        [Enum]
         public Operation Operation { get; set; }
 
         /// <summary>
