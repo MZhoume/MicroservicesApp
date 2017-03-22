@@ -17,20 +17,13 @@ namespace OrderService.Create
     /// </summary>
     public class CreateCommand : ICommand
     {
-        private IDbConnection connection;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CreateCommand"/> class.
-        /// </summary>
-        public CreateCommand() : this(DbHelper.Connection)
-        {
-        }
+        private readonly IDbConnection connection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateCommand"/> class for testing.
         /// </summary>
         /// <param name="connection"> The DbConnection for the command </param>
-        internal CreateCommand(IDbConnection connection)
+        public CreateCommand(IDbConnection connection)
         {
             this.connection = connection;
         }

@@ -6,9 +6,11 @@ using System.Runtime.CompilerServices;
 namespace OrderService
 {
     using System;
+    using System.Data;
     using Amazon.Lambda.Core;
     using Shared;
     using Shared.Container;
+    using Shared.DbAccess;
     using Shared.Http;
     using Shared.Request;
     using Shared.Response;
@@ -37,7 +39,8 @@ namespace OrderService
             //          .Register<ReadCommand>(Operation.Read)
             //          .Register<UpdateCommand>(Operation.Update)
             //          .Register<DeleteCommand>(Operation.Delete);
-            container.Register<CreateCommand>(Operation.Create)
+            container.RegisterRequirement<IDbConnection>(() => DbHelper.Connection)
+                     .Register<CreateCommand>(Operation.Create)
                      .Register<ReadCommand>(Operation.Read)
                      .Register<UpdateCommand>(Operation.Update);
 

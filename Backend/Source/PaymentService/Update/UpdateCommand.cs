@@ -14,20 +14,13 @@ namespace PaymentService.Update
     /// </summary>
     public class UpdateCommand : ICommand
     {
-        private IDbConnection connection;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateCommand"/> class.
-        /// </summary>
-        public UpdateCommand() : this(DbHelper.Connection)
-        {
-        }
+        private readonly IDbConnection connection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateCommand"/> class for testing.
         /// </summary>
         /// <param name="connection"> The DbConnection for the command </param>
-        internal UpdateCommand(IDbConnection connection)
+        public UpdateCommand(IDbConnection connection)
         {
             this.connection = connection;
         }
