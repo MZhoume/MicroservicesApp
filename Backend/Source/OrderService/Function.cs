@@ -17,7 +17,6 @@ namespace OrderService
     using OrderService.Read;
     using OrderService.Update;
     using OrderService.Create;
-    using OrderService.Delete;
 
     /// <summary>
     /// Lambda function entry class
@@ -35,10 +34,6 @@ namespace OrderService
         {
             var container = new CommandContainer();
 
-            // container.Register<CreateCommand>(Operation.Create)
-            //          .Register<ReadCommand>(Operation.Read)
-            //          .Register<UpdateCommand>(Operation.Update)
-            //          .Register<DeleteCommand>(Operation.Delete);
             container.RegisterRequirement<IDbConnection>(() => DbHelper.Connection)
                      .Register<CreateCommand>(Operation.Create)
                      .Register<ReadCommand>(Operation.Read)

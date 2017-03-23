@@ -1,16 +1,13 @@
 namespace OrderService.Create
 {
-    using System;
     using System.Data;
     using Dapper.Contrib.Extensions;
-    using Shared;
-    using Shared.DbAccess;
     using Shared.Interface;
     using Shared.Model;
-    using Shared.Http;
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
+    using OrderService.Model;
 
     /// <summary>
     /// The command for Create Operation
@@ -37,9 +34,19 @@ namespace OrderService.Create
         {
             var response = new Response();
 
-            var payload = request.Payload.ToObject<Order>();
+            var payload = request.Payload.ToObject<CreatePayload>();
             payload.Validate();
-            this.connection.Insert<Order>(payload);
+
+            var order = new Order()
+            {
+                Products = payload.Products,
+                DateTime = payload.DateTime,
+                UserId = payload.UserId,
+                TotalCharge = payload.TotalCharge
+            };
+            order.Validate();
+
+            this.connection.Insert<Order>(order);
             return response;
         }
     }
