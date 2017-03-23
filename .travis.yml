@@ -30,3 +30,4 @@ env:
   - TEST_DIR=Orchestrator
   - TEST_DIR=EmailService
   - TEST_DIR=ProductService
+  - TEST_DIR=AddressService
