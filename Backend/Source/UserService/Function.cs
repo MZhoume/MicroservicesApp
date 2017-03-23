@@ -15,6 +15,7 @@ namespace UserService
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
+    using UserService.Delete;
     using UserService.LogIn;
     using UserService.Read;
     using UserService.SignUp;
@@ -43,6 +44,7 @@ namespace UserService
                      .Register<ReadCommand>(Operation.Read)
                      .Register<SignUpCommand>(Operation.SignUp)
                      .Register<UpdateCommand>(Operation.Update)
+                     .Register<DeleteCommand>(Operation.Delete)
                      .Register<VerifyEmailCommand>(Operation.VerifyEmail);
 
             try
