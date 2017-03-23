@@ -35,7 +35,6 @@ namespace Shared.Model
         /// <returns>Return PwdHash</returns>
         [Required(AllowEmptyStrings = false)]
         [StringLength(60, MinimumLength = 60)]
-        [JsonIgnore]
         public string PwdHash { get; set; }
 
         /// <summary>
@@ -64,7 +63,6 @@ namespace Shared.Model
         /// </summary>
         /// <returns>Return addressIds</returns>
         [Json]
-        [JsonIgnore]
         public string AddressIds { get; set; }
     }
 }

@@ -35,7 +35,6 @@ namespace Shared.Model
         /// <returns>Return stripToken</returns>
         [Required(AllowEmptyStrings = false)]
         [StringLength(28, MinimumLength = 28)]
-        [JsonIgnore]
         public string StripToken { get; set; }
 
         /// <summary>
