@@ -4,13 +4,13 @@ namespace PaymentService.Create
     using System.Data;
     using Dapper.Contrib.Extensions;
     using Shared;
-    using Shared.DbAccess;
     using Shared.Interface;
     using Shared.Model;
     using Shared.Http;
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
+    using PaymentService.Model;
 
     /// <summary>
     /// The command for Create Operation
@@ -37,8 +37,9 @@ namespace PaymentService.Create
         {
             var response = new Response();
 
-            var payload = request.Payload.ToObject<Payment>();
+            var payload = request.Payload.ToObject<CreatePayload>();
             payload.Validate();
+
             try
             {
                 Charge.createCharge(payload.StripToken, System.Convert.ToInt32(payload.Charge));
@@ -48,7 +49,17 @@ namespace PaymentService.Create
                 throw new LambdaException(HttpCode.BadRequest, ex.Message);
             }
 
-            this.connection.Insert<Payment>(payload);
+            var payment = new Payment()
+            {
+                StripToken = payload.StripToken,
+                DateTime = payload.DateTime,
+                OrderId = payload.OrderId,
+                Charge = payload.Charge
+
+            };
+            payment.Validate();
+
+            this.connection.Insert<Payment>(payment);
 
             return response;
         }
