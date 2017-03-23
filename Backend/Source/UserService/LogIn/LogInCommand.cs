@@ -39,7 +39,7 @@ namespace UserService.LogIn
         {
             var response = new Response();
 
-            var payload = request.Payload.ToObject<LogInModel>();
+            var payload = request.Payload.ToObject<LogInPayload>();
             payload.Validate();
 
             var user = this.connection.Query<User>(

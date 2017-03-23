@@ -4,9 +4,9 @@ namespace UserService.Model
     using Shared.Interface;
 
     /// <summary>
-    /// Model class contains required property for logging in
+    /// Payload for LogIn Command
     /// </summary>
-    public class LogInModel : IModel
+    public class LogInPayload : IModel
     {
         /// <summary>
         /// Gets or sets the email address

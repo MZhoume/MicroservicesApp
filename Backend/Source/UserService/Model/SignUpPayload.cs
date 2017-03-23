@@ -2,12 +2,11 @@ namespace UserService.Model
 {
     using System.ComponentModel.DataAnnotations;
     using Shared.Interface;
-    using Shared.Validation;
 
     /// <summary>
-    /// Define a user class
+    /// Payload for SignUp Command
     /// </summary>
-    public sealed class SignUpUser : IModel
+    public sealed class SignUpPayload : IModel
     {
         /// <summary>
         /// Gets or sets user's email
@@ -45,12 +44,5 @@ namespace UserService.Model
         /// <returns>Return phone number</returns>
         [Phone]
         public string PhoneNumber { get; set; }
-
-        /// <summary>
-        /// Gets or sets user's addressIds
-        /// </summary>
-        /// <returns>Return addressIds</returns>
-        [Json]
-        public string AddressIds { get; set; }
     }
 }

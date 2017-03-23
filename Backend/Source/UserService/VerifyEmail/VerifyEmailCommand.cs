@@ -36,7 +36,7 @@ namespace UserService.VerifyEmail
         {
             var response = new Response();
 
-            var payload = AuthHelper.GetCustomAuthPayload<SignUpUser>(request.AuthToken);
+            var payload = AuthHelper.GetCustomAuthPayload<SignUpPayload>(request.AuthToken);
             payload.Validate();
 
             var user = new User()
@@ -45,8 +45,7 @@ namespace UserService.VerifyEmail
                 PwdHash = BCrypt.HashPassword(payload.Password, BCrypt.GenerateSalt()),
                 FirstName = payload.FirstName,
                 LastName = payload.LastName,
-                PhoneNumber = payload.PhoneNumber,
-                AddressIds = payload.AddressIds
+                PhoneNumber = payload.PhoneNumber
             };
             user.Validate();
 

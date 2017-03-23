@@ -26,7 +26,7 @@ namespace UserService.SignUp
         {
             var response = new Response();
 
-            var payload = request.Payload.ToObject<SignUpUser>();
+            var payload = request.Payload.ToObject<SignUpPayload>();
             payload.Validate();
             var emailToken = AuthHelper.GenerateCustomAuthToken(payload);
 
