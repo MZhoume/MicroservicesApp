@@ -5,39 +5,29 @@ import {UserService} from "../user.service";
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    selector: 'app-register',
-    templateUrl: './register.component.html',
-    styleUrls: ['./register.component.css']
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class UserProfileComponent implements OnInit {
+
     regUser: User;
     message: string;
 
     constructor(
         private userService: UserService,
         private router: Router,
-    ) {}
+    ) { }
 
-    login() {
-        try {
-            this.userService.facebooklogin();
-            this.forward('/welcome');
-        }catch (ex) {
-            console.error('An error occurred', ex);
-        }
-    }
-
-    ngOnInit() {
-        this.regUser = new User();
-        // if usr log in, redirect to welcome page
-        if (this.userService.getUser() == undefined){
-            console.log("please register");
-        }else {
-            this.forward('/welcome');
-        }
-
-    }
-
+  ngOnInit() {
+      this.regUser = new User();
+      // if usr log in, redirect to welcome page
+      if (this.userService.getUser() == undefined){
+          this.forward('/welcome');
+      }else {
+          console.log("please modify");
+      }
+  }
     forward(dest:string) {
         this.router.navigate([dest]);
     }
@@ -46,11 +36,11 @@ export class RegisterComponent implements OnInit {
         console.log("going to register");
         this.message = 'Loading';
         try {
-            const resigterResult = await this.userService.registerUserRemote(this.regUser);
+            let resigterResult = await this.userService.registerUserRemote(this.regUser);
             console.log(resigterResult);
             if (resigterResult.result  === 'success') {
                 this.regUser = new User();
-                this.message = 'register success';
+                this.message ='register success';
                 console.log('register success');
                 this.forward('/login');
             } else {
@@ -62,6 +52,7 @@ export class RegisterComponent implements OnInit {
             console.error('An error occurred', ex);
         }
     }
+
 
 
 }

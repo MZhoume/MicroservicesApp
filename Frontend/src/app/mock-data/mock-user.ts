@@ -34,11 +34,12 @@ export const USER_Reg_Response1 = {
 };
 
 export const USER_Reg_Response2 = {
-    result:"success",
-    payload: {
+    flag:"success",
+    user: {
+        uid: "12",
         firstname: "hf",
-        lastname: "jfks",
         JWT: "inocandiuiabgd",
     },
+    reason: "",
 };
 
