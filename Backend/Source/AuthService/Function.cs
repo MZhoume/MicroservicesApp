@@ -9,8 +9,8 @@ namespace AuthService
     using Amazon.Lambda.APIGatewayEvents;
     using Amazon.Lambda.Core;
     using AuthService.Policy;
+    using AuthService.Validation;
     using Shared;
-    using Shared.Authentication;
     using Shared.EnumHelper;
 
     /// <summary>
@@ -31,6 +31,8 @@ namespace AuthService
         )
         {
             var token = request.AuthorizationToken;
+            var type = AuthTokenType.JWT;
+
             var response = new APIGatewayCustomAuthorizerResponse();
             var policy = response.PolicyDocument;
             var statement = new APIGatewayCustomAuthorizerPolicy.IAMPolicyStatement()
@@ -39,10 +41,8 @@ namespace AuthService
                 Resource = new HashSet<string>()
             };
 
-            try
+            if (Validator.Validate(type, token))
             {
-                AuthHelper.GetAuthPayload(token);
-
                 var vars = request.MethodArn.Split(':');
                 var apiVars = vars[5].Split('/');
                 var region = vars[3];
@@ -57,7 +57,7 @@ namespace AuthService
                         CustomAuthorizerHelper.ComposeResource(region, accountId, apiId, stage, any, any)
                 );
             }
-            catch
+            else
             {
                 this.DenyAll(statement);
             }
