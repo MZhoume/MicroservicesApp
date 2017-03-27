@@ -1,6 +1,9 @@
 namespace OrderService.Update
 {
+    using System;
     using System.Data;
+    using System.Linq;
+    using Dapper;
     using Dapper.Contrib.Extensions;
     using Shared.DbAccess;
     using Shared.Interface;
@@ -8,6 +11,7 @@ namespace OrderService.Update
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
+    using OrderService.Model;
 
     /// <summary>
     /// The command for Update Operation
@@ -34,9 +38,22 @@ namespace OrderService.Update
         {
             var response = new Response();
 
-            var payload = request.Payload.ToObject<Order>();
+            var payload = request.Payload.ToObject<UpdatePayload>();
             payload.Validate();
-            this.connection.Update<Order>(payload);
+
+            var order = this.connection.Query<Order>(
+                $"SELECT * FROM {DbHelper.GetTableName<Order>()} WHERE Id = @Id",
+                new { Id = payload.Id }
+            ).First();
+
+            string val;
+            order.Products = payload.Change.TryGetValue("Products", out val) ? val : order.Products;
+            order.DateTime = payload.Change.TryGetValue("DateTime", out val) ? Convert.ToDateTime(val) : order.DateTime;
+            order.UserId = payload.Change.TryGetValue("UserId", out val) ? Convert.ToInt32(val) : order.UserId;
+            order.TotalCharge = payload.Change.TryGetValue("TotalCharge", out val) ? Convert.ToDecimal(val) : order.TotalCharge;
+            order.Validate();
+
+            this.connection.Update<Order>(order);
 
             return response;
         }

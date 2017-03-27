@@ -1,13 +1,17 @@
 namespace PaymentService.Update
 {
+    using System;
     using System.Data;
+    using System.Linq;
+    using Dapper;
     using Dapper.Contrib.Extensions;
-    using Shared.DbAccess;
     using Shared.Interface;
     using Shared.Model;
     using Shared.Request;
     using Shared.Response;
+    using Shared.DbAccess;
     using Shared.Validation;
+    using PaymentService.Model;
 
     /// <summary>
     /// The command for Update Operation
@@ -34,9 +38,23 @@ namespace PaymentService.Update
         {
             var response = new Response();
 
-            var payload = request.Payload.ToObject<Payment>();
+            var payload = request.Payload.ToObject<UpdatePayload>();
             payload.Validate();
-            this.connection.Update<Payment>(payload);
+
+            var payment = this.connection.Query<Payment>(
+                $"SELECT * FROM {DbHelper.GetTableName<Payment>()} WHERE Id = @Id",
+                new { Id = payload.Id }
+            ).First();
+
+            string val;
+
+            payment.OrderId = payload.Change.TryGetValue("OrderId", out val) ? Convert.ToInt32(val) : payment.OrderId;
+            payment.StripToken = payload.Change.TryGetValue("StripToken", out val) ? val : payment.StripToken;
+            payment.DateTime = payload.Change.TryGetValue("DateTime", out val) ? Convert.ToDateTime(val) : payment.DateTime;
+            payment.Charge = payload.Change.TryGetValue("Charge", out val) ? Convert.ToDecimal(val) : payment.Charge;
+            payment.Validate();
+
+            this.connection.Update<Payment>(payment);
 
             return response;
         }

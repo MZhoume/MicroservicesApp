@@ -1,6 +1,8 @@
 namespace OrderService.Delete
 {
     using System.Data;
+    using System.Linq;
+    using Dapper;
     using Dapper.Contrib.Extensions;
     using Shared.DbAccess;
     using Shared.Interface;
@@ -8,27 +10,20 @@ namespace OrderService.Delete
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
+    using OrderService.Model;
 
     /// <summary>
     /// The command for Delete Operation
     /// </summary>
     public class DeleteCommand : ICommand
     {
-        private IDbConnection connection;
+        private readonly IDbConnection connection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteCommand"/> class.
         /// </summary>
-
-        public DeleteCommand() : this(DbHelper.Connection)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DeleteCommand"/> class for testing.
-        /// </summary>
         /// <param name="connection"> The DbConnection for the command </param>
-        internal DeleteCommand(IDbConnection connection)
+        public DeleteCommand(IDbConnection connection)
         {
             this.connection = connection;
         }
@@ -42,9 +37,15 @@ namespace OrderService.Delete
         {
             var response = new Response();
 
-            var payload = request.Payload.ToObject<Order>();
+            var payload = request.Payload.ToObject<DeletePayload>();
             payload.Validate();
-            this.connection.Delete<Order>(payload);
+
+            var order = this.connection.Query<Order>(
+                $"SELECT * FROM {DbHelper.GetTableName<Order>()} WHERE Id = @Id",
+                new { Id = payload.Id }
+            ).First();
+
+            this.connection.Delete<Order>(order);
 
             return response;
         }

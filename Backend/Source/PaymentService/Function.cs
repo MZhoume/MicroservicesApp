@@ -14,6 +14,7 @@ namespace PaymentService
     using Shared.Http;
     using Shared.Request;
     using Shared.Response;
+    using Shared.Validation;
     using PaymentService.Read;
     using PaymentService.Update;
     using PaymentService.Create;
@@ -32,36 +33,6 @@ namespace PaymentService
         [LambdaSerializer(typeof(LambdaSerializer))]
         public Response FunctionHandler(Request request, ILambdaContext context)
         {
-            // var response = new Response();
-            // try
-            // {
-            //     switch (request.Operation)
-            //     {
-            //         case Operation.Read:
-            //             var readRes = DbHelper.DbConnection.Query<Payment>(
-            //                 RequestHelper.ComposeSearchExp(request.SearchTerm, request.PagingInfo != null),
-            //                 RequestHelper.GetSearchObject(request.SearchTerm, request.PagingInfo));
-            //                 response.Payload = readRes.ToArray();
-            //                 break;
-            //         case Operation.Update:
-            //             var updatePayload = request.Payload.ToObject<Payment>();
-            //             updatePayload.Validate();
-            //             DbHelper.DbConnection.Update<Payment>(updatePayload);
-            //             break;
-            //         case Operation.Create:
-            //             var createPayload = request.Payload.ToObject<Payment>();
-            //             createPayload.Validate();
-            //             Charge.createCharge(createPayload.StripToken, System.Convert.ToInt32(createPayload.Charge));
-            //             DbHelper.DbConnection.Insert<Payment>(createPayload);
-            //             break;
-            //     }
-            // }
-            // catch (Exception ex)
-            // {
-            //     throw new LambdaException(HttpCode.BadRequest, ex.Message);
-            // }
-
-            // return response;
             var container = new CommandContainer();
 
             container.RegisterRequirement<IDbConnection>(() => DbHelper.Connection)
@@ -71,6 +42,7 @@ namespace PaymentService
 
             try
             {
+                request.Validate();
                 return container[request.Operation].Invoke(request);
             }
             catch(Exception ex)

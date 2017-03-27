@@ -19,6 +19,15 @@ export class UserLoginComponent implements OnInit {
         private router: Router,
     ) { }
 
+    login() {
+        try {
+            this.userService.facebooklogin();
+            this.forward();
+        }catch (ex) {
+            console.error('An error occurred', ex);
+        }
+    }
+
     ngOnInit() {
         this.user = new User();
         // if usr log in, redirect to welcome page
@@ -27,7 +36,6 @@ export class UserLoginComponent implements OnInit {
         }else {
             this.forward();
         }
-
     }
 
     async onSubmit() : Promise<any> {
@@ -56,8 +64,8 @@ export class UserLoginComponent implements OnInit {
         this.router.navigate(['/welcome']);
     }
 
-    onClick() {
-        this.router.navigate(['/register']);
+    private handleError(error) {
+        console.error('Error processing action', error);
     }
 
 }
