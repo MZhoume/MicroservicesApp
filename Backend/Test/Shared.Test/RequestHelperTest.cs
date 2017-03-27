@@ -4,7 +4,7 @@ namespace Shared.Test
     using Shared.Request;
     using Xunit;
 
-    public class HelperTest
+    public class RequestHelperTest
     {
         [Fact]
         public void ComposeSearchExpShouldReturnCorrectValue()

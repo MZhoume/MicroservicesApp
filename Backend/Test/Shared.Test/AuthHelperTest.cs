@@ -2,16 +2,10 @@ namespace Shared.Test
 {
     using System;
     using Shared.Authentication;
-    using Shared.Request;
     using Xunit;
 
     public class AuthHelperTest
     {
-        private class CustomAuthPayload
-        {
-            public string Test { get; set; }
-        }
-
         [Fact]
         public void GetAuthPayloadTest()
         {
@@ -48,7 +42,6 @@ namespace Shared.Test
 
             var token = AuthHelper.GenerateAuthToken(payload);
             Assert.Equal("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjAsIkVtYWlsIjoiVGVzdEB0ZXN0LmNvbSIsIkZpcnN0TmFtZSI6IlRlc3QiLCJMYXN0TmFtZSI6IlRlc3QiLCJEYXRlVGltZSI6IjAwMDEtMDEtMDFUMDA6MDA6MDAifQ.NnHFVebJTMQ7xqx4s33CMpds1mEIIkgAyuebGbK5_2g", token);
-
         }
 
         [Fact]
@@ -61,6 +54,11 @@ namespace Shared.Test
 
             var token = AuthHelper.GenerateCustomAuthToken(payload);
             Assert.Equal("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUZXN0IjoiVGVzdCJ9.NNq_gjZsuFaw058z1P1iFNTKICE1E_OIBh3YTdZaDdc", token);
+        }
+
+        private class CustomAuthPayload
+        {
+            public string Test { get; set; }
         }
     }
 }

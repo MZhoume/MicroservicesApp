@@ -15,11 +15,6 @@ namespace Shared.Validation
         public static void Validate(this Request request)
         {
             Validator.ValidateObject(request, new ValidationContext(request), true);
-
-            foreach (var term in request.SearchTerm)
-            {
-                Validator.ValidateObject(term, new ValidationContext(term), true);
-            }
         }
     }
 }

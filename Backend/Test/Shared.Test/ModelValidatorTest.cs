@@ -1,12 +1,11 @@
 namespace Shared.Test
 {
-    using System;
     using System.ComponentModel.DataAnnotations;
-    using Shared.Validation;
     using Shared.Model;
+    using Shared.Validation;
     using Xunit;
 
-    public class ValidationTest
+    public class ModelValidatorTest
     {
         [Fact]
         public void ValidatorShouldSuccessForValidField()

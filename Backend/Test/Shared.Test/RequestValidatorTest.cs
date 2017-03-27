@@ -1,46 +1,29 @@
 namespace Shared.Test
 {
     using System.ComponentModel.DataAnnotations;
-    using Shared.Validation;
-    using Shared.Model;
     using Shared.Request;
+    using Shared.Validation;
     using Xunit;
 
     public class RequestValidatorTest
     {
         [Fact]
-        public void ValidatorShouldSuccessForValidField()
+        public void ValidatorShouldSuccessForValidOperation()
         {
             var r = new Request()
             {
-                Operation = Operation.Create,
-                SearchTerm = new[] {
-                    new SearchTerm()
-                    {
-                        Field = "Field",
-                        Operator = SearchOperator.EQ,
-                        Value = "value"
-                    }
-                }
+                Operation = Operation.Create
             };
 
             r.Validate();
         }
 
         [Fact]
-        public void ValidatorShouldFailForInvalidField()
+        public void ValidatorShouldFailForInvalidOperation()
         {
             var r = new Request()
             {
-                Operation = Operation.Create,
-                SearchTerm = new[] {
-                    new SearchTerm()
-                    {
-                        Field = "Field",
-                        Operator = (SearchOperator)100,
-                        Value = "value"
-                    }
-                }
+                Operation = (Operation)100
             };
 
             Assert.Throws(typeof(ValidationException), () => r.Validate());

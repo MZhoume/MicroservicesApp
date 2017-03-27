@@ -9,14 +9,6 @@ namespace Shared.Test
 
     public class CommandContainerTest
     {
-        private class TestCommand : ICommand
-        {
-            public Response Invoke(Request request)
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         [Fact]
         public void ContainerShouldWork()
         {
@@ -24,6 +16,47 @@ namespace Shared.Test
             container.Register<TestCommand>(Operation.Create);
 
             Assert.Equal(typeof(TestCommand), container[Operation.Create].GetType());
+        }
+
+        [Fact]
+        public void ContainerShouldWorkWithConcreteRequirement()
+        {
+            var container = new CommandContainer();
+            container.RegisterRequirement<TestCommand>()
+                     .Register<TestCommand3>(Operation.Create);
+
+            Assert.Equal(typeof(TestCommand3), container[Operation.Create].GetType());
+            Assert.Equal(typeof(TestCommand), ((TestCommand3)container[Operation.Create]).Test().GetType());
+        }
+
+        [Fact]
+        public void ContainerShouldWorkWithInterfaceRequirement()
+        {
+            var container = new CommandContainer();
+            container.RegisterRequirement<ICommand, TestCommand>()
+                     .Register<TestCommand2>(Operation.Create);
+
+            Assert.Equal(typeof(TestCommand2), container[Operation.Create].GetType());
+            Assert.Equal(typeof(TestCommand), ((TestCommand2)container[Operation.Create]).Test().GetType());
+        }
+
+        [Fact]
+        public void ContainerShouldWorkWithRequirementConcrete()
+        {
+            var container = new CommandContainer();
+            container.RegisterRequirement<ICommand>(() => new TestCommand())
+                     .Register<TestCommand2>(Operation.Create);
+
+            Assert.Equal(typeof(TestCommand2), container[Operation.Create].GetType());
+            Assert.Equal(typeof(TestCommand), ((TestCommand2)container[Operation.Create]).Test().GetType());
+        }
+
+        private class TestCommand : ICommand
+        {
+            public Response Invoke(Request request)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private class TestCommand2 : ICommand
@@ -64,39 +97,6 @@ namespace Shared.Test
             {
                 throw new NotImplementedException();
             }
-        }
-
-        [Fact]
-        public void ContainerShouldWorkWithConcreteRequirement()
-        {
-            var container = new CommandContainer();
-            container.RegisterRequirement<TestCommand>()
-                     .Register<TestCommand3>(Operation.Create);
-
-            Assert.Equal(typeof(TestCommand3), container[Operation.Create].GetType());
-            Assert.Equal(typeof(TestCommand), ((TestCommand3)container[Operation.Create]).Test().GetType());
-        }
-
-        [Fact]
-        public void ContainerShouldWorkWithInterfaceRequirement()
-        {
-            var container = new CommandContainer();
-            container.RegisterRequirement<ICommand, TestCommand>()
-                     .Register<TestCommand2>(Operation.Create);
-
-            Assert.Equal(typeof(TestCommand2), container[Operation.Create].GetType());
-            Assert.Equal(typeof(TestCommand), ((TestCommand2)container[Operation.Create]).Test().GetType());
-        }
-
-        [Fact]
-        public void ContainerShouldWorkWithRequirementConcrete()
-        {
-            var container = new CommandContainer();
-            container.RegisterRequirement<ICommand>(() => new TestCommand())
-                     .Register<TestCommand2>(Operation.Create);
-
-            Assert.Equal(typeof(TestCommand2), container[Operation.Create].GetType());
-            Assert.Equal(typeof(TestCommand), ((TestCommand2)container[Operation.Create]).Test().GetType());
         }
     }
 }

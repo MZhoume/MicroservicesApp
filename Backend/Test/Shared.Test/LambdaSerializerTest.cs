@@ -1,19 +1,11 @@
 namespace Shared.Test
 {
-    using System;
     using System.IO;
-    using Amazon.Lambda.TestUtilities;
-    using Newtonsoft.Json;
     using Shared;
     using Xunit;
 
     public class LambdaSerializerTest
     {
-        private class TestRequest
-        {
-            public string Test { get; set; }
-        }
-
         [Fact]
         public void ValidObjectShouldSerialize()
         {
@@ -56,6 +48,11 @@ namespace Shared.Test
             stream.Position = 0;
 
             Assert.Throws(typeof(LambdaException), () => serializer.Deserialize<TestRequest>(stream));
+        }
+
+        private class TestRequest
+        {
+            public string Test { get; set; }
         }
     }
 }
