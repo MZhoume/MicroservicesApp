@@ -17,7 +17,10 @@ namespace Shared.Request
         // supported user operation
         SignUp,
         LogIn,
-        VerifyEmail
+        VerifyEmail,
+
+        // supported queue operation
+        Queue
 
 #pragma warning restore SA1602
 #pragma warning restore CS1591

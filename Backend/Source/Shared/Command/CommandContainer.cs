@@ -1,9 +1,10 @@
-namespace Shared.Container
+namespace Shared.Command
 {
     using System;
     using System.Collections.Generic;
     using Shared.Interface;
     using Shared.Request;
+    using Shared.Response;
     using SimpleInjector;
 
     /// <summary>
@@ -15,38 +16,18 @@ namespace Shared.Container
         private readonly Container container = new Container();
 
         /// <summary>
-        /// Gets the registered command with given key
+        /// Process the given request
         /// </summary>
-        /// <param name="operation"> The Operation to register </param>
-        public ICommand this[Operation operation]
+        /// <param name="request"> The request to process </param>
+        /// <returns> The processed response </returns>
+        public Response Process(Request request)
         {
-            get
+            if (!this.commands.ContainsKey(request.Operation))
             {
-                if (!this.commands.ContainsKey(operation))
-                {
-                    throw new ArgumentException($"Operation {Enum.GetName(typeof(Operation), operation)} is not supported.");
-                }
-
-                return this.container.GetInstance(this.commands[operation]) as ICommand;
-            }
-        }
-
-        /// <summary>
-        /// Register a command with the key
-        /// </summary>
-        /// <param name="operation"> The Operation to register </param>
-        /// <typeparam name="TCommand"> The type of the command </typeparam>
-        /// <returns> This for chaining call </returns>
-        public CommandContainer Register<TCommand>(Operation operation)
-        where TCommand : ICommand
-        {
-            if (this.commands.ContainsKey(operation))
-            {
-                throw new ArgumentException($"{Enum.GetName(typeof(Operation), operation)} already registered.");
+                throw new ArgumentException($"Operation {Enum.GetName(typeof(Operation), request.Operation)} is not supported.");
             }
 
-            this.commands.Add(operation, typeof(TCommand));
-            return this;
+            return (this.container.GetInstance(this.commands[request.Operation]) as ICommand).Invoke(request);
         }
 
         /// <summary>
@@ -85,6 +66,26 @@ namespace Shared.Container
         where TType : class
         {
             this.container.Register<TType>(func);
+            return this;
+        }
+
+        /// <summary>
+        /// Register a command with the key
+        /// </summary>
+        /// <param name="operation"> The Operation to register </param>
+        /// <typeparam name="TCommand"> The type of the command </typeparam>
+        /// <returns> This for chaining call </returns>
+        public CommandContainer Register<TCommand>(Operation operation)
+        where TCommand : class, ICommand
+        {
+            if (this.commands.ContainsKey(operation))
+            {
+                throw new ArgumentException($"{Enum.GetName(typeof(Operation), operation)} already registered.");
+            }
+
+            this.commands.Add(operation, typeof(TCommand));
+            this.container.Register<TCommand>();
+
             return this;
         }
     }
