@@ -31,3 +31,5 @@ env:
   - TEST_DIR=EmailService
   - TEST_DIR=ProductService
   - TEST_DIR=AddressService
+  - TEST_DIR=QueueService
+  - TEST_DIR=ProcessService
