@@ -8,9 +8,11 @@ namespace QueueService
     using System;
     using Amazon.Lambda.Core;
     using QueueService.Queue;
+    using QueueService.Read;
     using Shared;
     using Shared.Command;
     using Shared.Http;
+    using Shared.Queue;
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
@@ -31,7 +33,8 @@ namespace QueueService
         {
             var container = new CommandContainer();
 
-            container.Register<QueueCommand>(Operation.Queue);
+            container.Register<QueueCommand>(Operation.Queue)
+                     .Register<ReadCommand>(Operation.Read);
 
             try
             {
