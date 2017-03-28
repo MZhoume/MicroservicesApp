@@ -1,10 +1,11 @@
 namespace UserService.SignUp
 {
     using System.Threading.Tasks;
-    using Amazon.SimpleNotificationService;
+    using Amazon.SQS;
     using Newtonsoft.Json;
     using Shared.Authentication;
     using Shared.Email;
+    using Shared.Http;
     using Shared.Interface;
     using Shared.Request;
     using Shared.Response;
@@ -42,10 +43,17 @@ namespace UserService.SignUp
                     .Replace("%%TOKEN%%", emailToken)
             };
 
-            var snsClient = new AmazonSimpleNotificationServiceClient();
+            var sqsClient = new AmazonSQSClient();
             Task.Factory.StartNew(async () =>
-                await snsClient.PublishAsync(EmailHelper.EmailTopicArn, JsonConvert.SerializeObject(emailReq))
-            ).Wait();
+            {
+                var sqsResponse = await sqsClient.SendMessageAsync(
+                    EmailHelper.QueueUrl,
+                    JsonConvert.SerializeObject(emailReq)
+                );
+
+                response.Payload = sqsResponse.MessageId;
+                response.Status = HttpCode.Accepted;
+            }).Wait();
 
             return response;
         }

@@ -18,7 +18,6 @@
     "xunit": "2.1.0-*",
     "dotnet-test-xunit": "2.2.0-*",
     "Moq": "4.7.1",
-    "AWSSDK.SimpleNotificationService": "3.3.0.7",
     "BCrypt.Net-Core": "1.3.0",
     "Dapper.Contrib": "1.50.0",
     "StyleCop.Analyzers": {
