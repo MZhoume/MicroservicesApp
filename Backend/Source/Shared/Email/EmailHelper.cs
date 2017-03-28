@@ -6,9 +6,9 @@ namespace Shared.Email
     public static class EmailHelper
     {
         /// <summary>
-        /// Gets the topic arn for email topic
+        /// Gets the queue arn for email queue
         /// </summary>
-        /// <returns> The Topic Arn </returns>
-        public static string EmailTopicArn { get; } = "arn:aws:sns:us-east-1:165669929949:E6998S6EmailTopic";
+        /// <returns> Th Queue Arn </returns>
+        public static string QueueUrl { get; } = "https://sqs.us-east-1.amazonaws.com/165669929949/E6998S6EmailQueue";
     }
 }
