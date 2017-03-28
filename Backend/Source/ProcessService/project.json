@@ -28,7 +28,6 @@
         },
         "Dapper": "1.50.2",
         "Dapper.Contrib": "1.50.0",
-        "AWSSDK.SimpleNotificationService": "3.3.0.10",
         "AWSSDK.SQS": "3.3.1.10"
     },
     "tools": {
