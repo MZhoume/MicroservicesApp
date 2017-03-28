@@ -12,7 +12,6 @@ namespace QueueService
     using Shared;
     using Shared.Command;
     using Shared.Http;
-    using Shared.Queue;
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
