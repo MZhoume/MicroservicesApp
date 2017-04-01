@@ -9,7 +9,7 @@ namespace OrderService
     using System.Data;
     using Amazon.Lambda.Core;
     using Shared;
-    using Shared.Container;
+    using Shared.Command;
     using Shared.DbAccess;
     using Shared.Http;
     using Shared.Request;
@@ -41,7 +41,7 @@ namespace OrderService
 
             try
             {
-                return container[request.Operation].Invoke(request);
+                return container.Process(request);
             }
             catch(Exception ex)
             {
