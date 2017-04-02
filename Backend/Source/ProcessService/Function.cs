@@ -7,6 +7,7 @@ namespace ProcessService
 {
     using System;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using Amazon.Lambda;
     using Amazon.Lambda.Core;
     using Amazon.Lambda.Model;
@@ -23,11 +24,9 @@ namespace ProcessService
         /// <summary>
         /// Process lambda function handler
         /// </summary>
-        /// <param name="event"> The event for lambda handler </param>
-        /// <param name="context"> Context info for lambda handler </param>
-        /// <returns> Value send to clients </returns>
+        /// <returns> Nothing </returns>
         [LambdaSerializer(typeof(LambdaSerializer))]
-        public async void FunctionHandler(object @event, ILambdaContext context)
+        public async Task FunctionHandler()
         {
             var sqsClient = new AmazonSQSClient();
             var sqsResponse = await sqsClient.ReceiveMessageAsync(QueueHelper.RequestQueueUrl);

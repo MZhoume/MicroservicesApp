@@ -17,10 +17,9 @@ namespace AddressService
         /// Example lambda function handler
         /// </summary>
         /// <param name="input"> Input for lambda handler </param>
-        /// <param name="context"> Context info for lambda handler </param>
         /// <returns> Value send to clients </returns>
         [LambdaSerializer(typeof(LambdaSerializer))]
-        public string FunctionHandler(string input, ILambdaContext context)
+        public string FunctionHandler(string input)
         {
             return input?.ToUpper();
         }

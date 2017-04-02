@@ -22,13 +22,9 @@ namespace AuthService
         /// Handle the Authentication Request
         /// </summary>
         /// <param name="request"> Authentication Request </param>
-        /// <param name="context"> API Gateway Custom Authorizer Context </param>
         /// <returns> API Gateway Custom Authorizer Response </returns>
         [LambdaSerializer(typeof(LambdaSerializer))]
-        public APIGatewayCustomAuthorizerResponse FunctionHandler(
-            APIGatewayCustomAuthorizerRequest request,
-            ILambdaContext context
-        )
+        public APIGatewayCustomAuthorizerResponse FunctionHandler(APIGatewayCustomAuthorizerRequest request)
         {
             var token = request.AuthorizationToken;
             var type = AuthTokenType.JWT;

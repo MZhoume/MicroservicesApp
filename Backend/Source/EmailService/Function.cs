@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 namespace EmailService
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Amazon.Lambda.Core;
     using Amazon.SimpleEmail;
     using Amazon.SimpleEmail.Model;
@@ -22,10 +23,9 @@ namespace EmailService
         /// <summary>
         /// Example lambda function handler
         /// </summary>
-        /// <param name="event"> SNS Event for lambda handler </param>
-        /// <param name="context"> Context info for lambda handler </param>
+        /// <returns> Nothing </returns>
         [LambdaSerializer(typeof(LambdaSerializer))]
-        public async void FunctionHandler(object @event, ILambdaContext context)
+        public async Task FunctionHandler()
         {
             var sqsClient = new AmazonSQSClient();
             var sqsResponse = await sqsClient.ReceiveMessageAsync(EmailHelper.QueueUrl);

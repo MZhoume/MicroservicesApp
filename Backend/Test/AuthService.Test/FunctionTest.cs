@@ -22,7 +22,6 @@ namespace AuthService.Test
         public void AuthSuccessWithValidToken()
         {
             var function = new Function();
-            var context = new TestLambdaContext();
 
             var validRequest = new APIGatewayCustomAuthorizerRequest()
             {
@@ -30,7 +29,7 @@ namespace AuthService.Test
                 MethodArn = "arn:aws:execute-api:<regionId>:<accountId>:<apiId>/<stage>/<method>/<resourcePath>"
             };
 
-            var validPolicy = function.FunctionHandler(validRequest, context).PolicyDocument;
+            var validPolicy = function.FunctionHandler(validRequest).PolicyDocument;
 
             Assert.Equal(validPolicy.Statement[0].Effect, Effect.Allow.GetStringValue());
             Assert.True(validPolicy.Statement[0].Action.Contains(CustomAuthorizerHelper.ComposeAction(Action.Invoke)));
@@ -41,7 +40,6 @@ namespace AuthService.Test
         public void AuthFailForInvalidTokenWithin5Min()
         {
             var function = new Function();
-            var context = new TestLambdaContext();
 
             var invalidRequest = new APIGatewayCustomAuthorizerRequest()
             {
@@ -49,7 +47,7 @@ namespace AuthService.Test
                 MethodArn = "arn:aws:execute-api:<regionId>:<accountId>:<apiId>/<stage>/<method>/<resourcePath>"
             };
 
-            var invalidPolicy = function.FunctionHandler(invalidRequest, context).PolicyDocument;
+            var invalidPolicy = function.FunctionHandler(invalidRequest).PolicyDocument;
 
             Assert.Equal(invalidPolicy.Statement[0].Effect, Effect.Deny.GetStringValue());
             Assert.True(invalidPolicy.Statement[0].Action.Contains(CustomAuthorizerHelper.ComposeAction(Action.All)));

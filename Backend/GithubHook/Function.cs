@@ -12,7 +12,7 @@ namespace GithubHook
         private const string SlackUrl = "https://hooks.slack.com/services/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";
 
         [LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
-        public async Task FunctionHandler(GithubPayload payload, ILambdaContext context)
+        public async Task FunctionHandler(GithubPayload payload)
         {
             var res = payload.Commits.Select(c =>
                 new

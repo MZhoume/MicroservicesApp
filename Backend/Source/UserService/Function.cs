@@ -31,10 +31,9 @@ namespace UserService
         /// UserService lambda function handler
         /// </summary>
         /// <param name="request"> Request for lambda handler </param>
-        /// <param name="context"> Context info for lambda handler </param>
         /// <returns> Lambda response </returns>
         [LambdaSerializer(typeof(LambdaSerializer))]
-        public Response FunctionHandler(Request request, ILambdaContext context)
+        public Response FunctionHandler(Request request)
         {
             var container = new CommandContainer();
 
