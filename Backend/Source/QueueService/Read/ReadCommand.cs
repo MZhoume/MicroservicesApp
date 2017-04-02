@@ -8,6 +8,7 @@ namespace QueueService.Read
     using Shared.Queue;
     using Shared.Request;
     using Shared.Response;
+    using Shared.Validation;
 
     /// <summary>
     /// The command class for the read command
@@ -23,6 +24,7 @@ namespace QueueService.Read
         {
             var response = new Response();
             var payload = request.Payload.ToObject<ReadPayload>();
+            payload.Validate();
 
             var sqsClient = new AmazonSQSClient();
 
