@@ -8,6 +8,7 @@ namespace ProductService.Read
     using Shared.Model;
     using Shared.Request;
     using Shared.Response;
+    using Shared.Validation;
 
     /// <summary>
     /// Command for Read Operation
@@ -32,11 +33,13 @@ namespace ProductService.Read
         /// <returns> The response </returns>
         public Response Invoke(Request request)
         {
+            var payload = request.Payload.ToObject<SearchPayload>();
+            payload.Validate();
             var response = new Response();
 
             var res = this.connection.Query<Product>(
-                RequestHelper.ComposeSearchExp(request.SearchTerm, DbHelper.GetTableName<Product>(), request.PagingInfo != null),
-                RequestHelper.GetSearchObject(request.SearchTerm, request.PagingInfo));
+                RequestHelper.ComposeSearchExp(payload.SearchTerm, DbHelper.GetTableName<Product>(), payload.PagingInfo != null),
+                RequestHelper.GetSearchObject(payload.SearchTerm, payload.PagingInfo));
             response.Payload = res.ToArray();
 
             return response;

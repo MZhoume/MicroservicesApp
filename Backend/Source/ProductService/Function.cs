@@ -8,15 +8,15 @@ namespace ProductService
     using System;
     using System.Data;
     using Amazon.Lambda.Core;
-    using Dapper;
     using ProductService.Read;
     using Shared;
-    using Shared.Container;
+    using Shared.Command;
     using Shared.DbAccess;
     using Shared.Http;
     using Shared.Model;
     using Shared.Request;
     using Shared.Response;
+    using Shared.Validation;
 
     /// <summary>
     /// Lambda function entry class
@@ -39,7 +39,8 @@ namespace ProductService
 
             try
             {
-                return container[request.Operation].Invoke(request);
+                request.Validate();
+                return container.Process(request);
             }
             catch (Exception ex)
             {
