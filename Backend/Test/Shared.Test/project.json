@@ -17,7 +17,7 @@
     "dotnet-test-xunit": "2.2.0-*",
     "Newtonsoft.Json": "10.0.1",
     "Shared": "1.0.0",
-    "jose-jwt": "2.2.0",
+    "jose-jwt": "2.1.0",
     "StyleCop.Analyzers": {
       "version": "1.0.0",
       "type": "build"

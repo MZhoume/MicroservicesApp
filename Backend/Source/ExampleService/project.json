@@ -13,14 +13,14 @@
         },
         "Amazon.Lambda.Core": "1.0.0*",
         "Newtonsoft.Json": "10.0.1",
-        "jose-jwt": "2.2.0",
+        "jose-jwt": "2.1.0",
         "Shared": "1.0.0",
         "SimpleInjector": "3.3.2",
         "Amazon.Lambda.Tools": {
             "version": "1.4.0",
             "type": "build"
         },
-        "System.Data.Common": "4.3.0",
+        "System.Data.Common": "4.1.0",
         "MySql.Data": "7.0.6-IR31",
         "StyleCop.Analyzers": {
             "version": "1.0.0",

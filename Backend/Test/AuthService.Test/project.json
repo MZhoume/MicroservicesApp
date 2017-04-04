@@ -14,7 +14,7 @@
     "Amazon.Lambda.TestUtilities": "1.0.0*",
     "Amazon.Lambda.APIGatewayEvents": "1.0.2",
     "SimpleInjector": "3.3.2",
-    "jose-jwt": "2.2.0",
+    "jose-jwt": "2.1.0",
     "AuthService": "1.0.0",
     "Shared": "1.0.0",
     "xunit": "2.1.0-*",

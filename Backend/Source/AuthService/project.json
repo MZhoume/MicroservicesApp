@@ -15,7 +15,7 @@
     "Amazon.Lambda.Core": "1.0.0*",
     "Amazon.Lambda.APIGatewayEvents": "1.0.2",
     "SimpleInjector": "3.3.2",
-    "jose-jwt": "2.2.0",
+    "jose-jwt": "2.1.0",
     "Amazon.Lambda.Tools": {
       "version": "1.4.0",
       "type": "build"
