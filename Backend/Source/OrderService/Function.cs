@@ -14,9 +14,11 @@ namespace OrderService
     using Shared.Http;
     using Shared.Request;
     using Shared.Response;
+    using Shared.Validation;
     using OrderService.Read;
     using OrderService.Update;
     using OrderService.Create;
+    using OrderService.Delete;
 
     /// <summary>
     /// Lambda function entry class
@@ -27,20 +29,20 @@ namespace OrderService
         /// OrderService lambda function handler
         /// </summary>
         /// <param name="request"> Request for lambda handler </param>
-        /// <param name="context"> Context info for lambda handler </param>
         /// <returns> Lambda response </returns>
         [LambdaSerializer(typeof(LambdaSerializer))]
-        public Response FunctionHandler(Request request, ILambdaContext context)
+        public Response FunctionHandler(Request request)
         {
             var container = new CommandContainer();
 
             container.RegisterRequirement<IDbConnection>(() => DbHelper.Connection)
                      .Register<CreateCommand>(Operation.Create)
                      .Register<ReadCommand>(Operation.Read)
-                     .Register<UpdateCommand>(Operation.Update);
-
+                     .Register<UpdateCommand>(Operation.Update)
+                     .Register<DeleteCommand>(Operation.Delete);
             try
             {
+                request.Validate();
                 return container.Process(request);
             }
             catch(Exception ex)
