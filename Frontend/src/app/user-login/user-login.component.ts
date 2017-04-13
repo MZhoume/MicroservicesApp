@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from "../User";
-import {UserService} from "../user.service";
-import {Router} from "@angular/router";
+import {User} from '../User';
+import {UserService} from '../user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -23,27 +23,27 @@ export class UserLoginComponent implements OnInit {
     ngOnInit() {
         this.user = new User();
         // if usr log in, redirect to welcome page
-        if (this.userService.getUser() == undefined){
-            console.log("please log in");
+        if (this.userService.getUser() === undefined) {
+            console.log('please log in');
         }else {
             this.forward();
         }
     }
 
-    async onSubmit() : Promise<any> {
-        console.log("going to log in");
+    async onSubmit(): Promise<any> {
+        console.log('going to log in');
         this.message = 'Loading';
         try {
             let loginResult = await this.userService.loginUserRemote(this.user);
             console.log(loginResult);
             if (loginResult.result  === 'success') {
                 this.user = new User();
-                this.message ='login success';
+                this.message = 'login success';
                 console.log('login success');
-                this.forward();
+                // this.forward();
             } else {
                 console.log(loginResult);
-                //this.message = response.reason;
+                // this.message = response.reason;
                 console.log('login fail');
             }
         } catch (ex) {

@@ -1,24 +1,25 @@
 import { Injectable } from '@angular/core';
-import {User} from "./User";
+import {User} from './User';
 import { Headers, RequestOptions } from '@angular/http';
-import { Http, Response }          from '@angular/http';
+import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import {Item_Response1} from "./mock-data/mock-movies";
 
 @Injectable()
 export class ItemService {
 
-    constructor (private http: Http) {}
-
     private Urli = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/product';
 
+    constructor (private http: Http) {}
+
+
+
     async getItemsRemote(): Promise<any> {
-        console.log("item fetch");
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
+        console.log('item fetch');
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
 
         try {
-            let res = await this.http.get(this.Urli, options).toPromise();
+            const res = await this.http.get(this.Urli, options).toPromise();
 
             console.log(res.json());
             return res.json();
