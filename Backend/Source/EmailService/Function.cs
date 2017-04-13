@@ -5,15 +5,15 @@ using System.Runtime.CompilerServices;
 
 namespace EmailService
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+    using System;
     using Amazon.Lambda.Core;
-    using Amazon.SimpleEmail;
-    using Amazon.SimpleEmail.Model;
-    using Amazon.SQS;
-    using Newtonsoft.Json;
+    using EmailService.Send;
     using Shared;
-    using Shared.Email;
+    using Shared.Command;
+    using Shared.Http;
+    using Shared.Request;
+    using Shared.Response;
+    using Shared.Validation;
 
     /// <summary>
     /// Lambda function entry class
@@ -21,37 +21,25 @@ namespace EmailService
     public class Function
     {
         /// <summary>
-        /// Example lambda function handler
+        /// Function handler for email service
         /// </summary>
-        /// <returns> Nothing </returns>
+        /// <param name="request"> The request for the service </param>
+        /// <returns> The response </returns>
         [LambdaSerializer(typeof(LambdaSerializer))]
-        public async Task FunctionHandler()
+        public Response FunctionHandler(Request request)
         {
-            var sqsClient = new AmazonSQSClient();
-            var sqsResponse = await sqsClient.ReceiveMessageAsync(EmailHelper.QueueUrl);
+            var container = new CommandContainer();
 
-            foreach (var message in sqsResponse.Messages)
+            container.Register<SendCommand>(Operation.Send);
+
+            try
             {
-                var body = message.Body;
-                var handler = message.ReceiptHandle;
-
-                var emailRequest = JsonConvert.DeserializeObject<EmailRequest>(body);
-
-                var destination = new Destination()
-                {
-                    ToAddresses = new List<string>() { emailRequest.To }
-                };
-                var emailBody = new Message()
-                {
-                    Subject = new Content(emailRequest.Subject),
-                    Body = new Body(new Content(body))
-                };
-                var request = new SendEmailRequest(emailRequest.From, destination, emailBody);
-
-                var client = new AmazonSimpleEmailServiceClient();
-                await client.SendEmailAsync(request);
-
-                await sqsClient.DeleteMessageAsync(EmailHelper.QueueUrl, handler);
+                request.Validate();
+                return container.Process(request);
+            }
+            catch (Exception ex)
+            {
+                throw new LambdaException(HttpCode.BadRequest, ex.Message);
             }
         }
     }

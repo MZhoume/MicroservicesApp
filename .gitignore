@@ -11,6 +11,8 @@ Sandbox.Test
 SandboxService
 SandboxService.Test
 
+Key.cs
+
 # IDEs and editors
 /Frontend/.idea
 .project
