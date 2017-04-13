@@ -11,7 +11,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class UserProfileComponent implements OnInit {
 
-    regUser: User;
+    user: User;
     message: string;
 
     constructor(
@@ -20,31 +20,31 @@ export class UserProfileComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-      this.regUser = new User();
+      this.user = this.userService.getUser();
       // if usr log in, redirect to welcome page
-      if (this.userService.getUser() == undefined){
+      if (this.user === undefined) {
           this.forward('/welcome');
       }else {
-          console.log("please modify");
+          console.log('please modify');
       }
   }
-    forward(dest:string) {
+    forward(dest: string) {
         this.router.navigate([dest]);
     }
 
-    async onSubmit() : Promise<any> {
-        console.log("going to register");
+    async onSubmit(): Promise<any> {
+        console.log("modify submitted");
         this.message = 'Loading';
         try {
-            let resigterResult = await this.userService.registerUserRemote(this.regUser);
-            console.log(resigterResult);
-            if (resigterResult.result  === 'success') {
-                this.regUser = new User();
+            let modifyResult = await this.userService.modifyUserInfoRemote(this.user);
+            console.log(modifyResult);
+            if (modifyResult.result  === 'success') {
+                this.user = new User();
                 this.message ='register success';
                 console.log('register success');
                 this.forward('/login');
             } else {
-                console.log(resigterResult);
+                console.log(modifyResult);
                 //this.message = response.reason;
                 console.log('register fail');
             }

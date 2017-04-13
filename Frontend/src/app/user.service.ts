@@ -9,6 +9,7 @@ import {USER_Login_Response1, USER_Reg_Response1, USER_Reg_Response2} from './mo
 export class UserService {
     private Urll = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/users/login';
     private Urlr = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/users/signup';
+    private modifyUserInfoUrl = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/'
     user: User;
 
     getUser(): User {
@@ -45,6 +46,25 @@ export class UserService {
 
         try {
             const res = await this.http.post(this.Urlr, { FirstName: user.firstname, LastName: user.lastname,
+                Password : user.password, Email : user.email, PhoneNumber: user.phone }, options)
+                .toPromise();
+            console.log(res.json());
+            return true;
+        } catch (ex) {
+            console.log(ex);
+            // this.handleError(ex);
+            return false;
+        }
+    }
+
+    async modifyUserInfoRemote(user: User): Promise<any> {
+        // console.log('enter register');
+        let headers = new Headers({ 'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + user.JWT});
+        const options = new RequestOptions({ headers: headers });
+
+        try {
+            const res = await this.http.post(this.modifyUserInfoUrl, { FirstName: user.firstname, LastName: user.lastname,
                 Password : user.password, Email : user.email, PhoneNumber: user.phone }, options)
                 .toPromise();
             console.log(res.json());
