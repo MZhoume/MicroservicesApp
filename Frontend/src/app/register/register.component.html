@@ -38,6 +38,11 @@
                                    required
                                    [(ngModel)]="regUser.password" name="pwd">
                         </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" class="form-control" id="phone"
+                                   [(ngModel)]="regUser.phone" name="phone">
+                        </div>
                         <button type="submit" class="btn btn-success">Submit</button>
 
                     </form>

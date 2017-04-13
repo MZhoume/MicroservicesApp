@@ -38,7 +38,7 @@ export class UserService {
         }
     }
 
-    private Urlr = 'http://ec2-54-165-183-168.compute-1.amazonaws.com:3000/user';
+    private Urlr = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/users';
 
     async registerUserRemote(user:User): Promise<any> {
         console.log("enter register");
@@ -47,7 +47,7 @@ export class UserService {
 
         try {
             let res = await this.http.post(this.Urlr, { FirstName: user.firstname, LastName: user.lastname,
-                PwdHash : user.password, Email : user.email }, options)
+                Password : user.password, Email : user.email, PhoneNumber: user.phone }, options)
                 .toPromise();
             console.log(res.json());
             // this.user = new User();
