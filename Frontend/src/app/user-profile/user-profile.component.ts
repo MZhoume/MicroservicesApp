@@ -39,14 +39,14 @@ export class UserProfileComponent implements OnInit {
             let modifyResult = await this.userService.modifyUserInfoRemote(this.user);
             console.log(modifyResult);
             if (modifyResult.result  === 'success') {
-                this.user = new User();
-                this.message ='register success';
-                console.log('register success');
-                this.forward('/login');
+
+                this.message ='modify success';
+                console.log('modify success');
+
             } else {
                 console.log(modifyResult);
                 //this.message = response.reason;
-                console.log('register fail');
+                console.log('modify fail');
             }
         } catch (ex) {
             console.error('An error occurred', ex);
