@@ -20,7 +20,10 @@ namespace Shared.Request
         VerifyEmail,
 
         // supported queue operation
-        Queue
+        Queue,
+
+        // support for sending email
+        Send
 
 #pragma warning restore SA1602
 #pragma warning restore CS1591
