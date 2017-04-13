@@ -11,6 +11,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class UserProfileComponent implements OnInit {
 
+    originalUser: User;
     user: User;
     message: string;
 
@@ -20,7 +21,8 @@ export class UserProfileComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-      this.user = this.userService.getUser();
+      this.originalUser = this.userService.getUser();
+      this.user = this.originalUser;
       // if usr log in, redirect to welcome page
       if (this.user === undefined) {
           this.forward('/welcome');
@@ -35,8 +37,25 @@ export class UserProfileComponent implements OnInit {
     async onSubmit(): Promise<any> {
         console.log("modify submitted");
         this.message = 'Loading';
+        let change = {};
+        if (this.user.firstname != this.originalUser.firstname) {
+            change["FirstName"] = this.user.firstname;
+        }
+        if (this.user.lastname != this.originalUser.lastname) {
+            change["LastName"] = this.user.lastname;
+        }
+        if (this.user.password != this.originalUser.password) {
+            change["Password"] = this.user.password;
+        }
+        if (this.user.email != this.originalUser.email) {
+            change["Email"] = this.user.email;
+        }
+        if (this.user.phone != this.originalUser.phone) {
+            change["PhoneNumber"] = this.user.phone;
+        }
+
         try {
-            let modifyResult = await this.userService.modifyUserInfoRemote(this.user);
+            let modifyResult = await this.userService.modifyUserInfoRemote(this.user, change);
             console.log(modifyResult);
             if (modifyResult) {
 
