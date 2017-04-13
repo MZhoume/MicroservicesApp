@@ -1,6 +1,5 @@
 namespace QueueService.Queue
 {
-    using System.Threading.Tasks;
     using Amazon.SQS;
     using Newtonsoft.Json;
     using Shared.Http;
@@ -28,16 +27,13 @@ namespace QueueService.Queue
 
             var sqsClient = new AmazonSQSClient();
 
-            Task.Factory.StartNew(async () =>
-            {
-                var sqsResponse = await sqsClient.SendMessageAsync(
-                    QueueHelper.RequestQueueUrl,
-                    JsonConvert.SerializeObject(queueRequest)
-                );
+            var sqsResponse = sqsClient.SendMessageAsync(
+                QueueHelper.RequestQueueUrl,
+                JsonConvert.SerializeObject(queueRequest)
+            ).Result;
 
-                response.Payload = sqsResponse.MessageId;
-                response.Status = HttpCode.Accepted;
-            }).Wait();
+            response.Payload = sqsResponse.MessageId;
+            response.Status = HttpCode.Accepted;
 
             return response;
         }

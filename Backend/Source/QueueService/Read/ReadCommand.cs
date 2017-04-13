@@ -1,7 +1,6 @@
 namespace QueueService.Read
 {
     using System.Linq;
-    using System.Threading.Tasks;
     using Amazon.SQS;
     using QueueService.Model;
     using Shared.Interface;
@@ -28,29 +27,27 @@ namespace QueueService.Read
 
             var sqsClient = new AmazonSQSClient();
 
-            Task.Factory.StartNew(async () =>
-            {
-                var requestQueue = await sqsClient.ReceiveMessageAsync(QueueHelper.RequestQueueUrl);
 
-                if (requestQueue.Messages.Any(m => m.MessageId == payload.Id))
+            var requestQueue = sqsClient.ReceiveMessageAsync(QueueHelper.RequestQueueUrl).Result;
+
+            if (requestQueue.Messages.Any(m => m.MessageId == payload.Id))
+            {
+                response.Payload = "Processing...";
+            }
+            else
+            {
+                var processedQueue = sqsClient.ReceiveMessageAsync(QueueHelper.ProcessedQueueUrl).Result;
+                var res = processedQueue.Messages.FirstOrDefault(m => m.MessageId == payload.Id);
+
+                if (res == null)
                 {
-                    response.Payload = "Processing...";
+                    response.Payload = res.Body;
                 }
                 else
                 {
-                    var processedQueue = await sqsClient.ReceiveMessageAsync(QueueHelper.ProcessedQueueUrl);
-                    var res = processedQueue.Messages.FirstOrDefault(m => m.MessageId == payload.Id);
-
-                    if (res == null)
-                    {
-                        response.Payload = res.Body;
-                    }
-                    else
-                    {
-                        response.Payload = "The queued request has been removed.";
-                    }
+                    response.Payload = "The queued request has been removed.";
                 }
-            }).Wait();
+            }
 
             return response;
         }
