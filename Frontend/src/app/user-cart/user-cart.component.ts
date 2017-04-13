@@ -64,8 +64,8 @@ export class UserCartComponent implements OnInit {
                 this.myToken = token.id;
                 // todo send to server
                 // this.itemService.sendTokenToServer(this.myToken, this.user.JWT, id, price);
-                // this.userService.getUser().JWT
                 this.cartService.checkoutCart(this.userService.getUser().JWT, this.myToken, this.total * 100);
+                // this.cartService.sendOrderToServer(this.userService.getUser().JWT, this.cartService.myCart.count.keys(), this.CartService.myCart.count.values());
                 console.log(this.total)
                 this.getCartContent();
                 console.log('pay end.');

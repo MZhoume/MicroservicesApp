@@ -42,4 +42,20 @@ export class Cart {
         }
     }
 
+    getId(): string[] {
+        let result: string[];
+        for (let key of this.count.keys()) {
+            result.push(key);
+        }
+        return result;
+    }
+
+    getNumber(): string[] {
+        let result: string[];
+        for (let key of this.count.keys()) {
+            result.push(key);
+        }
+        return result;
+    }
+
 }

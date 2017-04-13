@@ -71,7 +71,7 @@ export class CartService {
         this.clearCart();
     }
 
-    async sendOrderToServer(): Promise<any> {
+    async sendOrderToServer(JWT: string, items: string[], numbers: string[]): Promise<any> {
         try{
 
         } catch (ex) {
