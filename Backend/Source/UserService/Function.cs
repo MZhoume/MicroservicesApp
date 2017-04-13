@@ -12,6 +12,7 @@ namespace UserService
     using Shared.Command;
     using Shared.DbAccess;
     using Shared.Http;
+    using Shared.Notification;
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
@@ -49,6 +50,7 @@ namespace UserService
             try
             {
                 request.Validate();
+                NotifyHelper.PushNotification($"{request.Operation} on UserService with payload {request.Payload.ToString()}.");
                 return container.Process(request);
             }
             catch (Exception ex)

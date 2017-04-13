@@ -27,8 +27,14 @@ namespace UserService.SignUp
 
             response.Payload = new
             {
-                Email = payload.Email,
-                Token = emailToken
+                Operation = Operation.Send,
+                Payload = new
+                {
+                    To = payload.Email,
+                    Subject = EmailTemplate.Subject.Replace("%%NAME%%", payload.FirstName),
+                    Body = EmailTemplate.Body.Replace("%%NAME%%", payload.FirstName)
+                                             .Replace("%%TOKEN%%", emailToken)
+                }
             };
             return response;
         }
