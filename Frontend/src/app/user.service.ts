@@ -63,15 +63,14 @@ export class UserService {
         }
     }
 
-    async modifyUserInfoRemote(user: User): Promise<any> {
+    async modifyUserInfoRemote(user: User, change: Object): Promise<any> {
         // console.log('enter register');
         let headers = new Headers({ 'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + user.JWT});
         const options = new RequestOptions({ headers: headers });
 
         try {
-            const res = await this.http.put(this.modifyUserInfoUrl, { FirstName: user.firstname, LastName: user.lastname,
-                Password : user.password, Email : user.email, PhoneNumber: user.phone }, options)
+            const res = await this.http.put(this.modifyUserInfoUrl, { Id: user.uid, Change: change }, options)
                 .toPromise();
             console.log(res.json());
             return true;
