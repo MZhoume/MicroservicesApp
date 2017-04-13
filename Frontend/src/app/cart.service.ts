@@ -59,7 +59,7 @@ export class CartService {
         let options = new RequestOptions({ headers: headers });
 
         try {
-                let res = await this.http.post(this.UrlToken,  { StripToken : StripToken, Charge : Charge }, options).toPromise();
+                let res = await this.http.post(this.UrlToken,  { StripeToken : StripToken, Charge : Charge }, options).toPromise();
                 console.log(res);
                 return res.json();
             } catch (ex) {
