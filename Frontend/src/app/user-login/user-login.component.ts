@@ -55,6 +55,7 @@ export class UserLoginComponent implements OnInit {
         this.router.navigate(['/welcome']);
     }
 
+
     private handleError(error) {
         console.error('Error processing action', error);
     }

@@ -30,8 +30,8 @@ export class ShoppingComponent implements OnInit {
         // get items from server
         try {
             let itemResult = await this.itemService.getItemsRemote();
-            this.items = itemResult;
-            console.log(itemResult);
+            this.items = itemResult.Payload
+
             console.log('get items success');
         } catch (ex) {
             console.error('An error occurred', ex);
