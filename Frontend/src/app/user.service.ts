@@ -66,7 +66,7 @@ export class UserService {
     async modifyUserInfoRemote(user: User, change: Object): Promise<any> {
         // console.log('enter register');
         let headers = new Headers({ 'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + user.JWT});
+            'Authorization':  user.JWT});
         const options = new RequestOptions({ headers: headers });
 
         try {

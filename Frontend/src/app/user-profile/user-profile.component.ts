@@ -22,7 +22,14 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
       this.originalUser = this.userService.getUser();
-      this.user = this.originalUser;
+      this.user = new User();
+      this.user.uid = this.originalUser.uid;
+      this.user.firstname = this.originalUser.firstname;
+      this.user.lastname = this.originalUser.lastname;
+      this.user.email = this.originalUser.email;
+      this.user.phone = this.originalUser.phone;
+      this.user.JWT = this.originalUser.JWT;
+
       // if usr log in, redirect to welcome page
       if (this.user === undefined) {
           this.forward('/welcome');
@@ -38,22 +45,26 @@ export class UserProfileComponent implements OnInit {
         console.log("modify submitted");
         this.message = 'Loading';
         let change = {};
-        if (this.user.firstname != this.originalUser.firstname) {
-            change["FirstName"] = this.user.firstname;
-        }
-        if (this.user.lastname != this.originalUser.lastname) {
-            change["LastName"] = this.user.lastname;
-        }
-        if (this.user.password != this.originalUser.password) {
-            change["Password"] = this.user.password;
-        }
-        if (this.user.email != this.originalUser.email) {
-            change["Email"] = this.user.email;
-        }
-        if (this.user.phone != this.originalUser.phone) {
-            change["PhoneNumber"] = this.user.phone;
-        }
 
+        console.log(this.user);
+        console.log(this.originalUser);
+        if (this.user.firstname !== this.originalUser.firstname) {
+            change['FirstName'] = this.user.firstname;
+        }
+        if (this.user.lastname !== this.originalUser.lastname) {
+            change['LastName'] = this.user.lastname;
+        }
+        if (this.user.password !== this.originalUser.password) {
+            change['Password'] = this.user.password;
+        }
+        if (this.user.email !== this.originalUser.email) {
+            change['Email'] = this.user.email;
+        }
+        if (this.user.phone !== this.originalUser.phone) {
+            change['PhoneNumber'] = this.user.phone;
+
+        }
+        console.log(change);
         try {
             let modifyResult = await this.userService.modifyUserInfoRemote(this.user, change);
             console.log(modifyResult);
