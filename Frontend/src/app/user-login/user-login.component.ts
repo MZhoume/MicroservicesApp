@@ -19,14 +19,6 @@ export class UserLoginComponent implements OnInit {
         private router: Router,
     ) { }
 
-    login() {
-        try {
-            this.userService.facebooklogin();
-            this.forward();
-        }catch (ex) {
-            console.error('An error occurred', ex);
-        }
-    }
 
     ngOnInit() {
         this.user = new User();

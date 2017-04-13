@@ -18,14 +18,6 @@ export class RegisterComponent implements OnInit {
         private router: Router,
     ) {}
 
-    login() {
-        try {
-            this.userService.facebooklogin();
-            this.forward('/welcome');
-        }catch (ex) {
-            console.error('An error occurred', ex);
-        }
-    }
 
     ngOnInit() {
         this.regUser = new User();
