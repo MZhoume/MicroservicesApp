@@ -28,13 +28,11 @@ export class UserService {
             const res = await this.http.post(this.Urll, { Password : user.password, Email : user.email }, options).toPromise();
             console.log(res);
             this.user = new User();
-            this.user.JWT = res.json().payload.JWT;
-            this.user.firstname = res.json().payload.firstname;
-            this.user.lastname = res.json().payload.lastname;
-            console.log(res.json());
-            return res.json();
+            this.user.JWT = res.json().payload;
+            return true;
         } catch (ex) {
             this.handleError(ex);
+            return false;
         }
     }
 

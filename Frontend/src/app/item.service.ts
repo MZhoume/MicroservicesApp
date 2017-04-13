@@ -7,7 +7,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ItemService {
 
-    private Urli = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/product';
+    private Urli = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/products';
 
     constructor (private http: Http) {}
 

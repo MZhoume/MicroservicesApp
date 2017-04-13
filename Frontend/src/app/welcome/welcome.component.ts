@@ -18,7 +18,7 @@ export class WelcomeComponent implements OnInit {
         private itemService: ItemService,
     ) { }
 
-    async ngOnInit() : Promise<any> {
+    async ngOnInit(): Promise<any> {
         // get items from server
         try {
             let itemResult = await this.itemService.getItemsRemote();

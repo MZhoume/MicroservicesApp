@@ -34,16 +34,15 @@ export class UserLoginComponent implements OnInit {
         console.log('going to log in');
         this.message = 'Loading';
         try {
-            let loginResult = await this.userService.loginUserRemote(this.user);
-            console.log(loginResult);
-            if (loginResult.result  === 'success') {
+            const loginResult = await this.userService.loginUserRemote(this.user);
+            if (loginResult) {
                 this.user = new User();
                 this.message = 'login success';
                 console.log('login success');
-                // this.forward();
+                this.forward();
             } else {
                 console.log(loginResult);
-                // this.message = response.reason;
+                this.message = 'login fail';
                 console.log('login fail');
             }
         } catch (ex) {
