@@ -23,6 +23,7 @@ export class WelcomeComponent implements OnInit {
         try {
             let itemResult = await this.itemService.getItemsRemote();
             this.items = itemResult;
+            console.log(itemResult);
             console.log('get items success');
         } catch (ex) {
             console.error('An error occurred', ex);
