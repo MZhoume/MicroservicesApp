@@ -57,14 +57,16 @@ export class UserCartComponent implements OnInit {
 
     openCheckout(id: string): void{
         let handler = (<any>window).StripeCheckout.configure({
-            key: 'pk_test_XGmc8VOUVttNbHcEyQhodzwX',
+            key: 'pk_test_hPyQl7aPo9jabKR2WwAVYSWk',
             locale: 'auto',
             token: (token: any) => {
                 console.log(token);
                 this.myToken = token.id;
                 // todo send to server
                 // this.itemService.sendTokenToServer(this.myToken, this.user.JWT, id, price);
-                this.cartService.checkoutCart();
+                // this.userService.getUser().JWT
+                this.cartService.checkoutCart(this.userService.getUser().JWT, this.myToken, this.total * 100);
+                console.log(this.total)
                 this.getCartContent();
                 console.log('pay end.');
                 this.router.navigate(['/shopping']);
