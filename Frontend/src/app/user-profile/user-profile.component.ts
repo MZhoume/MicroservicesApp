@@ -62,7 +62,7 @@ export class UserProfileComponent implements OnInit {
         }
         if (this.user.phone !== this.originalUser.phone) {
             change['PhoneNumber'] = this.user.phone;
-            
+
         }
         console.log(change);
         try {
