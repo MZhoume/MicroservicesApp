@@ -38,7 +38,7 @@ export class UserProfileComponent implements OnInit {
         try {
             let modifyResult = await this.userService.modifyUserInfoRemote(this.user);
             console.log(modifyResult);
-            if (modifyResult.result  === 'success') {
+            if (modifyResult) {
 
                 this.message ='modify success';
                 console.log('modify success');

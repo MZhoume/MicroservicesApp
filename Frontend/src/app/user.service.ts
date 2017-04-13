@@ -9,7 +9,7 @@ import {USER_Login_Response1, USER_Reg_Response1, USER_Reg_Response2} from './mo
 export class UserService {
     private Urll = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/users/login';
     private Urlr = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/users/signup';
-    private modifyUserInfoUrl = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/'
+    private modifyUserInfoUrl = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/users';
     user: User;
 
     getUser(): User {
@@ -29,7 +29,13 @@ export class UserService {
             const res = await this.http.post(this.Urll, { Password : user.password, Email : user.email }, options).toPromise();
             console.log(res);
             this.user = new User();
-            this.user.JWT = res.json().payload;
+            this.user.JWT = res.json().Payload.Token;
+            this.user.uid = res.json().Payload.UserInfo.Id;
+            this.user.email = res.json().Payload.UserInfo.Email;
+            this.user.firstname = res.json().Payload.UserInfo.FirstName;
+            this.user.lastname = res.json().Payload.UserInfo.LastName;
+            this.user.phone = res.json().Payload.UserInfo.PhoneNumber;
+
             return true;
         } catch (ex) {
             this.handleError(ex);
@@ -64,7 +70,7 @@ export class UserService {
         const options = new RequestOptions({ headers: headers });
 
         try {
-            const res = await this.http.post(this.modifyUserInfoUrl, { FirstName: user.firstname, LastName: user.lastname,
+            const res = await this.http.put(this.modifyUserInfoUrl, { FirstName: user.firstname, LastName: user.lastname,
                 Password : user.password, Email : user.email, PhoneNumber: user.phone }, options)
                 .toPromise();
             console.log(res.json());
