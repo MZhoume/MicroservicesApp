@@ -3,7 +3,7 @@ namespace EmailService.Mailgun
     /// <summary>
     /// Helper for mailgun service
     /// </summary>
-    public class MailgunHelper
+    public static class MailgunHelper
     {
         /// <summary>
         /// Gets the url to the api
