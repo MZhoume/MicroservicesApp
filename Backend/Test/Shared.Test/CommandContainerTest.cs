@@ -15,8 +15,11 @@ namespace Shared.Test
             var container = new CommandContainer();
             container.RegisterRequirement<ICommand, TestCommand>()
                      .Register<TestCommand2>(Operation.Create);
+            var request = new Request() {
+                Operation = Operation.Create
+            };
 
-            Assert.Equal(typeof(TestCommand), container.Process(null).Payload.GetType());
+            Assert.Equal(typeof(TestCommand), container.Process(request).Payload.GetType());
         }
 
         private class TestCommand : ICommand
@@ -40,7 +43,7 @@ namespace Shared.Test
             {
                 return new Response()
                 {
-                    Payload = this.command.GetType()
+                    Payload = this.command
                 };
             }
         }

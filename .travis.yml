@@ -28,7 +28,7 @@ env:
   - TEST_DIR=OrderService
   - TEST_DIR=PaymentService
   - TEST_DIR=Orchestrator
-  - TEST_DIR=EmailService
+  # - TEST_DIR=EmailService
   - TEST_DIR=ProductService
   - TEST_DIR=AddressService
   - TEST_DIR=QueueService
