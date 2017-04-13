@@ -51,11 +51,11 @@ export class CartService {
         this.myCart = new Cart();
     }
 
-    private UrlToken = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/payments/';
+    private UrlToken = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/payments';
 
     async checkoutCart(JWT: string, StripToken: string, Charge: number) : Promise<any> {
         let headers = new Headers({ 'Content-Type': 'application/json',
-                                    'Authorization': 'Bearer '+JWT});
+                                    'Authorization': JWT});
         let options = new RequestOptions({ headers: headers });
 
         try {
