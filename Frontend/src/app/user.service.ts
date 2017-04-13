@@ -50,14 +50,11 @@ export class UserService {
                 Password : user.password, Email : user.email, PhoneNumber: user.phone }, options)
                 .toPromise();
             console.log(res.json());
-            // this.user = new User();
-            // this.user.JWT = res.json().payload.JWT;
-            // this.user.firstname = res.json().payload.firstname;
-            // this.user.lastname = res.json().payload.lastname;
-            return res.json();
+            return true;
         } catch (ex) {
             console.log(ex);
-            this.handleError(ex);
+            // this.handleError(ex);
+            return false;
         }
     }
 
