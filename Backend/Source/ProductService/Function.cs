@@ -27,10 +27,9 @@ namespace ProductService
         /// Lambda function handler for product service
         /// </summary>
         /// <param name="request"> Input for lambda handler </param>
-        /// <param name="context"> Context info for lambda handler </param>
         /// <returns> Value send to clients </returns>
         [LambdaSerializer(typeof(LambdaSerializer))]
-        public Response FunctionHandler(Request request, ILambdaContext context)
+        public Response FunctionHandler(Request request)
         {
             var container = new CommandContainer();
 
