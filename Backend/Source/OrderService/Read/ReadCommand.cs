@@ -40,7 +40,8 @@ namespace OrderService.Read
 
             var res = this.connection.Query<Order>(
                 RequestHelper.ComposeSearchExp(payload.SearchTerm, DbHelper.GetTableName<Order>(), payload.PagingInfo != null),
-                RequestHelper.GetSearchObject(payload.SearchTerm, payload.PagingInfo));
+                RequestHelper.GetSearchObject(payload.SearchTerm, payload.PagingInfo)
+            );
             response.Payload = res.ToArray();
 
             return response;
