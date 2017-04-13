@@ -10,7 +10,7 @@ export class ItemService {
 
     constructor (private http: Http) {}
 
-    private Urli = 'http://ec2-54-165-183-168.compute-1.amazonaws.com:3000/product';
+    private Urli = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/product';
 
     async getItemsRemote(): Promise<any> {
         console.log("item fetch");

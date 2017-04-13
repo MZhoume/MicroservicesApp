@@ -19,7 +19,7 @@ export class UserService {
         this.user = undefined;
     }
 
-    private Urll = 'http://ec2-54-165-183-168.compute-1.amazonaws.com:3000/login';
+    private Urll = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/login';
 
     async  loginUserRemote(user:User): Promise<any> {
         let headers = new Headers({'Content-Type': 'application/json'});
