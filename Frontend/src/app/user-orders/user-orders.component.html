@@ -2,27 +2,27 @@
 <br>
 <br>
 
-<div *ngFor="let ii of ordersIds;" class="container">
+<div *ngFor="let oid of ordersIds;let ii = index;" class="container">
 
-    <h4>This is order {{ii}}</h4>
+    <h4>This is order {{oid}}</h4>
     <table class="table">
         <tr>
             <th>Items</th>
             <th>Numbers</th>
             <th>Price</th>
         </tr>
-        <tr *ngFor="let item of items;let i = index;">
-            <td>{{item.Name}}</td>
+        <tr *ngFor="let product of orders[ii].Products;let i = index;">
+            <td>{{items[product.ProductId].Name}}</td>
             <td>
-                {{nums[i]}}
+                {{product.Count}}
             </td>
             <td>
-                <p>{{myParseFloat(item.Price) * nums[i]}}</p>
+                <p>{{myParseFloat(items[product.ProductId].Price) * product.Count}}</p>
             </td>
         </tr>
     </table>
-    <p>total price {{total}}</p>
-    <button class="btn btn-primary btn-xs" >Checkout</button>
+    <p>total price {{calc(orders[ii])}}</p>
+    <button class="btn btn-primary btn-xs" (click)="openCheckout(ii)">Checkout</button>
     <br>
     <br>
     <br>

@@ -52,7 +52,7 @@ export class CartService {
 
     private UrlToken = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/payments/';
 
-    async checkoutCart(JWT: string, StripToken: string, Charge: number): Promise<any> {
+    async checkoutOrder(JWT: string, StripToken: string, Charge: number, OrderId: string): Promise<any> {
         let headers = new Headers({ 'Content-Type': 'application/json',
             'Authorization': JWT});
         let options = new RequestOptions({ headers: headers });
@@ -77,6 +77,7 @@ export class CartService {
         const options = new RequestOptions({ headers: headers });
         try{
             let payl = { Products : this.myCart.getInfo(), UserId: uid, TotalCharge : Charge };
+            console.log(payl);
             const res = await this.http.post(this.UrlOrder,
                 payl, options).toPromise();
             // console.log(res);
@@ -105,12 +106,10 @@ export class CartService {
 
         try{
             const res = await this.http.get(this.UrlOrder, options).toPromise();
-            console.log(res);
-            return true;
+            return res.json().Payload;
         } catch (ex) {
             console.log(ex);
             this.handleError(ex);
-            return false;
         }
     }
 

@@ -45,7 +45,7 @@ export class Cart {
     getInfo(): string[] {
         const result = [];
         for (const key of this.count.keys()) {
-            result.push({Id: key, Amount: this.count.get(key)});
+            result.push({Id: key, Count: this.count.get(key)});
         }
         return result;
     }

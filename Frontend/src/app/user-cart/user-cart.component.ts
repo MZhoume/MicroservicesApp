@@ -55,31 +55,31 @@ export class UserCartComponent implements OnInit {
         this.total = this.cartService.getCartTotalPrice();
     }
 
-    openCheckout(id: string): void{
-        const handler = (<any>window).StripeCheckout.configure({
-            key: 'pk_test_hPyQl7aPo9jabKR2WwAVYSWk',
-            locale: 'auto',
-            token: (token: any) => {
-                console.log(token);
-                this.myToken = token.id;
-                // todo send to server
-                // this.itemService.sendTokenToServer(this.myToken, this.user.JWT, id, price);
-                this.cartService.checkoutCart(this.userService.getUser().JWT, this.myToken, this.total * 100);
-                // this.cartService.sendOrderToServer(this.userService.getUser().JWT,
-                //     this.cartService.myCart.count.keys(), this.CartService.myCart.count.values());
-                console.log(this.total);
-                this.getCartContent();
-                console.log('pay end.');
-                this.router.navigate(['/shopping']);
-            }
-        });
-        handler.open({
-            name: 'Pay',
-            description: 'Your Order',
-            amount: Number(this.total) * 100,
-        });
-        console.log('pay start');
-    }
+    // openCheckout(id: string): void{
+    //     const handler = (<any>window).StripeCheckout.configure({
+    //         key: 'pk_test_hPyQl7aPo9jabKR2WwAVYSWk',
+    //         locale: 'auto',
+    //         token: (token: any) => {
+    //             console.log(token);
+    //             this.myToken = token.id;
+    //             // todo send to server
+    //             // this.itemService.sendTokenToServer(this.myToken, this.user.JWT, id, price);
+    //             this.cartService.checkoutCart(this.userService.getUser().JWT, this.myToken, this.total * 100);
+    //             // this.cartService.sendOrderToServer(this.userService.getUser().JWT,
+    //             //     this.cartService.myCart.count.keys(), this.CartService.myCart.count.values());
+    //             console.log(this.total);
+    //             this.getCartContent();
+    //             console.log('pay end.');
+    //             this.router.navigate(['/shopping']);
+    //         }
+    //     });
+    //     handler.open({
+    //         name: 'Pay',
+    //         description: 'Your Order',
+    //         amount: Number(this.total) * 100,
+    //     });
+    //     console.log('pay start');
+    // }
 
     async placeOrder(): Promise<any> {
         console.log('pay start');
