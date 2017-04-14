@@ -49,10 +49,9 @@ export class UserService {
         console.log('enter register');
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
-
+ 
         try {
-            const res = await this.http.post(this.Urlr, { FirstName: user.firstname, LastName: user.lastname,
-                Password : user.password, Email : user.email, PhoneNumber: user.phone }, options)
+            const res = await this.http.post(this.Urlr, JSON.stringify({ FirstName: user.firstname, LastName: user.lastname,Password : user.password, Email : user.email, PhoneNumber: user.phone }), options)
                 .toPromise();
             console.log(res.json());
             return true;
