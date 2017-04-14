@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Item} from "../Item";
+import {CartService} from "../cart.service";
 
 @Component({
   selector: 'app-user-orders',
@@ -7,9 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserOrdersComponent implements OnInit {
 
-  constructor() { }
+    ordersIds: number[];
+    items: Item[];
+    nums: number[];
+    keys: string[];
+    total: number;
+    myParseFloat = parseFloat;
 
-  ngOnInit() {
-  }
+    constructor(
+        private cartService: CartService,
+    ) { }
 
+    ngOnInit() {
+        this.ordersIds = [1, 2, 3];
+        this.getCartContent();
+    }
+
+    getCartContent() {
+        this.items = [];
+        this.nums = [];
+        this.keys = [];
+        this.cartService.getCartContent(this.items, this.nums, this.keys);
+        this.total = this.cartService.getCartTotalPrice();
+    }
 }

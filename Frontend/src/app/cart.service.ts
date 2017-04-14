@@ -21,10 +21,10 @@ export class CartService {
         this.myCart = new Cart();
     }
 
-    addToCart(item:Item, num:number): void {
+    addToCart(item: Item, num: number): void {
         // todo send to server
         this.myCart.addToLocalCart(item, num);
-        console.log(this.myCart)
+        console.log(this.myCart);
     }
 
     updateCart(keys: string[], items: Item[], nums: number[]) {
@@ -42,7 +42,7 @@ export class CartService {
     }
 
 
-    getCartTotalPrice():number  {
+    getCartTotalPrice(): number  {
         return this.myCart.getTotalPrice();
     }
 
@@ -51,29 +51,37 @@ export class CartService {
         this.myCart = new Cart();
     }
 
-    private UrlToken = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/payments';
+    private UrlToken = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/payments/';
 
-    async checkoutCart(JWT: string, StripToken: string, Charge: number) : Promise<any> {
+    async checkoutCart(JWT: string, StripToken: string, Charge: number): Promise<any> {
         let headers = new Headers({ 'Content-Type': 'application/json',
-                                    'Authorization': JWT});
+            'Authorization': JWT});
         let options = new RequestOptions({ headers: headers });
 
         try {
-                let res = await this.http.post(this.UrlToken,  { StripeToken : StripToken, Charge : Charge }, options).toPromise();
-                console.log(res);
-                return res.json();
-            } catch (ex) {
-                console.log(ex);
-                this.handleError(ex);
-            }
+            let res = await this.http.post(this.UrlToken,  { StripeToken : StripToken, Charge : Charge }, options).toPromise();
+            console.log(res);
+            return res.json();
+        } catch (ex) {
+            console.log(ex);
+            this.handleError(ex);
+        }
 
         // send order to server
         this.clearCart();
     }
 
-    async sendOrderToServer(JWT: string, items: string[], numbers: string[]): Promise<any> {
+    private UrlOrder = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/orders';
+    async sendOrderToServer(JWT: string, uid: string, Charge: number): Promise<any> {
+        const headers = new Headers({ 'Content-Type': 'application/json',
+            'Authorization': JWT});
+        const options = new RequestOptions({ headers: headers });
         try{
-
+            let payl = { Products : this.myCart.getInfo(), UserId: uid, TotalCharge : Charge };
+            console.log(payl);
+            const res = await this.http.post(this.UrlOrder,
+                payl, options).toPromise();
+            console.log(res);
         } catch (ex) {
             console.log(ex);
             this.handleError(ex);

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {CartService} from "../cart.service";
-import {Item} from "../Item";
-import {UserService} from "../user.service";
-import {Router} from "@angular/router";
+import {CartService} from '../cart.service';
+import {Item} from '../Item';
+import {UserService} from '../user.service';
+import {Router} from '@angular/router';
 
 
 
@@ -12,12 +12,12 @@ import {Router} from "@angular/router";
   styleUrls: ['./user-cart.component.css']
 })
 export class UserCartComponent implements OnInit {
-    items:Item[];
+    items: Item[];
     nums: number[];
     keys: string[];
     myParseFloat = parseFloat;
-    total:number;
-    myToken:string;
+    total: number;
+    myToken: string;
 
     constructor(
         private userService: UserService,
@@ -29,7 +29,7 @@ export class UserCartComponent implements OnInit {
         // prevent unlog usr get in
         if (this.userService.getUser() == undefined){
             this.router.navigate(['/login']);
-            console.log("you should not be here");
+            console.log('you should not be here');
         }
         this.getCartContent();
     }
@@ -38,7 +38,7 @@ export class UserCartComponent implements OnInit {
         if (event.key === '.') {
             console.log(event);
             event.preventDefault();
-            return
+            return;
         }
     }
 
@@ -56,7 +56,7 @@ export class UserCartComponent implements OnInit {
     }
 
     openCheckout(id: string): void{
-        let handler = (<any>window).StripeCheckout.configure({
+        const handler = (<any>window).StripeCheckout.configure({
             key: 'pk_test_hPyQl7aPo9jabKR2WwAVYSWk',
             locale: 'auto',
             token: (token: any) => {
@@ -65,8 +65,9 @@ export class UserCartComponent implements OnInit {
                 // todo send to server
                 // this.itemService.sendTokenToServer(this.myToken, this.user.JWT, id, price);
                 this.cartService.checkoutCart(this.userService.getUser().JWT, this.myToken, this.total * 100);
-                // this.cartService.sendOrderToServer(this.userService.getUser().JWT, this.cartService.myCart.count.keys(), this.CartService.myCart.count.values());
-                console.log(this.total)
+                // this.cartService.sendOrderToServer(this.userService.getUser().JWT,
+                //     this.cartService.myCart.count.keys(), this.CartService.myCart.count.values());
+                console.log(this.total);
                 this.getCartContent();
                 console.log('pay end.');
                 this.router.navigate(['/shopping']);
@@ -74,11 +75,25 @@ export class UserCartComponent implements OnInit {
         });
         handler.open({
             name: 'Pay',
-            description: "Your Order",
+            description: 'Your Order',
             amount: Number(this.total) * 100,
         });
         console.log('pay start');
     }
+
+    async placeOrder(): Promise<any> {
+        console.log('pay start');
+        try {
+            const sendResult = await this.cartService.sendOrderToServer(
+                this.userService.getUser().JWT,
+                this.userService.getUser().uid,
+                this.total * 100);
+            console.log(sendResult);
+        } catch (ex) {
+            console.error('An error occurred', ex);
+        }
+    }
+
 
     deleteAnItem(index: number): void {
         this.keys.splice(index, 1);

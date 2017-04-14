@@ -1,2 +1,30 @@
 <app-navigation-bar></app-navigation-bar>
+<br>
+<br>
+<br>
 
+<div *ngFor="let ii of ordersIds;" class="container">
+
+    <h4>This is order {{ii}}</h4>
+    <table class="table">
+        <tr>
+            <th>Items</th>
+            <th>Numbers</th>
+            <th>Price</th>
+        </tr>
+        <tr *ngFor="let item of items;let i = index;">
+            <td>{{item.Name}}</td>
+            <td>
+                {{nums[i]}}
+            </td>
+            <td>
+                <p>{{myParseFloat(item.Price) * nums[i]}}</p>
+            </td>
+        </tr>
+    </table>
+    <p>total price {{total}}</p>
+    <button class="btn btn-primary btn-xs" >Checkout</button>
+    <br>
+    <br>
+    <br>
+</div>
