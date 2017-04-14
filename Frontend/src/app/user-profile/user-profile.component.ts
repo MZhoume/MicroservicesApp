@@ -72,11 +72,13 @@ export class UserProfileComponent implements OnInit {
 
                 this.message ='modify success';
                 console.log('modify success');
+                alert('modify success');
 
             } else {
                 console.log(modifyResult);
                 //this.message = response.reason;
                 console.log('modify fail');
+                alert('modify fail');
             }
         } catch (ex) {
             console.error('An error occurred', ex);

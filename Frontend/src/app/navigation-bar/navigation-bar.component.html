@@ -19,23 +19,26 @@
             </ul>
 
 
-            <ul class="nav navbar-nav navbar-right"  style="padding:5px;">
+            <div class="nav navbar-nav navbar-right"  style="padding:5px;">
                 <!--<li><span>{{message}}</span></li>-->
-                <li *ngIf="loginFlag" class="dropdown">
+                <a *ngIf="loginFlag" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
                        aria-expanded="false">My Account <span class="caret"></span></a>
+
                     <ul class="dropdown-menu">
                         <li><a [routerLink] = "'/cart'">Cart</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a [routerLink] = "'/profile'">User Profile</a></li>
                         <li><a [routerLink] = "'/orders'">Order History</a></li>
                     </ul>
-                </li>
-                <li><button *ngIf="!loginFlag"	 class="btn btn-info btn-sm" (click)="onLogIn()"  >Sign in</button></li>
-                <li><button	*ngIf="!loginFlag" class="btn btn-default btn-sm" (click)="onRegister()" >Register</button></li>
-                <li><button *ngIf="loginFlag" class=" btn btn-info btn-sm" (click)="onSignOut()">Sign out</button></li>
-            </ul>
+                </a>
+                <a><button *ngIf="!loginFlag"	 class="btn btn-info btn-sm" (click)="onLogIn()"  >Sign in</button></a>
+                <a><button	*ngIf="!loginFlag" class="btn btn-default btn-sm" (click)="onRegister()" >Register</button></a>
+                <a><button *ngIf="loginFlag" class=" btn btn-info btn-sm" (click)="onSignOut()">Sign out</button></a>
+            </div>
+
+
 
         </div>
 
