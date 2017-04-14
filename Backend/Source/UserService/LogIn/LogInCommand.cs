@@ -57,7 +57,18 @@ namespace UserService.LogIn
                     LastName = user.LastName,
                     DateTime = DateTime.Now
                 });
-                response.Payload = loginToken;
+                response.Payload = new
+                {
+                    Token = loginToken,
+                    UserInfo = new
+                    {
+                        Id = user.Id,
+                        Email = user.Email,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        PhoneNumber = user.PhoneNumber
+                    }
+                };
             }
             else
             {
