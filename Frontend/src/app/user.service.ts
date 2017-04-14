@@ -49,10 +49,11 @@ export class UserService {
         console.log('enter register');
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
- 
+
+        console.log(JSON.stringify({ "FirstName": user.firstname, "LastName": user.lastname,"Password" : user.password, "Email" : user.email, "PhoneNumber": user.phone }).replace(/"/gi , "\\\""));
         try {
-            const res = await this.http.post(this.Urlr, JSON.stringify({ FirstName: user.firstname, LastName: user.lastname,Password : user.password, Email : user.email, PhoneNumber: user.phone }), options)
-                .toPromise();
+            const res = await this.http.post(this.Urlr,JSON.stringify({ "FirstName": user.firstname, "LastName": user.lastname,"Password" : user.password, "Email" : user.email, "PhoneNumber": user.phone }).replace(/"/gi , "\\\""), options).toPromise();
+
             console.log(res.json());
             return true;
         } catch (ex) {
