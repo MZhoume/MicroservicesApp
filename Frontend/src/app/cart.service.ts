@@ -52,13 +52,13 @@ export class CartService {
 
     private UrlToken = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/payments/';
 
-    async checkoutOrder(JWT: string, StripToken: string, Charge: number, OrderId: string): Promise<any> {
+    async checkoutOrder(JWT: string, Uid: string, StripToken: string, Charge: number, OrderId: string): Promise<any> {
         let headers = new Headers({ 'Content-Type': 'application/json',
             'Authorization': JWT});
         let options = new RequestOptions({ headers: headers });
 
         try {
-            let res = await this.http.post(this.UrlToken,  { StripeToken : StripToken, Charge : Charge }, options).toPromise();
+            let res = await this.http.post(this.UrlToken,  { StripeToken : StripToken, Charge : Charge, UserId : Uid,  OrderId: OrderId}, options).toPromise();
             console.log(res);
             return res.json();
         } catch (ex) {

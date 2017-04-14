@@ -71,7 +71,7 @@ export class UserOrdersComponent implements OnInit {
                 // todo send to server
 
                 this.cartService.checkoutOrder(
-                    this.userService.getUser().JWT, this.myToken, this.calc(this.orders[id]) * 100, this.ordersIds[id]);
+                    this.userService.getUser().JWT, this.userService.getUser().uid, this.myToken, this.calc(this.orders[id]) * 100, this.ordersIds[id]);
 
                 console.log('pay end.');
                 this.router.navigate(['/shopping']);
