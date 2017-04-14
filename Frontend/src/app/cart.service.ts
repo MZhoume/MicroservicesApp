@@ -93,6 +93,16 @@ export class CartService {
         const headers = new Headers({ 'Content-Type': 'application/json',
             'Authorization': JWT});
         const options = new RequestOptions({ headers: headers });
+
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('operator', 'LT');
+        params.set('field', 'id');
+        params.set('start', '0');
+        params.set('count', '10');
+        params.set('value', '10');
+
+        options.search = params;
+
         try{
             const res = await this.http.get(this.UrlOrder, options).toPromise();
             console.log(res);
