@@ -25,7 +25,7 @@ namespace ProductService.Test
                     new JProperty("SearchTerm", new JArray(new JObject(new JProperty("Field", "Id"), new JProperty("Operator", "EQ"), new JProperty("Value", "1"))))
                 )
             };
-            var res = function.FunctionHandler(req, context);
+            var res = function.FunctionHandler(req);
             Assert.Equal(1, ((Shared.Model.Product[])res.Payload)[0].Id);
         }
     }

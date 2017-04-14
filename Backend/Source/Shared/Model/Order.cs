@@ -22,14 +22,6 @@ namespace Shared.Model
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or sets order's products
-        /// </summary>
-        /// <returns>Return  products</returns>
-        [Required(AllowEmptyStrings = false)]
-        [Json]
-        public string Products { get; set; }
-
-        /// <summary>
         /// Gets or sets order's datetime
         /// </summary>
         /// <returns>Return datetime</returns>
