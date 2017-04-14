@@ -42,7 +42,7 @@ namespace PaymentService.Create
 
             try
             {
-                Charge.createCharge(payload.StripToken, System.Convert.ToInt32(payload.Charge));
+                Charge.createCharge(payload.StripeToken, System.Convert.ToInt32(payload.Charge));
             }
             catch(Exception ex)
             {
@@ -51,11 +51,11 @@ namespace PaymentService.Create
 
             var payment = new Payment()
             {
-                StripToken = payload.StripToken,
-                DateTime = payload.DateTime,
+                StripeToken = payload.StripeToken,
+                DateTime = DateTime.Now,
                 OrderId = payload.OrderId,
-                Charge = payload.Charge
-
+                Charge = payload.Charge,
+                UserId = payload.UserId
             };
             payment.Validate();
 

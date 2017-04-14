@@ -14,7 +14,7 @@ namespace PaymentService
         /// <returns> create status </returns>
         public static void createCharge(string tokenId, int amount)
         {
-            StripeConfiguration.SetApiKey("pk_test_hPyQl7aPo9jabKR2WwAVYSWk");
+            StripeConfiguration.SetApiKey("sk_test_FUcSFJJpbnqyEdEAbzdjvkwg");
             var myCharge = new StripeChargeCreateOptions();
             myCharge.Amount = amount;
             myCharge.Currency = "usd";
