@@ -12,7 +12,6 @@ export class CartService {
     myCart: Cart;
 
     constructor(private http: Http) {
-        console.log("initial cart");
         this.initialCart();
     }
 
@@ -82,6 +81,21 @@ export class CartService {
                 payl, options).toPromise();
             // console.log(res);
             this.clearCart();
+            return true;
+        } catch (ex) {
+            console.log(ex);
+            this.handleError(ex);
+            return false;
+        }
+    }
+
+    async getOrdersFromServer(JWT: string): Promise<any> {
+        const headers = new Headers({ 'Content-Type': 'application/json',
+            'Authorization': JWT});
+        const options = new RequestOptions({ headers: headers });
+        try{
+            const res = await this.http.get(this.UrlOrder, options).toPromise();
+            console.log(res);
             return true;
         } catch (ex) {
             console.log(ex);

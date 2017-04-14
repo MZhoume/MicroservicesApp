@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Item} from "../Item";
-import {CartService} from "../cart.service";
+import {Item} from '../Item';
+import {CartService} from '../cart.service';
+import {UserService} from '../user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-user-orders',
@@ -18,18 +20,27 @@ export class UserOrdersComponent implements OnInit {
 
     constructor(
         private cartService: CartService,
+        private userService: UserService,
+        private router: Router,
     ) { }
 
     ngOnInit() {
-        this.ordersIds = [1, 2, 3];
-        this.getCartContent();
+        // prevent unlog usr get in
+        if (this.userService.getUser() === undefined){
+            this.router.navigate(['/login']);
+            console.log('you should not be here');
+        }
+
+        this.getOrders();
     }
 
-    getCartContent() {
+    getOrders() {
+        this.ordersIds = [1, 2, 3];
         this.items = [];
         this.nums = [];
         this.keys = [];
         this.cartService.getCartContent(this.items, this.nums, this.keys);
         this.total = this.cartService.getCartTotalPrice();
+        this.cartService.getOrdersFromServer(this.userService.getUser().JWT);
     }
 }
