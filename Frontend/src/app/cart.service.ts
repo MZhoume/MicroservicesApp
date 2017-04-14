@@ -78,13 +78,15 @@ export class CartService {
         const options = new RequestOptions({ headers: headers });
         try{
             let payl = { Products : this.myCart.getInfo(), UserId: uid, TotalCharge : Charge };
-            console.log(payl);
             const res = await this.http.post(this.UrlOrder,
                 payl, options).toPromise();
-            console.log(res);
+            // console.log(res);
+            this.clearCart();
+            return true;
         } catch (ex) {
             console.log(ex);
             this.handleError(ex);
+            return false;
         }
     }
 

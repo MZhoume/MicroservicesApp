@@ -88,7 +88,9 @@ export class UserCartComponent implements OnInit {
                 this.userService.getUser().JWT,
                 this.userService.getUser().uid,
                 this.total * 100);
-            console.log(sendResult);
+            if (sendResult) {
+                this.router.navigate(['/orders']);
+            }
         } catch (ex) {
             console.error('An error occurred', ex);
         }
