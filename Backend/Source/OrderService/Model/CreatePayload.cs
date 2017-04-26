@@ -1,6 +1,7 @@
 namespace OrderService.Model
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Shared.Interface;
     using Shared.Validation;
@@ -16,14 +17,14 @@ namespace OrderService.Model
         /// <returns>Return  products</returns>
         [Required(AllowEmptyStrings = false)]
         [Json]
-        public string Products { get; set; }
+        public IEnumerable<Item> Products { get; set; }
 
         /// <summary>
         /// Gets or sets order's datetime
         /// </summary>
         /// <returns>Return datetime</returns>
-        [Required]
-        public DateTime DateTime { get; set; }
+        // [Required]
+        // public DateTime DateTime { get; set; }
 
         /// <summary>
         /// Gets or sets order's userId

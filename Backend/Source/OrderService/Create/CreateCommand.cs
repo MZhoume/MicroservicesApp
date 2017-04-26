@@ -1,7 +1,12 @@
 namespace OrderService.Create
 {
+    using System;
     using System.Data;
+    using System.Linq;
     using Dapper.Contrib.Extensions;
+    using Dapper;
+    using Dapper.Contrib.Extensions;
+    using Shared.DbAccess;
     using Shared.Interface;
     using Shared.Model;
     using Shared.Request;
@@ -39,14 +44,31 @@ namespace OrderService.Create
 
             var order = new Order()
             {
-                Products = payload.Products,
-                DateTime = payload.DateTime,
+                DateTime = DateTime.Now,
                 UserId = payload.UserId,
                 TotalCharge = payload.TotalCharge
             };
             order.Validate();
 
             this.connection.Insert<Order>(order);
+
+            var createdOrder = this.connection.Query<Order>(
+                $"SELECT * FROM {DbHelper.GetTableName<Order>()} WHERE UserId = @UserId ORDER BY DateTime DESC LIMIT 1",
+                new { UserId = order.UserId}
+            ).First();
+
+            //var FirstOrder = createdOrder.First();
+
+            foreach(Item it in payload.Products) {
+                var orderProduct = new OrderedProduct()
+                {
+                    ProductId = it.Id,
+                    Count = it.Count,
+                    OrderId = createdOrder.Id
+                };
+                orderProduct.Validate();
+                this.connection.Insert<OrderedProduct>(orderProduct);
+            }
             return response;
         }
     }

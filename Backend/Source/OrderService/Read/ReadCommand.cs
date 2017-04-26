@@ -38,11 +38,34 @@ namespace OrderService.Read
 
             var response = new Response();
 
-            var res = this.connection.Query<Order>(
-                RequestHelper.ComposeSearchExp(payload.SearchTerm, DbHelper.GetTableName<Order>(), payload.PagingInfo != null),
-                RequestHelper.GetSearchObject(payload.SearchTerm, payload.PagingInfo)
+            // var res = this.connection.Query<Order>(
+            //     RequestHelper.ComposeSearchExp(payload.SearchTerm, DbHelper.GetTableName<Order>(), payload.PagingInfo != null),
+            //     RequestHelper.GetSearchObject(payload.SearchTerm, payload.PagingInfo)
+            // );
+
+            // foreach( Order o in res)
+            // {
+            //     var productsInOrder = this.connection.Query<OrderedProduct>(
+            //         $"SELECT * FROM {DbHelper.GetTableName<OrderedProduct>()} WHERE OrderId = @OrderId",
+            //         new { OrderId = o.Id }
+            //     );
+            // }
+
+            var res = this.connection.Query<Payment>(
+                $"SELECT ID, UserId, TotalCharge FROM {DbHelper.GetTableName<Order>()}"
             );
-            response.Payload = res.ToArray();
+
+            var resFiltered = res.Where(r => this.connection.Query<Payment>(
+                $"SELECT * FROM {DbHelper.GetTableName<Payment>()} WHERE OrderId = @OrderId",
+                    new { OrderId = r.Id }).Count() == 0
+            );
+
+            var ret = resFiltered.Select(o => new {OrderId = o.Id, Products = this.connection.Query<OrderedProduct>(
+                $"SELECT * FROM {DbHelper.GetTableName<OrderedProduct>()} WHERE OrderId = @OrderId",
+                    new { OrderId = o.Id })
+            });
+
+            response.Payload = ret.ToArray();
 
             return response;
         }

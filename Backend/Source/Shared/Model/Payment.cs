@@ -19,7 +19,7 @@ namespace Shared.Model
         [Key]
         [Required]
         [Range(0, int.MaxValue)]
-        public int Id { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// Gets or sets payment's orderId
@@ -40,10 +40,10 @@ namespace Shared.Model
         /// <summary>
         /// Gets or sets payment's stripeToken
         /// </summary>
-        /// <returns>Return stripToken</returns>
+        /// <returns>Return stripeToken</returns>
         [Required(AllowEmptyStrings = false)]
         [StringLength(28, MinimumLength = 28)]
-        public string StripToken { get; set; }
+        public string StripeToken { get; set; }
 
         /// <summary>
         /// Gets or sets payment's dateTime

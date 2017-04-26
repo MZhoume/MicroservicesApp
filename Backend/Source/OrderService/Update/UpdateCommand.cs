@@ -47,7 +47,6 @@ namespace OrderService.Update
             ).First();
 
             string val;
-            order.Products = payload.Change.TryGetValue("Products", out val) ? val : order.Products;
             order.DateTime = payload.Change.TryGetValue("DateTime", out val) ? Convert.ToDateTime(val) : order.DateTime;
             order.UserId = payload.Change.TryGetValue("UserId", out val) ? Convert.ToInt32(val) : order.UserId;
             order.TotalCharge = payload.Change.TryGetValue("TotalCharge", out val) ? Convert.ToDecimal(val) : order.TotalCharge;

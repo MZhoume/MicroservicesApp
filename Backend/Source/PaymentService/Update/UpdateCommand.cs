@@ -49,7 +49,7 @@ namespace PaymentService.Update
             string val;
 
             payment.OrderId = payload.Change.TryGetValue("OrderId", out val) ? Convert.ToInt32(val) : payment.OrderId;
-            payment.StripToken = payload.Change.TryGetValue("StripToken", out val) ? val : payment.StripToken;
+            payment.StripeToken = payload.Change.TryGetValue("StripeToken", out val) ? val : payment.StripeToken;
             payment.DateTime = payload.Change.TryGetValue("DateTime", out val) ? Convert.ToDateTime(val) : payment.DateTime;
             payment.Charge = payload.Change.TryGetValue("Charge", out val) ? Convert.ToDecimal(val) : payment.Charge;
             payment.Validate();
