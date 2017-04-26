@@ -30,6 +30,14 @@ namespace Shared.Model
         public int OrderId { get; set; }
 
         /// <summary>
+        /// Gets or sets payment's userId
+        /// </summary>
+        /// <returns>Return userId</returns>
+        [Required]
+        [Range(0, int.MaxValue)]
+        public int UserId { get; set; }
+
+        /// <summary>
         /// Gets or sets payment's stripeToken
         /// </summary>
         /// <returns>Return stripToken</returns>
