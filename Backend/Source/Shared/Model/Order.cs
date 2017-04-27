@@ -26,7 +26,7 @@ namespace Shared.Model
         /// </summary>
         /// <returns>Return datetime</returns>
         [Required]
-        public DateTime DateTime { get; set; }
+        public String DateTime { get; set; }
 
         /// <summary>
         /// Gets or sets order's userId
@@ -42,5 +42,12 @@ namespace Shared.Model
         [Required]
         [Range(0, double.MaxValue)]
         public decimal TotalCharge { get; set; }
+
+        /// <summary>
+        /// Gets or sets order's payment status
+        /// </summary>
+        /// <returns>Return datetime</returns>
+        [Required]
+        public Boolean isPaid {get; set;}
     }
 }

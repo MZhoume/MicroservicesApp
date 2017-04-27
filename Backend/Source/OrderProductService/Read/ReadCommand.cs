@@ -1,4 +1,4 @@
-namespace OrderService.Read
+namespace OrderProductService.Read
 {
     using System.Data;
     using System.Linq;
@@ -9,7 +9,6 @@ namespace OrderService.Read
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
-
     /// <summary>
     /// Command for Read Operation
     /// </summary>
@@ -38,33 +37,10 @@ namespace OrderService.Read
 
             var response = new Response();
 
-            var res = this.connection.Query<Order>(
-                RequestHelper.ComposeSearchExp(payload.SearchTerm, DbHelper.GetTableName<Order>(), payload.PagingInfo != null),
+            var res = this.connection.Query<OrderedProduct>(
+                RequestHelper.ComposeSearchExp(payload.SearchTerm, DbHelper.GetTableName<OrderedProduct>(), payload.PagingInfo != null),
                 RequestHelper.GetSearchObject(payload.SearchTerm, payload.PagingInfo)
             );
-
-            // foreach( Order o in res)
-            // {
-            //     var productsInOrder = this.connection.Query<OrderedProduct>(
-            //         $"SELECT * FROM {DbHelper.GetTableName<OrderedProduct>()} WHERE OrderId = @OrderId",
-            //         new { OrderId = o.Id }
-            //     );
-            // }
-
-            // var res = this.connection.Query<Payment>(
-            //     $"SELECT ID, UserId, TotalCharge FROM {DbHelper.GetTableName<Order>()}"
-            // );
-
-            // var resFiltered = res.Where(r => this.connection.Query<Payment>(
-            //     $"SELECT * FROM {DbHelper.GetTableName<Payment>()} WHERE OrderId = @OrderId",
-            //         new { OrderId = r.Id }).Count() == 0
-            // );
-
-            // var ret = resFiltered.Select(o => new {OrderId = o.Id, Products = this.connection.Query<OrderedProduct>(
-            //     $"SELECT * FROM {DbHelper.GetTableName<OrderedProduct>()} WHERE OrderId = @OrderId",
-            //         new { OrderId = o.Id })
-            // });
-
             response.Payload = res.ToArray();
 
             return response;
