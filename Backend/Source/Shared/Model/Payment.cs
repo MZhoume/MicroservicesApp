@@ -16,10 +16,9 @@ namespace Shared.Model
         /// Gets or sets payment's id
         /// </summary>
         /// <returns>Return id</returns>
-        [Key]
         [Required]
         [Range(0, int.MaxValue)]
-        public int UserId { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets payment's orderId

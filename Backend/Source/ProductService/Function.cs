@@ -8,7 +8,10 @@ namespace ProductService
     using System;
     using System.Data;
     using Amazon.Lambda.Core;
+    using ProductService.Create;
+    using ProductService.Delete;
     using ProductService.Read;
+    using ProductService.Update;
     using Shared;
     using Shared.Command;
     using Shared.DbAccess;
@@ -34,7 +37,10 @@ namespace ProductService
             var container = new CommandContainer();
 
             container.RegisterRequirement<IDbConnection>(() => DbHelper.Connection)
-                     .Register<ReadCommand>(Operation.Read);
+                     .Register<ReadCommand>(Operation.Read)
+                     .Register<DeleteCommand>(Operation.Delete)
+                     .Register<CreateCommand>(Operation.Create)
+                     .Register<UpdateCommand>(Operation.Update);
 
             try
             {
