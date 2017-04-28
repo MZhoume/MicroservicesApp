@@ -18,7 +18,7 @@
         "Newtonsoft.Json": "10.0.1",
         "Shared": "1.0.0",
         "Amazon.Lambda.Tools": {
-            "version": "1.4.0",
+            "version": "1.5.0",
             "type": "build"
         },
         "StyleCop.Analyzers": {
@@ -31,7 +31,7 @@
         "AWSSDK.SimpleNotificationService": "3.3.0.11"
     },
     "tools": {
-        "Amazon.Lambda.Tools": "1.4.0"
+        "Amazon.Lambda.Tools": "1.5.0"
     },
     "frameworks": {
         "netcoreapp1.0": {

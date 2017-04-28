@@ -19,7 +19,7 @@
         "SimpleInjector": "3.3.2",
         "Stripe.net": "7.6.0",
         "Amazon.Lambda.Tools": {
-            "version": "1.4.0",
+            "version": "1.5.0",
             "type": "build"
         },
         "StyleCop.Analyzers": {
@@ -31,7 +31,7 @@
         "Dapper.Contrib": "1.50.0"
     },
     "tools": {
-        "Amazon.Lambda.Tools": "1.4.0"
+        "Amazon.Lambda.Tools": "1.5.0"
     },
     "frameworks": {
         "netcoreapp1.0": {
