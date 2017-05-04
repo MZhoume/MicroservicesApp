@@ -65,7 +65,11 @@ namespace OrderService.Read
             //         new { OrderId = o.Id })
             // });
 
-            response.Payload = res.ToArray();
+            var ret = res.Select(o => new {OrderId = o.Id, TotalCharge = o.TotalCharge, IsPaid = o.isPaid, Products = this.connection.Query<OrderedProduct>(
+                $"SELECT * FROM {DbHelper.GetTableName<OrderedProduct>()} WHERE OrderId = @OrderId",
+                    new { OrderId = o.Id })
+            });
+            response.Payload = ret.ToArray();
 
             return response;
         }
