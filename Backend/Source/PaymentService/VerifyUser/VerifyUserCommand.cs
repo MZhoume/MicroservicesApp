@@ -44,9 +44,12 @@ namespace PaymentService.VerifyUser
                 new { Id = payload.Id, UserId = payload.UserId }
             );
             var count = user.Count();
-            if (count <= 0) {
+            if (count <= 0)
+            {
                 response.Payload = VerifyResult.Deny;
-            } else {
+            }
+            else
+            {
                 response.Payload = VerifyResult.Allow;
             }
 

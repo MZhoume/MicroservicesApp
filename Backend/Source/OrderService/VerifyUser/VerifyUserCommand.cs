@@ -4,13 +4,13 @@ namespace OrderService.VerifyUser
     using System.Linq;
     using Dapper;
     using Newtonsoft.Json.Linq;
+    using OrderService.Model;
     using Shared.DbAccess;
     using Shared.Interface;
     using Shared.Model;
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
-    using OrderService.Model;
 
     /// <summary>
     /// Command for VerifyUser Operation
@@ -44,9 +44,12 @@ namespace OrderService.VerifyUser
                 new { Id = payload.Id, UserId = payload.UserId }
             );
             var count = user.Count();
-            if (count <= 0) {
+            if (count <= 0)
+            {
                 response.Payload = VerifyResult.Deny;
-            } else {
+            }
+            else
+            {
                 response.Payload = VerifyResult.Allow;
             }
 

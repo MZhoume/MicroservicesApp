@@ -2,6 +2,10 @@ namespace OrderService.Model
 {
     using System.ComponentModel.DataAnnotations;
     using Shared.Interface;
+
+    /// <summary>
+    /// The payload for verify user command
+    /// </summary>
     public class VerifyUserPayload : IModel
     {
         /// <summary>

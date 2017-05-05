@@ -22,6 +22,7 @@ namespace UserService
     using UserService.SignUp;
     using UserService.Update;
     using UserService.VerifyEmail;
+    using UserService.VerifyUser;
 
     /// <summary>
     /// Lambda function entry class
@@ -45,7 +46,8 @@ namespace UserService
                      .Register<SignUpCommand>(Operation.SignUp)
                      .Register<UpdateCommand>(Operation.Update)
                      .Register<DeleteCommand>(Operation.Delete)
-                     .Register<VerifyEmailCommand>(Operation.VerifyEmail);
+                     .Register<VerifyEmailCommand>(Operation.VerifyEmail)
+                     .Register<VerifyUserCommand>(Operation.VerifyUser);
 
             try
             {

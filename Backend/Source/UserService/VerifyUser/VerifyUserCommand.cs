@@ -39,9 +39,12 @@ namespace UserService.VerifyUser
             payload.Validate();
             var response = new Response();
 
-            if (payload.Id == payload.UserId) {
+            if (payload.Id == payload.UserId)
+            {
                 response.Payload = VerifyResult.Allow;
-            } else {
+            }
+            else
+            {
                 response.Payload = VerifyResult.Deny;
             }
 

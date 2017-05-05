@@ -19,6 +19,7 @@ namespace OrderService
     using OrderService.Update;
     using OrderService.Create;
     using OrderService.Delete;
+    using OrderService.VerifyUser;
 
     /// <summary>
     /// Lambda function entry class
@@ -39,7 +40,8 @@ namespace OrderService
                      .Register<CreateCommand>(Operation.Create)
                      .Register<ReadCommand>(Operation.Read)
                      .Register<UpdateCommand>(Operation.Update)
-                     .Register<DeleteCommand>(Operation.Delete);
+                     .Register<DeleteCommand>(Operation.Delete)
+                     .Register<VerifyUserCommand>(Operation.VerifyUser);
             try
             {
                 request.Validate();
