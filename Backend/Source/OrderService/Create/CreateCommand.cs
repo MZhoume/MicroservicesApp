@@ -41,19 +41,20 @@ namespace OrderService.Create
 
             var payload = request.Payload.ToObject<CreatePayload>();
             payload.Validate();
-
+            DateTime now = DateTime.Now;
             var order = new Order()
             {
-                DateTime = DateTime.Now,
+                DateTime = now.ToString(),
                 UserId = payload.UserId,
-                TotalCharge = payload.TotalCharge
+                TotalCharge = payload.TotalCharge,
+                isPaid = false
             };
             order.Validate();
 
             this.connection.Insert<Order>(order);
 
             var createdOrder = this.connection.Query<Order>(
-                $"SELECT * FROM {DbHelper.GetTableName<Order>()} WHERE UserId = @UserId ORDER BY DateTime DESC LIMIT 1",
+                $"SELECT * FROM {DbHelper.GetTableName<Order>()} WHERE UserId = @UserId ORDER BY Id DESC LIMIT 1",
                 new { UserId = order.UserId}
             ).First();
 

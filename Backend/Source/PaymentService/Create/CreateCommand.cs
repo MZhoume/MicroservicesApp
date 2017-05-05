@@ -11,6 +11,9 @@ namespace PaymentService.Create
     using Shared.Response;
     using Shared.Validation;
     using PaymentService.Model;
+    using System.Linq;
+    using Dapper;
+    using Shared.DbAccess;
 
     /// <summary>
     /// The command for Create Operation
@@ -60,6 +63,15 @@ namespace PaymentService.Create
             payment.Validate();
 
             this.connection.Insert<Payment>(payment);
+            var order = this.connection.Query<Order>(
+                $"SELECT * FROM {DbHelper.GetTableName<Order>()} WHERE Id = @Id",
+                new { Id = payload.OrderId }
+            ).First();
+
+            order.isPaid = true;
+            order.Validate();
+
+            this.connection.Update<Order>(order);
 
             return response;
         }

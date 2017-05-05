@@ -34,3 +34,4 @@ env:
   - TEST_DIR=QueueService
   - TEST_DIR=ProcessService
   - TEST_DIR=NotificationService
+  - TEST_DIR=OrderProductService

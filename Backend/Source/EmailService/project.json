@@ -15,7 +15,7 @@
         "Shared": "1.0.0",
         "SimpleInjector": "3.3.2",
         "Amazon.Lambda.Tools": {
-            "version": "1.4.0",
+            "version": "1.5.0",
             "type": "build"
         },
         "StyleCop.Analyzers": {
@@ -25,7 +25,7 @@
         "Newtonsoft.Json": "10.0.1"
     },
     "tools": {
-        "Amazon.Lambda.Tools": "1.4.0"
+        "Amazon.Lambda.Tools": "1.5.0"
     },
     "frameworks": {
         "netcoreapp1.0": {

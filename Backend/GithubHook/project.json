@@ -10,12 +10,12 @@
         "Amazon.Lambda.Serialization.Json": "1.0.1",
         "Amazon.Lambda.Tools": {
             "type": "build",
-            "version": "1.4.0"
+            "version": "1.5.0"
         },
         "Newtonsoft.Json": "10.0.1"
     },
     "tools": {
-        "Amazon.Lambda.Tools": "1.4.0"
+        "Amazon.Lambda.Tools": "1.5.0"
     },
     "frameworks": {
         "netcoreapp1.0": {
