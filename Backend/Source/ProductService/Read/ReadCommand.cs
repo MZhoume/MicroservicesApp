@@ -37,10 +37,9 @@ namespace ProductService.Read
             payload.Validate();
             var response = new Response();
 
-            var user = this.connection.Query<User>(
-                $"SELECT * FROM {DbHelper.GetTableName<User>()} WHERE Id = @Id",
-                new { Id = payload.Id }
-            ).First();
+            var res = this.connection.Query<Product>(
+                RequestHelper.ComposeSearchExp(payload.SearchTerm, DbHelper.GetTableName<Product>(), payload.PagingInfo != null),
+                RequestHelper.GetSearchObject(payload.SearchTerm, payload.PagingInfo));
             response.Payload = res.ToArray();
 
             return response;
