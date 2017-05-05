@@ -1,27 +1,29 @@
-namespace ProductService.Read
+namespace UserService.VerifyUser
 {
     using System.Data;
     using System.Linq;
     using Dapper;
+    using Newtonsoft.Json.Linq;
     using Shared.DbAccess;
     using Shared.Interface;
     using Shared.Model;
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
+    using UserService.Model;
 
     /// <summary>
-    /// Command for Read Operation
+    /// Command for VerifyUser Operation
     /// </summary>
-    public class ReadCommand : ICommand
+    public class VerifyUserCommand : ICommand
     {
-        private IDbConnection connection;
+        private readonly IDbConnection connection;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReadCommand"/> class for testing.
+        /// Initializes a new instance of the <see cref="VerifyUserCommand"/> class.
         /// </summary>
         /// <param name="connection"> The DbConnection for the command </param>
-        public ReadCommand(IDbConnection connection)
+        public VerifyUserCommand(IDbConnection connection)
         {
             this.connection = connection;
         }
@@ -33,15 +35,15 @@ namespace ProductService.Read
         /// <returns> The response </returns>
         public Response Invoke(Request request)
         {
-            var payload = request.Payload.ToObject<SearchPayload>();
+            var payload = request.Payload.ToObject<VerifyUserPayload>();
             payload.Validate();
             var response = new Response();
 
-            var user = this.connection.Query<User>(
-                $"SELECT * FROM {DbHelper.GetTableName<User>()} WHERE Id = @Id",
-                new { Id = payload.Id }
-            ).First();
-            response.Payload = res.ToArray();
+            if (payload.Id == payload.UserId) {
+                response.Payload = VerifyResult.Allow;
+            } else {
+                response.Payload = VerifyResult.Deny;
+            }
 
             return response;
         }

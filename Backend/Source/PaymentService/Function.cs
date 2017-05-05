@@ -18,6 +18,7 @@ namespace PaymentService
     using PaymentService.Read;
     using PaymentService.Update;
     using PaymentService.Create;
+    using PaymentService.VerifyUser;
 
     /// <summary>
     /// Lambda function entry class
@@ -37,7 +38,8 @@ namespace PaymentService
             container.RegisterRequirement<IDbConnection>(() => DbHelper.Connection)
                      .Register<CreateCommand>(Operation.Create)
                      .Register<ReadCommand>(Operation.Read)
-                     .Register<UpdateCommand>(Operation.Update);
+                     .Register<UpdateCommand>(Operation.Update)
+                     .Register<VerifyUserCommand>(Operation.VerifyUser);
 
             try
             {
