@@ -13,15 +13,14 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a [routerLink]="'/welcome'">
+                <!--class="active"-->
+                <li ><a [routerLink]="'/welcome'">
                     <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
                 <li><a [routerLink]="'/shopping'">Shopping</a></li>
             </ul>
+            <ul *ngIf="loginFlag" class="nav navbar-nav navbar-right">
 
-
-            <div class="nav navbar-nav navbar-right"  style="padding:5px;">
-                <!--<li><span>{{message}}</span></li>-->
-                <a *ngIf="loginFlag" class="dropdown">
+                <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
                        aria-expanded="false">My Account <span class="caret"></span></a>
@@ -32,15 +31,21 @@
                         <li><a [routerLink] = "'/profile'">User Profile</a></li>
                         <li><a [routerLink] = "'/orders'">Order History</a></li>
                     </ul>
-                </a>
-                <a><button *ngIf="!loginFlag"	 class="btn btn-info btn-sm" (click)="onLogIn()"  >Sign in</button></a>
-                <a><button	*ngIf="!loginFlag" class="btn btn-default btn-sm" (click)="onRegister()" >Register</button></a>
-                <a><button *ngIf="loginFlag" class=" btn btn-info btn-sm" (click)="onSignOut()">Sign out</button></a>
+                </li>
+                
+                <li><a  (click)="onSignOut()"> Sign out</a></li>
+            </ul>
+            <div *ngIf="!loginFlag" class="nav navbar-nav navbar-right"  style="padding:5px;">
+                <a><button 	 class="btn btn-info btn-sm" (click)="onLogIn()"  >Sign in</button></a>
+                <a><button	 class="btn btn-default btn-sm" (click)="onRegister()" >Register</button></a>
             </div>
 
-
-
         </div>
+
+
+
+
+
 
 
     </div>
