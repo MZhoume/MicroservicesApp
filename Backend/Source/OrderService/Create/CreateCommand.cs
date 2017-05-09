@@ -5,7 +5,6 @@ namespace OrderService.Create
     using System.Linq;
     using Dapper.Contrib.Extensions;
     using Dapper;
-    using Dapper.Contrib.Extensions;
     using Shared.DbAccess;
     using Shared.Interface;
     using Shared.Model;
@@ -47,7 +46,6 @@ namespace OrderService.Create
                 DateTime = now.ToString(),
                 UserId = payload.UserId,
                 TotalCharge = payload.TotalCharge,
-                isPaid = false
             };
             order.Validate();
 
@@ -70,6 +68,7 @@ namespace OrderService.Create
                 orderProduct.Validate();
                 this.connection.Insert<OrderedProduct>(orderProduct);
             }
+            response.Payload = new { OrderId = createdOrder.Id};
             return response;
         }
     }

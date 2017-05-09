@@ -48,13 +48,14 @@ namespace OrderService.Update
 
             string val;
 
-            order.UserId = payload.Change.TryGetValue("UserId", out val) ? Convert.ToInt32(val) : order.UserId;
+            // order.UserId = payload.Change.TryGetValue("UserId", out val) ? Convert.ToInt32(val) : order.UserId;
             order.TotalCharge = payload.Change.TryGetValue("TotalCharge", out val) ? Convert.ToDecimal(val) : order.TotalCharge;
-            order.isPaid = payload.Change.TryGetValue("isPaid", out val) ? Convert.ToBoolean(val) : order.isPaid;
+            // order.isPaid = payload.Change.TryGetValue("isPaid", out val) ? Convert.ToBoolean(val) : order.isPaid;
+            order.PaymentId = payload.Change.TryGetValue("PaymentId", out val) ? Convert.ToInt32(val) : order.PaymentId;
             order.Validate();
 
             this.connection.Update<Order>(order);
-
+            response.Payload = new {OrderId= order.Id, PaymentId= order.PaymentId};
             return response;
         }
     }

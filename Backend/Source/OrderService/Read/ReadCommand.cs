@@ -11,7 +11,7 @@ namespace OrderService.Read
     using Shared.Validation;
 
     /// <summary>
-    /// Command for Read Operation
+    /// Command for Read Operat ion
     /// </summary>
     public class ReadCommand : ICommand
     {
@@ -65,8 +65,8 @@ namespace OrderService.Read
             //         new { OrderId = o.Id })
             // });
 
-            var ret = res.Select(o => new {OrderId = o.Id, TotalCharge = o.TotalCharge, IsPaid = o.isPaid, Products = this.connection.Query<OrderedProduct>(
-                $"SELECT * FROM {DbHelper.GetTableName<OrderedProduct>()} WHERE OrderId = @OrderId",
+            var ret = res.Select(o => new {OrderId = o.Id, TotalCharge = o.TotalCharge, PaymentId = o.PaymentId, Products = this.connection.Query<OrderedProduct>(
+                $"SELECT ProductId FROM {DbHelper.GetTableName<OrderedProduct>()} WHERE OrderId = @OrderId",
                     new { OrderId = o.Id })
             });
             response.Payload = ret.ToArray();
