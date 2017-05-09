@@ -18,6 +18,7 @@ export class UserOrdersComponent implements OnInit {
     total: number;
     myParseFloat = parseFloat;
     myToken:string;
+    disableFlage:boolean = false;
 
     constructor(
         private cartService: CartService,
@@ -50,6 +51,7 @@ export class UserOrdersComponent implements OnInit {
             this.orders.push(res[i]);
         }
 
+
     }
 
     calc(order:any):number {
@@ -66,16 +68,16 @@ export class UserOrdersComponent implements OnInit {
         const handler = (<any>window).StripeCheckout.configure({
             key: 'pk_test_hPyQl7aPo9jabKR2WwAVYSWk',
             locale: 'auto',
-            token: (token: any) => {
+            token: async (token: any) => {
                 console.log(token);
                 this.myToken = token.id;
                 // todo send to server
-
-                this.cartService.checkoutOrder(
+                this.disableFlage = true
+                await this.cartService.checkoutOrder(
                     this.userService.getUser().JWT, this.userService.getUser().uid, this.myToken, this.calc(this.orders[id]) * 100, this.ordersIds[id]);
-
+                this.disableFlage = false
                 console.log('pay end.');
-                this.router.navigate(['/shopping']);
+                // this.router.navigate(['/shopping']);
             }
         });
         handler.open({

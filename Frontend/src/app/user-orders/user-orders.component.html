@@ -1,7 +1,7 @@
 <app-navigation-bar></app-navigation-bar>
 <br>
 <br>
-
+<div *ngIf="!disableFlage">
 <div *ngFor="let oid of ordersIds;let ii = index;" class="container">
 
     <h4>This is order {{oid}}</h4>
@@ -22,8 +22,21 @@
         </tr>
     </table>
     <p>total price {{calc(orders[ii])}}</p>
-    <button class="btn btn-primary btn-xs" (click)="openCheckout(ii)">Checkout</button>
+    <div *ngIf="orders[ii].PaymentId === 0">
+        <button class="btn btn-primary btn-xs" (click)="openCheckout(ii)">Checkout</button>
+    </div>
+    <div *ngIf="orders[ii].PaymentId !== 0">
+        <p>You already paied!</p>
+    </div>
     <br>
     <br>
     <br>
+</div>
+</div>
+<br>
+<br>
+<div *ngIf="diableFlage">
+    <p>
+        loading
+    </p>
 </div>
