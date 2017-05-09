@@ -100,7 +100,7 @@ export class CartService {
         params.set('field', 'id');
         params.set('start', '0');
         params.set('count', '10');
-        params.set('value', '10');
+        params.set('value', '1000');
 
         options.search = params;
 

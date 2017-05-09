@@ -49,6 +49,7 @@ export class UserOrdersComponent implements OnInit {
             this.ordersIds.push(res[i].OrderId);
             this.orders.push(res[i]);
         }
+
     }
 
     calc(order:any):number {
