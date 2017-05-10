@@ -1,5 +1,6 @@
 namespace UserService.SignUp
 {
+    using System.Net;
     using Shared.Authentication;
     using Shared.Interface;
     using Shared.Request;
@@ -23,7 +24,7 @@ namespace UserService.SignUp
 
             var payload = request.Payload.ToObject<SignUpPayload>();
             payload.Validate();
-            var emailToken = AuthHelper.GenerateCustomAuthToken(payload);
+            var emailToken = WebUtility.UrlEncode(AuthHelper.GenerateCustomAuthToken(payload));
 
             response.Payload = new
             {

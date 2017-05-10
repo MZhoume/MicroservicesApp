@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 namespace ProcessService
 {
     using System;
+    using System.IO;
     using System.Net.Http;
     using System.Threading.Tasks;
     using Amazon.Lambda;
@@ -46,7 +47,7 @@ namespace ProcessService
                 };
 
                 var lambdaResponse = await lambdaClient.InvokeAsync(invokeRequest);
-                var response = JsonConvert.SerializeObject(lambdaResponse);
+                var response = new StreamReader(lambdaResponse.Payload).ReadToEnd();
 
                 if (!string.IsNullOrEmpty(queueRequest.CallbackUrl))
                 {

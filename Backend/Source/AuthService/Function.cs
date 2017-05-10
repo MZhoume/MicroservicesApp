@@ -5,26 +5,45 @@ using System.Runtime.CompilerServices;
 
 namespace AuthService
 {
+    using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
+    using Amazon.Lambda;
     using Amazon.Lambda.APIGatewayEvents;
     using Amazon.Lambda.Core;
+    using Amazon.Lambda.Model;
+    using AuthService.Model;
     using AuthService.Policy;
     using AuthService.Validation;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using Shared;
     using Shared.EnumHelper;
+    using Shared.Http;
+    using Shared.Queue;
+    using Shared.Request;
+    using Shared.Response;
 
     /// <summary>
     /// Authentication Service entry class
     /// </summary>
     public class Function
     {
+        private Dictionary<string, Service> serviceMapping = new Dictionary<string, Service>()
+        {
+            ["payments"] = Service.PaymentService,
+            ["orders"] = Service.OrderService,
+            ["users"] = Service.UserService
+        };
+
         /// <summary>
         /// Handle the Authentication Request
         /// </summary>
         /// <param name="request"> Authentication Request </param>
         /// <returns> API Gateway Custom Authorizer Response </returns>
         [LambdaSerializer(typeof(LambdaSerializer))]
-        public APIGatewayCustomAuthorizerResponse FunctionHandler(APIGatewayCustomAuthorizerRequest request)
+        public async Task<APIGatewayCustomAuthorizerResponse> FunctionHandler(APIGatewayCustomAuthorizerRequest request)
         {
             var token = request.AuthorizationToken;
             var type = AuthTokenType.JWT;
@@ -46,12 +65,54 @@ namespace AuthService
                 var apiId = apiVars[0];
                 var stage = apiVars[1];
 
-                var any = Resource.Any.GetStringValue();
-                this.AllowOperation(
-                        statement,
-                        CustomAuthorizerHelper.ComposeAction(Action.Invoke),
-                        CustomAuthorizerHelper.ComposeResource(region, accountId, apiId, stage, any, any)
-                );
+                if (apiVars.Length > 4)
+                {
+                    var service = apiVars[3];
+                    var id = int.Parse(apiVars[5]);
+
+                    var req = new Request()
+                    {
+                        Operation = Operation.VerifyUser,
+                        AuthToken = token,
+                        Payload = JObject.FromObject(new VerifyUserPayload()
+                        {
+                            ResourceId = id
+                        })
+                    };
+
+                    var lambdaClient = new AmazonLambdaClient();
+                    var invokeRequest = new InvokeRequest()
+                    {
+                        FunctionName = Enum.GetName(typeof(Service), serviceMapping[service]),
+                        Payload = JsonConvert.SerializeObject(req)
+                    };
+
+                    var lambdaRes = await lambdaClient.InvokeAsync(invokeRequest);
+                    var res = new StreamReader(lambdaRes.Payload).ReadToEnd();
+
+                    if (res.Contains(Enum.GetName(typeof(VerifyResult), VerifyResult.Allow)))
+                    {
+                        var any = Resource.Any.GetStringValue();
+                        this.AllowOperation(
+                                statement,
+                                CustomAuthorizerHelper.ComposeAction(Policy.Action.Invoke),
+                                CustomAuthorizerHelper.ComposeResource(region, accountId, apiId, stage, new ResourceAccess(any, service), new ResourceAccess(any, id.ToString()))
+                        );
+                    }
+                    else
+                    {
+                        this.DenyAll(statement);
+                    }
+                }
+                else
+                {
+                    var any = Resource.Any.GetStringValue();
+                    this.AllowOperation(
+                            statement,
+                            CustomAuthorizerHelper.ComposeAction(Policy.Action.Invoke),
+                            CustomAuthorizerHelper.ComposeResource(region, accountId, apiId, stage, new ResourceAccess(any, any))
+                    );
+                }
             }
             else
             {
@@ -73,9 +134,9 @@ namespace AuthService
         {
             var any = Resource.Any.GetStringValue();
             statement.Effect = Effect.Deny.GetStringValue();
-            statement.Action.Add(CustomAuthorizerHelper.ComposeAction(Action.All));
+            statement.Action.Add(CustomAuthorizerHelper.ComposeAction(Policy.Action.All));
             statement.Resource.Add(CustomAuthorizerHelper.ComposeResource(
-                any, any, any, any, any, any));
+                any, any, any, any, new ResourceAccess(any, any)));
         }
     }
 }

@@ -11,6 +11,7 @@
             "type": "platform",
             "version": "1.0.0"
         },
+        "AWSSDK.Lambda": "3.3.6.1",
         "Amazon.Lambda.Core": "1.0.0*",
         "Newtonsoft.Json": "10.0.1",
         "jose-jwt": "2.1.0",

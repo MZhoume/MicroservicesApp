@@ -8,6 +8,12 @@ namespace Shared.Queue
 #pragma warning disable CS1591
 #pragma warning disable SA1602
 
+        OrderService,
+
+        PaymentService,
+
+        UserService
+
 #pragma warning restore SA1602
 #pragma warning restore CS1591
     }

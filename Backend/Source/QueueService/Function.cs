@@ -12,6 +12,7 @@ namespace QueueService
     using Shared;
     using Shared.Command;
     using Shared.Http;
+    using Shared.Queue;
     using Shared.Request;
     using Shared.Response;
     using Shared.Validation;
@@ -27,7 +28,7 @@ namespace QueueService
         /// <param name="request"> Request for lambda handler </param>
         /// <returns> Value send to clients </returns>
         [LambdaSerializer(typeof(LambdaSerializer))]
-        public Response FunctionHandler(Request request)
+        public Response FunctionHandler(QueueRequest request)
         {
             var container = new CommandContainer();
 
@@ -37,7 +38,7 @@ namespace QueueService
             try
             {
                 request.Validate();
-                return container.Process(request);
+                return container.ProcessWith(request, request.QueueOperation);
             }
             catch (Exception ex)
             {

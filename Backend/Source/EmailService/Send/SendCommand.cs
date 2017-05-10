@@ -31,7 +31,7 @@ namespace EmailService.Send
                 new KeyValuePair<string, string>("from", MailgunHelper.From),
                 new KeyValuePair<string, string>("to", payload.To),
                 new KeyValuePair<string, string>("subject", payload.Subject),
-                new KeyValuePair<string, string>("text", payload.Body)
+                new KeyValuePair<string, string>("html", payload.Body)
             });
 
             var handler = new HttpClientHandler()

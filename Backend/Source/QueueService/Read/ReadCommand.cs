@@ -27,7 +27,6 @@ namespace QueueService.Read
 
             var sqsClient = new AmazonSQSClient();
 
-
             var requestQueue = sqsClient.ReceiveMessageAsync(QueueHelper.RequestQueueUrl).Result;
 
             if (requestQueue.Messages.Any(m => m.MessageId == payload.Id))
