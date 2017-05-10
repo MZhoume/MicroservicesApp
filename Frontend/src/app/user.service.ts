@@ -70,7 +70,7 @@ export class UserService {
         const options = new RequestOptions({ headers: headers });
 
         try {
-            const res = await this.http.put(this.modifyUserInfoUrl, { Id: user.uid, Change: change }, options)
+            const res = await this.http.put(this.modifyUserInfoUrl+'/'+this.user.uid, { Id: user.uid, Change: change }, options)
                 .toPromise();
             console.log(res.json());
             return true;

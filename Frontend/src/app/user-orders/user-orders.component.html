@@ -3,8 +3,17 @@
 <br>
 <div *ngIf="!disableFlage">
 <div *ngFor="let oid of ordersIds;let ii = index;" class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Order {{oid}}</h4>
+        </div>
+        <div class="col-lg-1 col-md-pull-4">
+            <div *ngIf="orders[ii].PaymentId === 0">
+                <button class="btn btn-primary btn-xs" (click)="openCheckout(ii)">Checkout</button>
+            </div>
+        </div>
+    </div>
 
-    <h4>This is order {{oid}}</h4>
     <table class="table">
         <tr>
             <th>Items</th>
@@ -12,30 +21,27 @@
             <th>Price</th>
         </tr>
         <tr *ngFor="let product of orders[ii].Products;let i = index;">
-            <td>{{items[product.ProductId].Name}}</td>
+            <td>{{items[product.ProductId-1].Name}}</td>
             <td>
                 {{product.Count}}
             </td>
             <td>
-                <p>{{myParseFloat(items[product.ProductId].Price) * product.Count}}</p>
+                <p>{{myParseFloat(items[product.ProductId-1].Price) * product.Count}}</p>
             </td>
         </tr>
     </table>
     <p>total price {{calc(orders[ii])}}</p>
-    <div *ngIf="orders[ii].PaymentId === 0">
-        <button class="btn btn-primary btn-xs" (click)="openCheckout(ii)">Checkout</button>
-    </div>
-    <div *ngIf="orders[ii].PaymentId !== 0">
-        <p>You already paied!</p>
-    </div>
+
+
     <br>
     <br>
     <br>
 </div>
 </div>
-<br>
-<br>
-<div *ngIf="diableFlage">
+
+<div *ngIf="disableFlage">
+    <br>
+    <br>
     <p>
         loading
     </p>

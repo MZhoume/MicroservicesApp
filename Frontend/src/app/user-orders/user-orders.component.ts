@@ -3,7 +3,7 @@ import {Item} from '../Item';
 import {CartService} from '../cart.service';
 import {UserService} from '../user.service';
 import {Router} from '@angular/router';
-import {ItemService} from "../item.service";
+import {ItemService} from '../item.service';
 
 @Component({
   selector: 'app-user-orders',
@@ -17,8 +17,8 @@ export class UserOrdersComponent implements OnInit {
     items: Item[];
     total: number;
     myParseFloat = parseFloat;
-    myToken:string;
-    disableFlage:boolean = false;
+    myToken: string;
+    disableFlage = false;
 
     constructor(
         private cartService: CartService,
@@ -38,15 +38,16 @@ export class UserOrdersComponent implements OnInit {
     }
 
     async getOrders() {
-        let itemResult = await this.itemService.getItemsRemote();
+        const itemResult = await this.itemService.getItemsRemote();
+        console.log(itemResult);
         this.items = itemResult.Payload;
 
         this.ordersIds = [];
         this.orders = [];
         this.total = this.cartService.getCartTotalPrice();
-        let res = await this.cartService.getOrdersFromServer(this.userService.getUser().JWT);
+        const res = await this.cartService.getOrdersFromServer(this.userService.getUser().JWT);
         console.log(res);
-        for (let i = res.length-1; i >= 0 ; i--){
+        for (let i = res.length - 1; i >= 0 ; i--){
             this.ordersIds.push(res[i].OrderId);
             this.orders.push(res[i]);
         }
@@ -54,12 +55,12 @@ export class UserOrdersComponent implements OnInit {
 
     }
 
-    calc(order:any):number {
+    calc(order: any): number {
 
-        let total:number = 0;
+        let total = 0;
         for (let i = 0; i < order.Products.length ; i++){
-            let product = order.Products[i];
-            total += this.myParseFloat(this.items[product.ProductId].Price) * product.Count;
+            const product = order.Products[i];
+            total += this.myParseFloat(this.items[product.ProductId - 1].Price) * product.Count;
         }
         return total;
     }
@@ -72,10 +73,12 @@ export class UserOrdersComponent implements OnInit {
                 console.log(token);
                 this.myToken = token.id;
                 // todo send to server
-                this.disableFlage = true
+                this.disableFlage = true;
                 await this.cartService.checkoutOrder(
-                    this.userService.getUser().JWT, this.userService.getUser().uid, this.myToken, this.calc(this.orders[id]) * 100, this.ordersIds[id]);
-                this.disableFlage = false
+                    this.userService.getUser().JWT, this.userService.getUser().uid, this.myToken,
+                    this.calc(this.orders[id]) * 100, this.ordersIds[id]);
+                this.orders[id].PaymentId = 1;
+                this.disableFlage = false;
                 console.log('pay end.');
                 // this.router.navigate(['/shopping']);
             }
