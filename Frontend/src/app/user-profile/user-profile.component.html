@@ -1,6 +1,15 @@
 <app-navigation-bar></app-navigation-bar>
-<div class="row row-content">
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="alert alert-success" role="alert" *ngIf="message">
+            {{message}}
+        </div>
+    </div>
+</div>
 
+
+<div class="row row-content">
     <div class="col-xs-12 col-sm-6 col-sm-push-2">
         <form class="form-horizontal" role="form" (ngSubmit)="onSubmit(theForm)" #theForm="ngForm">
             <div class="form-group">

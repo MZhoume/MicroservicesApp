@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from "../User";
-import {Router} from "@angular/router";
-import {UserService} from "../user.service";
+import {User} from '../User';
+import {Router} from '@angular/router';
+import {UserService} from '../user.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -42,9 +42,9 @@ export class UserProfileComponent implements OnInit {
     }
 
     async onSubmit(): Promise<any> {
-        console.log("modify submitted");
+        console.log('modify submitted');
         this.message = 'Loading';
-        let change = {};
+        const change = {};
 
         console.log(this.user);
         console.log(this.originalUser);
@@ -66,19 +66,19 @@ export class UserProfileComponent implements OnInit {
         }
         console.log(change);
         try {
-            let modifyResult = await this.userService.modifyUserInfoRemote(this.user, change);
+            const modifyResult = await this.userService.modifyUserInfoRemote(this.user, change);
             console.log(modifyResult);
             if (modifyResult) {
 
-                this.message ='modify success';
-                console.log('modify success');
-                alert('modify success');
+                this.message = 'modify success';
+                this.userService.user.firstname = this.user.firstname;
+                this.userService.user.lastname = this.user.lastname;
+                this.userService.user.phone = this.user.phone;
 
+                console.log('modify success');
             } else {
                 console.log(modifyResult);
-                //this.message = response.reason;
                 console.log('modify fail');
-                alert('modify fail');
             }
         } catch (ex) {
             console.error('An error occurred', ex);
