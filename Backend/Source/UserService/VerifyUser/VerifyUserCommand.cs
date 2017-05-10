@@ -1,9 +1,11 @@
 namespace UserService.VerifyUser
 {
+    using System;
     using System.Data;
     using System.Linq;
     using Dapper;
     using Newtonsoft.Json.Linq;
+    using Shared.Authentication;
     using Shared.DbAccess;
     using Shared.Interface;
     using Shared.Model;
@@ -35,17 +37,20 @@ namespace UserService.VerifyUser
         /// <returns> The response </returns>
         public Response Invoke(Request request)
         {
-            var payload = request.Payload.ToObject<VerifyUserPayload>();
-            payload.Validate();
             var response = new Response();
 
-            if (payload.Id == payload.UserId)
+            var payload = request.Payload.ToObject<VerifyUserPayload>();
+            payload.Validate();
+
+            var user = AuthHelper.GetAuthPayload(request.AuthToken);
+
+            if (user.UserId == payload.ResourceId)
             {
-                response.Payload = VerifyResult.Allow;
+                response.Payload = Enum.GetName(typeof(VerifyResult), VerifyResult.Allow);
             }
             else
             {
-                response.Payload = VerifyResult.Deny;
+                response.Payload = Enum.GetName(typeof(VerifyResult), VerifyResult.Deny);
             }
 
             return response;
