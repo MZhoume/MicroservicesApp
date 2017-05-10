@@ -73,6 +73,7 @@ namespace AuthService
                     var req = new Request()
                     {
                         Operation = Operation.VerifyUser,
+                        AuthToken = token,
                         Payload = JObject.FromObject(new VerifyUserPayload()
                         {
                             ResourceId = id
@@ -87,10 +88,9 @@ namespace AuthService
                     };
 
                     var lambdaRes = await lambdaClient.InvokeAsync(invokeRequest);
-                    var res = JsonConvert.DeserializeObject<Response>(new StreamReader(lambdaRes.Payload).ReadToEnd());
-                    var result = res.Payload as string;
+                    var res = new StreamReader(lambdaRes.Payload).ReadToEnd();
 
-                    if (result == Enum.GetName(typeof(VerifyResult), VerifyResult.Allow))
+                    if (res.Contains(Enum.GetName(typeof(VerifyResult), VerifyResult.Allow)))
                     {
                         var any = Resource.Any.GetStringValue();
                         this.AllowOperation(
