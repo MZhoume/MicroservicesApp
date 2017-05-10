@@ -31,6 +31,22 @@ namespace Shared.Command
         }
 
         /// <summary>
+        /// Process the given request with a specific operation
+        /// </summary>
+        /// <param name="request"> The request to process </param>
+        /// <param name="operation"> The operation to process </param>
+        /// <returns> The processed response </returns>
+        public Response ProcessWith(Request request, Operation operation)
+        {
+            if (!this.commands.ContainsKey(operation))
+            {
+                throw new ArgumentException($"Operation {Enum.GetName(typeof(Operation), operation)} is not supported.");
+            }
+
+            return (this.container.GetInstance(this.commands[operation]) as ICommand).Invoke(request);
+        }
+
+        /// <summary>
         /// Register a requirement for the commands
         /// </summary>
         /// <typeparam name="TConcrete"> The type of the instance </typeparam>
