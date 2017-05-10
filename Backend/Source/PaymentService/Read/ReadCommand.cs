@@ -41,8 +41,8 @@ namespace PaymentService.Read
                 RequestHelper.ComposeSearchExp(payload.SearchTerm, DbHelper.GetTableName<Payment>(), payload.PagingInfo != null),
                 RequestHelper.GetSearchObject(payload.SearchTerm, payload.PagingInfo)
             );
+            var ret = res.Select(o => new {OrderId = o.Id, TotalCharge = o.Charge, PaymentId = o.Id});
             response.Payload = res.ToArray();
-
             return response;
         }
     }

@@ -68,11 +68,15 @@ namespace PaymentService.Create
                 new { Id = payload.OrderId }
             ).First();
 
-            order.isPaid = true;
+            var curPayment = this.connection.Query<Payment>(
+                $"SELECT * FROM {DbHelper.GetTableName<Payment>()} WHERE OrderId = @Id",
+                new { Id = payload.OrderId }
+            ).First();
+            order.PaymentId = curPayment.Id;
             order.Validate();
 
             this.connection.Update<Order>(order);
-
+            response.Payload = new { PaymentId = curPayment.Id, OrderId = payload.OrderId };
             return response;
         }
     }

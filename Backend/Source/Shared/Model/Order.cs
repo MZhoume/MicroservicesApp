@@ -47,7 +47,6 @@ namespace Shared.Model
         /// Gets or sets order's payment status
         /// </summary>
         /// <returns>Return datetime</returns>
-        [Required]
-        public Boolean isPaid {get; set;}
+        public int PaymentId {get; set;}
     }
 }
