@@ -12,6 +12,7 @@
       "version": "1.0.0"
     },
     "Shared": "1.0.0",
+    "AWSSDK.Lambda": "3.3.6.1",
     "Amazon.Lambda.Core": "1.0.0*",
     "Amazon.Lambda.APIGatewayEvents": "1.0.2",
     "SimpleInjector": "3.3.2",

@@ -29,7 +29,7 @@ namespace Shared.Authentication
         /// <returns> Decoded custom Auth payload </returns>
         public static T GetCustomAuthPayload<T>(string token)
         {
-            return JsonConvert.DeserializeObject<T>(JWT.Decode(token, jwtSecretKey));
+            return JsonConvert.DeserializeObject<T>(JWT.Decode(token.Substring(7), jwtSecretKey));
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Shared.Authentication
         /// <returns> Encoded Auth token </returns>
         public static string GenerateCustomAuthToken(object payload)
         {
-            return JWT.Encode(payload, jwtSecretKey, JwsAlgorithm.HS256);
+            return "Bearer " + JWT.Encode(payload, jwtSecretKey, JwsAlgorithm.HS256);
         }
     }
 }
