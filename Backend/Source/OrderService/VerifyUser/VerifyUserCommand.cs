@@ -1,10 +1,12 @@
 namespace OrderService.VerifyUser
 {
+    using System;
     using System.Data;
     using System.Linq;
     using Dapper;
     using Newtonsoft.Json.Linq;
     using OrderService.Model;
+    using Shared.Authentication;
     using Shared.DbAccess;
     using Shared.Interface;
     using Shared.Model;
@@ -39,18 +41,20 @@ namespace OrderService.VerifyUser
             payload.Validate();
             var response = new Response();
 
-            var user = this.connection.Query<Order>(
-                $"SELECT * FROM {DbHelper.GetTableName<Order>()} WHERE Id = @Id AND UserId = @UserId",
-                new { Id = payload.Id, UserId = payload.UserId }
-            );
-            var count = user.Count();
-            if (count <= 0)
+            var user = AuthHelper.GetAuthPayload(request.AuthToken);
+
+            var count = this.connection.Query<int>(
+                $"SELECT COUNT() FROM {DbHelper.GetTableName<Order>()} WHERE Id = @Id AND UserId = @UserId",
+                new { Id = payload.ResourceId, UserId = user.UserId }
+            ).First();
+
+            if (count > 0)
             {
-                response.Payload = VerifyResult.Deny;
+                response.Payload = Enum.GetName(typeof(VerifyResult), VerifyResult.Allow);
             }
             else
             {
-                response.Payload = VerifyResult.Allow;
+                response.Payload = Enum.GetName(typeof(VerifyResult), VerifyResult.Deny);
             }
 
             return response;
