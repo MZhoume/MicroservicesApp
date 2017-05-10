@@ -33,7 +33,7 @@ export class UserOrdersComponent implements OnInit {
             this.router.navigate(['/login']);
             console.log('you should not be here');
         }
-
+        this.disableFlage = true;
         this.getOrders();
     }
 
@@ -51,6 +51,7 @@ export class UserOrdersComponent implements OnInit {
             this.ordersIds.push(res[i].OrderId);
             this.orders.push(res[i]);
         }
+        this.disableFlage = false;
 
 
     }

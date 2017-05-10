@@ -17,7 +17,7 @@ export class UserCartComponent implements OnInit {
     keys: string[];
     myParseFloat = parseFloat;
     total: number;
-    myToken: string;
+    loading: boolean;
 
     constructor(
         private userService: UserService,
@@ -26,6 +26,7 @@ export class UserCartComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.loading = false;
         // prevent unlog usr get in
         if (this.userService.getUser() == undefined){
             this.router.navigate(['/login']);
@@ -56,6 +57,7 @@ export class UserCartComponent implements OnInit {
     }
 
     async placeOrder(): Promise<any> {
+        this.loading =true;
         console.log('pay start');
         try {
             const sendResult = await this.cartService.sendOrderToServer(
@@ -68,6 +70,7 @@ export class UserCartComponent implements OnInit {
         } catch (ex) {
             console.error('An error occurred', ex);
         }
+        this.loading = false;
     }
 
 

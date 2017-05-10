@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
 export class UserLoginComponent implements OnInit {
     user: User;
     message: string;
+    loading: boolean;
 
     constructor(
         private userService: UserService,
@@ -22,6 +23,7 @@ export class UserLoginComponent implements OnInit {
 
     ngOnInit() {
         this.user = new User();
+        this.loading = false;
         // if usr log in, redirect to welcome page
         if (this.userService.getUser() === undefined) {
             console.log('please log in');
@@ -32,7 +34,7 @@ export class UserLoginComponent implements OnInit {
 
     async onSubmit(): Promise<any> {
         console.log('going to log in');
-        this.message = 'Loading';
+        this.loading = true;
         try {
             const loginResult = await this.userService.loginUserRemote(this.user);
             if (loginResult) {
@@ -48,6 +50,7 @@ export class UserLoginComponent implements OnInit {
         } catch (ex) {
             console.error('An error occurred', ex);
         }
+        this.loading = false;
 
     }
 
