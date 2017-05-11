@@ -1,9 +1,13 @@
 namespace QueueService.Read
 {
+    using System.Data;
     using System.Linq;
     using Amazon.SQS;
+    using Dapper;
     using QueueService.Model;
+    using Shared.DbAccess;
     using Shared.Interface;
+    using Shared.Model;
     using Shared.Queue;
     using Shared.Request;
     using Shared.Response;
@@ -14,6 +18,17 @@ namespace QueueService.Read
     /// </summary>
     public class ReadCommand : ICommand
     {
+        private readonly IDbConnection connection;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReadCommand"/> class.
+        /// </summary>
+        /// <param name="connection"> The DbConnection for the command </param>
+        public ReadCommand(IDbConnection connection)
+        {
+            this.connection = connection;
+        }
+
         /// <summary>
         /// Invoke the command and process the request
         /// </summary>
@@ -25,26 +40,25 @@ namespace QueueService.Read
             var payload = request.Payload.ToObject<ReadPayload>();
             payload.Validate();
 
-            var sqsClient = new AmazonSQSClient();
+            var qp = this.connection.Query<QueueProcess>($"SELECT * FROM {DbHelper.GetTableName<QueueProcess>()} WHERE QueueId = @QId",
+                                                         new { QId = payload.Id }).First();
 
-            var requestQueue = sqsClient.ReceiveMessageAsync(QueueHelper.RequestQueueUrl).Result;
-
-            if (requestQueue.Messages.Any(m => m.MessageId == payload.Id))
+            if (string.IsNullOrEmpty(qp.ProcessId))
             {
                 response.Payload = "Processing...";
             }
             else
             {
+                var sqsClient = new AmazonSQSClient();
                 var processedQueue = sqsClient.ReceiveMessageAsync(QueueHelper.ProcessedQueueUrl).Result;
-                var res = processedQueue.Messages.FirstOrDefault(m => m.MessageId == payload.Id);
-
+                var res = processedQueue.Messages.FirstOrDefault(m => m.MessageId == qp.ProcessId);
                 if (res == null)
                 {
-                    response.Payload = res.Body;
+                    response.Payload = "Processed.";
                 }
                 else
                 {
-                    response.Payload = "The queued request has been removed.";
+                    response.Payload = res.Body;
                 }
             }
 

@@ -22,7 +22,6 @@ namespace Shared.Model
         /// Gets or sets Process's id
         /// </summary>
         /// <returns>Return id</returns>
-        [Required(AllowEmptyStrings = false)]
         public string ProcessId { get; set; }
     }
 }

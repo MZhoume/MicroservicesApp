@@ -65,43 +65,60 @@ namespace AuthService
                 var apiId = apiVars[0];
                 var stage = apiVars[1];
 
+                Console.WriteLine(apiVars.Length);
+
                 if (apiVars.Length > 4)
                 {
-                    var service = apiVars[3];
-                    var id = int.Parse(apiVars[5]);
-
-                    var req = new Request()
+                    int id;
+                    if (int.TryParse(apiVars[4], out id))
                     {
-                        Operation = Operation.VerifyUser,
-                        AuthToken = token,
-                        Payload = JObject.FromObject(new VerifyUserPayload()
+                        var service = apiVars[3];
+
+                        Console.WriteLine(service);
+                        Console.WriteLine(id);
+
+                        var req = new Request()
                         {
-                            ResourceId = id
-                        })
-                    };
+                            Operation = Operation.VerifyUser,
+                            AuthToken = token,
+                            Payload = JObject.FromObject(new VerifyUserPayload()
+                            {
+                                ResourceId = id
+                            })
+                        };
 
-                    var lambdaClient = new AmazonLambdaClient();
-                    var invokeRequest = new InvokeRequest()
-                    {
-                        FunctionName = Enum.GetName(typeof(Service), serviceMapping[service]),
-                        Payload = JsonConvert.SerializeObject(req)
-                    };
+                        var lambdaClient = new AmazonLambdaClient();
+                        var invokeRequest = new InvokeRequest()
+                        {
+                            FunctionName = Enum.GetName(typeof(Service), serviceMapping[service]),
+                            Payload = JsonConvert.SerializeObject(req)
+                        };
 
-                    var lambdaRes = await lambdaClient.InvokeAsync(invokeRequest);
-                    var res = new StreamReader(lambdaRes.Payload).ReadToEnd();
+                        var lambdaRes = await lambdaClient.InvokeAsync(invokeRequest);
+                        var res = new StreamReader(lambdaRes.Payload).ReadToEnd();
 
-                    if (res.Contains(Enum.GetName(typeof(VerifyResult), VerifyResult.Allow)))
+                        if (res.Contains(Enum.GetName(typeof(VerifyResult), VerifyResult.Allow)))
+                        {
+                            var any = Resource.Any.GetStringValue();
+                            this.AllowOperation(
+                                    statement,
+                                    CustomAuthorizerHelper.ComposeAction(Policy.Action.Invoke),
+                                    CustomAuthorizerHelper.ComposeResource(region, accountId, apiId, stage, new ResourceAccess(any, any))
+                            );
+                        }
+                        else
+                        {
+                            this.DenyAll(statement);
+                        }
+                    }
+                    else
                     {
                         var any = Resource.Any.GetStringValue();
                         this.AllowOperation(
                                 statement,
                                 CustomAuthorizerHelper.ComposeAction(Policy.Action.Invoke),
-                                CustomAuthorizerHelper.ComposeResource(region, accountId, apiId, stage, new ResourceAccess(any, service), new ResourceAccess(any, id.ToString()))
+                                CustomAuthorizerHelper.ComposeResource(region, accountId, apiId, stage, new ResourceAccess(any, any))
                         );
-                    }
-                    else
-                    {
-                        this.DenyAll(statement);
                     }
                 }
                 else

@@ -6,11 +6,13 @@ using System.Runtime.CompilerServices;
 namespace QueueService
 {
     using System;
+    using System.Data;
     using Amazon.Lambda.Core;
     using QueueService.Queue;
     using QueueService.Read;
     using Shared;
     using Shared.Command;
+    using Shared.DbAccess;
     using Shared.Http;
     using Shared.Queue;
     using Shared.Request;
@@ -32,7 +34,9 @@ namespace QueueService
         {
             var container = new CommandContainer();
 
-            container.Register<QueueCommand>(Operation.Queue)
+            container.RegisterRequirement<IDbConnection>(() => DbHelper.Connection)
+
+                     .Register<QueueCommand>(Operation.Queue)
                      .Register<ReadCommand>(Operation.Read);
 
             try

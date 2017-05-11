@@ -7,14 +7,19 @@ namespace ProcessService
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Net.Http;
     using System.Threading.Tasks;
     using Amazon.Lambda;
     using Amazon.Lambda.Core;
     using Amazon.Lambda.Model;
     using Amazon.SQS;
+    using Dapper;
+    using Dapper.Contrib.Extensions;
     using Newtonsoft.Json;
     using Shared;
+    using Shared.DbAccess;
+    using Shared.Model;
     using Shared.Queue;
 
     /// <summary>
@@ -29,6 +34,8 @@ namespace ProcessService
         [LambdaSerializer(typeof(LambdaSerializer))]
         public async Task FunctionHandler()
         {
+            var connection = DbHelper.Connection;
+
             var sqsClient = new AmazonSQSClient();
             var sqsResponse = await sqsClient.ReceiveMessageAsync(QueueHelper.RequestQueueUrl);
             var lambdaClient = new AmazonLambdaClient();
@@ -59,10 +66,13 @@ namespace ProcessService
                 }
 
                 await sqsClient.DeleteMessageAsync(QueueHelper.RequestQueueUrl, handler);
-                await sqsClient.SendMessageAsync(
+                var processed = await sqsClient.SendMessageAsync(
                     QueueHelper.ProcessedQueueUrl,
                     response
                 );
+
+                connection.Execute($"UPDATE {DbHelper.GetTableName<QueueProcess>()} SET ProcessId = @PId WHERE QueueId = @QId",
+                                   new { PId = processed.MessageId, QId = message.MessageId });
             }
         }
     }
