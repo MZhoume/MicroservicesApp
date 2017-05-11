@@ -44,7 +44,7 @@ namespace OrderService.VerifyUser
             var user = AuthHelper.GetAuthPayload(request.AuthToken);
 
             var count = this.connection.Query<int>(
-                $"SELECT COUNT() FROM {DbHelper.GetTableName<Order>()} WHERE Id = @Id AND UserId = @UserId",
+                $"SELECT COUNT(*) FROM {DbHelper.GetTableName<Order>()} WHERE Id = @Id AND UserId = @UserId",
                 new { Id = payload.ResourceId, UserId = user.UserId }
             ).First();
 

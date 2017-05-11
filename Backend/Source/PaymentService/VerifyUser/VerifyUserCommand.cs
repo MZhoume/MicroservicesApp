@@ -11,6 +11,8 @@ namespace PaymentService.VerifyUser
     using Shared.Response;
     using Shared.Validation;
     using PaymentService.Model;
+    using System;
+    using Shared.Authentication;
 
     /// <summary>
     /// Command for VerifyUser Operation
@@ -39,18 +41,20 @@ namespace PaymentService.VerifyUser
             payload.Validate();
             var response = new Response();
 
-            var user = this.connection.Query<Payment>(
-                $"SELECT * FROM {DbHelper.GetTableName<Payment>()} WHERE Id = @Id AND UserId = @UserId",
-                new { Id = payload.Id, UserId = payload.UserId }
-            );
-            var count = user.Count();
-            if (count <= 0)
+            var user = AuthHelper.GetAuthPayload(request.AuthToken);
+
+            var count = this.connection.Query<int>(
+                $"SELECT COUNT(*) FROM {DbHelper.GetTableName<Payment>()} WHERE Id = @Id AND UserId = @UserId",
+                new { Id = payload.ResourceId, UserId = user.UserId }
+            ).First();
+
+            if (count > 0)
             {
-                response.Payload = VerifyResult.Deny;
+                response.Payload = Enum.GetName(typeof(VerifyResult), VerifyResult.Allow);
             }
             else
             {
-                response.Payload = VerifyResult.Allow;
+                response.Payload = Enum.GetName(typeof(VerifyResult), VerifyResult.Deny);
             }
 
             return response;
