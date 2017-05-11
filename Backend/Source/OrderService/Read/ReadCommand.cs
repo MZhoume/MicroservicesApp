@@ -4,6 +4,7 @@ namespace OrderService.Read
     using System.Linq;
     using Dapper;
     using Shared.DbAccess;
+    using Shared.Authentication;
     using Shared.Interface;
     using Shared.Model;
     using Shared.Request;
@@ -38,6 +39,13 @@ namespace OrderService.Read
 
             var response = new Response();
 
+            //var user = AuthHelper.GetAuthPayload(request.AuthToken);
+            foreach (SearchTerm st in payload.SearchTerm) {
+                if (st.Field == "UserId") {
+                    // st.Value = user.UserId.ToString();
+                    st.Value = "100004";
+                }
+            }
             var res = this.connection.Query<Order>(
                 RequestHelper.ComposeSearchExp(payload.SearchTerm, DbHelper.GetTableName<Order>(), payload.PagingInfo != null),
                 RequestHelper.GetSearchObject(payload.SearchTerm, payload.PagingInfo)
