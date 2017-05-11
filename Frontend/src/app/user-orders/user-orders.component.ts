@@ -4,6 +4,7 @@ import {CartService} from '../cart.service';
 import {UserService} from '../user.service';
 import {Router} from '@angular/router';
 import {ItemService} from '../item.service';
+import {stat} from "fs";
 
 @Component({
   selector: 'app-user-orders',
@@ -19,6 +20,7 @@ export class UserOrdersComponent implements OnInit {
     myParseFloat = parseFloat;
     myToken: string;
     disableFlage = false;
+    queueId: string;
 
     constructor(
         private cartService: CartService,
@@ -45,7 +47,7 @@ export class UserOrdersComponent implements OnInit {
         this.ordersIds = [];
         this.orders = [];
         this.total = this.cartService.getCartTotalPrice();
-        const res = await this.cartService.getOrdersFromServer(this.userService.getUser().JWT);
+        const res = await this.cartService.getOrdersFromServer(this.userService.getUser().JWT, this.userService.getUser().uid);
         console.log(res);
         for (let i = res.length - 1; i >= 0 ; i--){
             this.ordersIds.push(res[i].OrderId);
@@ -75,9 +77,22 @@ export class UserOrdersComponent implements OnInit {
                 this.myToken = token.id;
                 // todo send to server
                 this.disableFlage = true;
-                await this.cartService.checkoutOrder(
+                const checkoutResult = await this.cartService.checkoutOrder(
                     this.userService.getUser().JWT, this.userService.getUser().uid, this.myToken,
                     this.calc(this.orders[id]) * 100, this.ordersIds[id]);
+                console.log(checkoutResult)
+                this.queueId = checkoutResult.Payload
+                let queueResult = await this.cartService.checkoutQueue(this.queueId)
+                let status = queueResult.Payload
+                while (status == "Processing...") {
+                    await this.sleep(1000);
+                    queueResult = await this.cartService.checkoutQueue(this.queueId)
+                    console.log(queueResult)
+                    if (queueResult == false) status = "Processing..."
+                    else status = queueResult.Payload;
+                    console.log(status)
+
+                }
                 this.orders[id].PaymentId = 1;
                 this.disableFlage = false;
                 console.log('pay end.');
@@ -91,4 +106,9 @@ export class UserOrdersComponent implements OnInit {
         });
         console.log('pay start');
     }
+
+    sleep(ms = 0) {
+        return new Promise(r => setTimeout(r, ms));
+    }
+
 }

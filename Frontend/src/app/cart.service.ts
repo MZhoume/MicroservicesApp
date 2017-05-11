@@ -70,6 +70,25 @@ export class CartService {
         this.clearCart();
     }
 
+    private  UrlQueue = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/queue/';
+
+    async checkoutQueue(queueId: String): Promise<any> {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+        try {
+            let res = await this.http.get(this.UrlQueue+queueId, options).toPromise();
+            console.log(res);
+            return res.json();
+        } catch (ex) {
+            console.log(ex);
+            this.handleError(ex);
+            return false;
+            // let res = await this.http.get(this.UrlQueue+queueId, options).toPromise();
+            // console.log(res);
+            // return res.json();
+        }
+    }
+
     private UrlOrder = 'https://6k1n8i5jx5.execute-api.us-east-1.amazonaws.com/prod/orders';
     async sendOrderToServer(JWT: string, uid: string, Charge: number): Promise<any> {
         const headers = new Headers({ 'Content-Type': 'application/json',
@@ -90,17 +109,17 @@ export class CartService {
         }
     }
 
-    async getOrdersFromServer(JWT: string): Promise<any> {
+    async getOrdersFromServer(JWT: string, uid: string): Promise<any> {
         const headers = new Headers({ 'Content-Type': 'application/json',
             'Authorization': JWT});
         const options = new RequestOptions({ headers: headers });
 
         let params: URLSearchParams = new URLSearchParams();
-        params.set('operator', 'LT');
-        params.set('field', 'id');
+        params.set('operator', 'EQ');
+        params.set('field', 'UserId');
         params.set('start', '0');
         params.set('count', '100');
-        params.set('value', '1000');
+        params.set('value', uid);
 
         options.search = params;
 
